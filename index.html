@@ -365,9 +365,15 @@
       z-index: 1;
       text-align: center;
       color: rgba(251, 244, 223, .9);
-      font: 700 clamp(.52rem, 2.2vw, .62rem)/1.12 inherit;
+      font: 700 clamp(.46rem, 1.9vw, .58rem)/1.08 inherit;
       text-transform: uppercase;
-      letter-spacing: .04em;
+      letter-spacing: 0;
+      overflow-wrap: anywhere;
+      hyphens: auto;
+    }
+
+    .tarot-card.compact-name .mini-name {
+      font-size: clamp(.42rem, 1.75vw, .52rem);
     }
 
     .reading-text {
@@ -752,7 +758,7 @@
       const displayName = card.reversed ? `${card.n} перевернутая` : card.n;
       return `
         <article class="card-reading" style="animation-delay:${index * 90}ms">
-          <div class="tarot-card ${card.reversed ? "reversed" : ""}" style="--c1:${c1}; --c2:${c2}; --card-glow:${card.glow}">
+          <div class="tarot-card ${card.reversed ? "reversed" : ""} ${card.n.length > 9 ? "compact-name" : ""}" style="--c1:${c1}; --c2:${c2}; --card-glow:${card.glow}">
             <div class="roman">${card.r}</div>
             <div class="glyph-wrap">
               <svg class="glyph" viewBox="0 0 64 64" fill="none" aria-hidden="true">${cardArt(card)}</svg>
