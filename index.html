@@ -221,6 +221,13 @@
       box-shadow: 0 16px 34px rgba(185, 156, 255, .22), 0 0 24px rgba(241, 207, 122, .14);
     }
 
+    #draw-day {
+      display: block;
+      width: fit-content;
+      max-width: 100%;
+      margin: 0 auto;
+    }
+
     .primary:hover,
     .icon-btn:hover {
       filter: brightness(1.06);
@@ -274,9 +281,9 @@
 
     .card-reading {
       display: grid;
-      grid-template-columns: 94px 1fr;
+      grid-template-columns: minmax(82px, 96px) 1fr;
       gap: 12px;
-      align-items: stretch;
+      align-items: start;
       padding: 10px;
       border: 1px solid rgba(234, 212, 158, .15);
       border-radius: 22px;
@@ -285,7 +292,9 @@
     }
 
     .tarot-card {
-      min-height: 138px;
+      width: 100%;
+      aspect-ratio: 5 / 8;
+      min-height: 0;
       border-radius: 16px;
       border: 1px solid rgba(241, 207, 122, .45);
       position: relative;
@@ -301,7 +310,7 @@
       transition: transform .45s ease;
     }
 
-    .tarot-card.reversed {
+    .tarot-card.reversed .glyph-wrap {
       transform: rotate(180deg);
     }
 
@@ -322,15 +331,16 @@
     .glyph-wrap {
       position: relative;
       z-index: 1;
-      width: 62px;
-      height: 82px;
+      width: min(62px, 68%);
+      aspect-ratio: 1 / 1.32;
       display: grid;
       place-items: center;
+      transition: transform .45s ease;
     }
 
     .glyph {
-      width: 62px;
-      height: 62px;
+      width: 100%;
+      height: auto;
       filter: drop-shadow(0 6px 12px rgba(0, 0, 0, .35));
     }
 
@@ -355,7 +365,7 @@
       z-index: 1;
       text-align: center;
       color: rgba(251, 244, 223, .9);
-      font: 700 .62rem/1.15 inherit;
+      font: 700 clamp(.52rem, 2.2vw, .62rem)/1.12 inherit;
       text-transform: uppercase;
       letter-spacing: .04em;
     }
@@ -466,17 +476,13 @@
       }
 
       .card-reading {
-        grid-template-columns: 82px 1fr;
+        grid-template-columns: minmax(76px, 84px) 1fr;
         gap: 10px;
-      }
-
-      .tarot-card {
-        min-height: 124px;
       }
 
       .glyph,
       .glyph-wrap {
-        width: 54px;
+        width: min(54px, 68%);
       }
     }
 
