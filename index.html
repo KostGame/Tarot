@@ -114,12 +114,13 @@
     .deck-tabs {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 7px;
-      padding: 5px;
-      margin: 0 0 16px;
+      gap: 4px;
+      width: min(100%, 360px);
+      padding: 3px;
+      margin: 0 auto 14px;
       border: 1px solid rgba(185, 156, 255, .14);
-      border-radius: 16px;
-      background: rgba(8, 6, 16, .34);
+      border-radius: 13px;
+      background: rgba(8, 6, 16, .24);
     }
 
     .tab,
@@ -149,8 +150,10 @@
     }
 
     .deck-tab {
-      min-height: 42px;
-      font-size: .84rem;
+      min-height: 32px;
+      border-radius: 10px;
+      font-size: .76rem;
+      font-weight: 700;
     }
 
     .panel {
