@@ -104,14 +104,26 @@
       grid-template-columns: 1fr 1fr;
       gap: 8px;
       padding: 5px;
-      margin: 8px 0 16px;
+      margin: 8px 0 10px;
       border: 1px solid rgba(234, 212, 158, .16);
       border-radius: 18px;
       background: rgba(255, 255, 255, .045);
       box-shadow: inset 0 1px 0 rgba(255, 255, 255, .06);
     }
 
-    .tab {
+    .deck-tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 7px;
+      padding: 5px;
+      margin: 0 0 16px;
+      border: 1px solid rgba(185, 156, 255, .14);
+      border-radius: 16px;
+      background: rgba(8, 6, 16, .34);
+    }
+
+    .tab,
+    .deck-tab {
       min-height: 50px;
       border: 0;
       border-radius: 14px;
@@ -123,15 +135,22 @@
     }
 
     .tab:active,
+    .deck-tab:active,
     .primary:active,
     .icon-btn:active {
       transform: scale(.98);
     }
 
-    .tab.active {
+    .tab.active,
+    .deck-tab.active {
       background: linear-gradient(135deg, rgba(241, 207, 122, .24), rgba(185, 156, 255, .22));
       color: var(--text);
       box-shadow: 0 10px 28px rgba(0, 0, 0, .24);
+    }
+
+    .deck-tab {
+      min-height: 42px;
+      font-size: .84rem;
     }
 
     .panel {
@@ -554,6 +573,11 @@
       <button class="tab" type="button" data-mode="question">Совет по вопросу</button>
     </nav>
 
+    <nav class="deck-tabs" aria-label="Выбор колоды">
+      <button class="deck-tab active" type="button" data-deck="full">Полная колода</button>
+      <button class="deck-tab" type="button" data-deck="short">Короткая</button>
+    </nav>
+
     <section class="panel">
       <div class="mode active" id="mode-day">
         <h2>Одна карта</h2>
@@ -617,6 +641,8 @@
       { n: "Туз Пентаклей", r: "A", g: "pentacle", c: ["#31573c", "#6b5529"], glow: "rgba(158,213,189,.42)", m: "возможность, ресурс, земная польза", d: "Обратите внимание на практичный шанс. Он может выглядеть скромно, но иметь крепкие корни." }
     ];
 
+    const shortDeck = [...cards];
+
     const minorSuits = [
       { name: "Кубков", icon: "cup", c: ["#2b5a68", "#7a4766"], glow: "rgba(223,143,168,.42)", m: "чувства, отношения, эмоциональная честность", d: "Проверьте, что вы чувствуете на самом деле. Бережный разговор с собой уже многое проясняет." },
       { name: "Мечей", icon: "sword", c: ["#243b66", "#4d5178"], glow: "rgba(185,156,255,.36)", m: "мысли, слова, ясность решения", d: "Не усложняйте ответ. Отделите факты от тревоги, и следующий шаг станет заметнее." },
@@ -655,6 +681,8 @@
       });
     });
 
+    const fullDeck = cards;
+
     const roles = [
       { title: "Что происходит сейчас", line: card => card.reversed ? `Сейчас карта «${card.n}» в перевернутом положении показывает: тема есть, но проявляется не напрямую. ${reversedMeaning(card)}` : `Сейчас тема карты «${card.n}» подсвечивает: ${card.m}.` },
       { title: "На что обратить внимание", line: card => card.reversed ? `Обратите внимание, где вы торопите себя или ждете мгновенной ясности. ${reversedMessage(card)}` : `Обратите внимание на то, где в вопросе проявляется ${card.m.split(",")[0]}.` },
@@ -686,6 +714,7 @@
     };
 
     const tabs = document.querySelectorAll(".tab");
+    const deckTabs = document.querySelectorAll(".deck-tab");
     const modes = {
       day: document.querySelector("#mode-day"),
       question: document.querySelector("#mode-question")
@@ -698,12 +727,21 @@
 
     let recognition;
     let listening = false;
+    let deckMode = "full";
 
     tabs.forEach(tab => {
       tab.addEventListener("click", () => {
         const mode = tab.dataset.mode;
         tabs.forEach(item => item.classList.toggle("active", item === tab));
         Object.entries(modes).forEach(([key, node]) => node.classList.toggle("active", key === mode));
+        result.classList.remove("visible");
+      });
+    });
+
+    deckTabs.forEach(tab => {
+      tab.addEventListener("click", () => {
+        deckMode = tab.dataset.deck;
+        deckTabs.forEach(item => item.classList.toggle("active", item === tab));
         result.classList.remove("visible");
       });
     });
@@ -724,7 +762,8 @@
     });
 
     function drawCards(count) {
-      return [...cards]
+      const source = deckMode === "short" ? shortDeck : fullDeck;
+      return [...source]
         .sort(() => Math.random() - .5)
         .slice(0, count)
         .map(card => ({ ...card, reversed: Math.random() < .38 }));
