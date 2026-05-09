@@ -7,9 +7,9 @@
 - Ветка: `feature/share-tarot-card-image`
 - Issue: https://github.com/KostGame/Tarot/issues/23
 - PR: https://github.com/KostGame/Tarot/pull/25
-- PR смержен: нет.
+- PR смержен: да.
 - Commit hash: `d3fb573af02673f4d8ebaae04a5ec1a494e8b3b3`
-- Merge commit hash: нет.
+- Merge commit hash: `93980e9839b0eb6d1cc96e13ec6919965b073796`
 - GitHub Pages: https://kostgame.github.io/Tarot/
 
 ## Измененные файлы
