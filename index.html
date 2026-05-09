@@ -167,21 +167,22 @@
     }
 
     .settings {
-      margin: 0 auto 14px;
+      margin: 12px auto 0;
       border: 1px solid rgba(234, 212, 158, .16);
-      border-radius: 18px;
+      border-radius: 16px;
       background: rgba(8, 6, 16, .28);
       box-shadow: inset 0 1px 0 rgba(255, 255, 255, .05);
     }
 
     .settings summary {
-      min-height: 48px;
+      min-height: 42px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 12px;
-      padding: 0 14px;
-      color: var(--text);
+      padding: 0 12px;
+      color: var(--muted);
+      font-size: .9rem;
       font-weight: 800;
       cursor: pointer;
       list-style: none;
@@ -195,8 +196,8 @@
       content: "+";
       display: grid;
       place-items: center;
-      width: 26px;
-      height: 26px;
+      width: 24px;
+      height: 24px;
       flex: 0 0 auto;
       border-radius: 50%;
       background: rgba(241, 207, 122, .14);
@@ -209,7 +210,7 @@
     }
 
     .settings-body {
-      padding: 0 14px 14px;
+      padding: 0 12px 12px;
     }
 
     .setting-row {
@@ -758,22 +759,6 @@
       <button class="deck-tab" type="button" data-deck="short">Короткая</button>
     </nav>
 
-    <details class="settings">
-      <summary>Настройки</summary>
-      <div class="settings-body">
-        <div class="setting-row">
-          <div>
-            <p class="setting-title">Перевернутые карты</p>
-            <p class="setting-description">Если включить, карта может выпасть прямой или перевернутой. Это усложняет трактовку и подходит для более опытного чтения.</p>
-          </div>
-          <label class="switch">
-            <input type="checkbox" id="use-reversed-cards" aria-label="Перевернутые карты">
-            <span class="switch-ui" aria-hidden="true"></span>
-          </label>
-        </div>
-      </div>
-    </details>
-
     <section class="panel">
       <div class="mode active" id="mode-day">
         <h2>Одна карта</h2>
@@ -803,6 +788,22 @@
     <section class="result" id="result" aria-live="polite"></section>
 
     <p class="warning">Расклад носит развлекательный и рефлексивный характер.</p>
+
+    <details class="settings">
+      <summary>⚙ Настройки</summary>
+      <div class="settings-body">
+        <div class="setting-row">
+          <div>
+            <p class="setting-title">Перевернутые карты</p>
+            <p class="setting-description">Если включить, карта может выпасть прямой или перевернутой. Это усложняет трактовку и подходит для более опытного чтения.</p>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="use-reversed-cards" aria-label="Перевернутые карты">
+            <span class="switch-ui" aria-hidden="true"></span>
+          </label>
+        </div>
+      </div>
+    </details>
   </main>
 
   <div class="toast" id="toast"></div>
