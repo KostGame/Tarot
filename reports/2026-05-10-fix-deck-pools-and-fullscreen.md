@@ -12,7 +12,7 @@ https://github.com/KostGame/Tarot/issues/14
 
 ## 3. PR URL
 
-Будет добавлен после создания PR.
+https://github.com/KostGame/Tarot/pull/15
 
 ## 4. Был ли PR смержен
 
@@ -20,7 +20,7 @@ https://github.com/KostGame/Tarot/issues/14
 
 ## 5. Commit hash
 
-Будет добавлен после commit.
+`657aaa352429d42498bc98d8343e1fd0b15e089f`
 
 ## 6. Merge commit hash
 
