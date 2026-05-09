@@ -4,7 +4,7 @@
 - Issue: https://github.com/KostGame/Tarot/issues/3
 - PR: https://github.com/KostGame/Tarot/pull/4
 - Commit hash: `9def9e9`
-- Merge commit hash: will be available after PR merge
+- Merge commit hash: `c428c699c827fc1e878550814ca06e99bcd65840`
 - Changed files:
   - `index.html`
   - `reports/2026-05-09-move-settings-to-footer.md`
