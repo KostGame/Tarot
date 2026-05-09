@@ -734,7 +734,7 @@
       z-index: 8;
       display: grid;
       place-items: center;
-      padding: 20px;
+      padding: 12px;
     }
 
     .card-lightbox[hidden] {
@@ -754,12 +754,13 @@
       z-index: 1;
       display: grid;
       justify-items: center;
-      gap: 10px;
-      width: min(100%, 520px);
-      max-height: calc(100svh - 40px);
-      overflow-y: auto;
+      grid-template-rows: auto auto auto minmax(0, auto) auto;
+      gap: 12px;
+      width: min(100%, 440px);
+      max-height: calc(100svh - 24px);
+      overflow: hidden;
       overscroll-behavior: contain;
-      padding: 18px;
+      padding: 14px;
       border: 1px solid rgba(241, 207, 122, .26);
       border-radius: 24px;
       background:
@@ -768,10 +769,16 @@
       box-shadow: 0 24px 80px rgba(0, 0, 0, .6);
     }
 
+    .lightbox-topbar {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 12px;
+      width: 100%;
+      min-height: 42px;
+    }
+
     .lightbox-close {
-      position: absolute;
-      top: 10px;
-      right: 10px;
       width: 42px;
       height: 42px;
       border: 1px solid rgba(234, 212, 158, .22);
@@ -782,15 +789,26 @@
       cursor: pointer;
     }
 
+    .lightbox-card-frame {
+      display: grid;
+      place-items: center;
+      width: min(68vw, 260px);
+      aspect-ratio: 2 / 3.45;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, .055);
+      box-shadow: 0 20px 54px rgba(0, 0, 0, .5);
+      overflow: hidden;
+      cursor: zoom-out;
+    }
+
     .lightbox-card-image {
       display: block;
-      width: auto;
-      max-width: min(82vw, 380px);
-      max-height: min(62svh, 560px);
+      width: 100%;
+      height: 100%;
+      max-width: none;
+      max-height: none;
       object-fit: contain;
-      border-radius: 18px;
-      box-shadow: 0 20px 54px rgba(0, 0, 0, .5);
-      cursor: zoom-out;
+      border-radius: 16px;
     }
 
     .lightbox-card-image.reversed {
@@ -804,12 +822,13 @@
       font-weight: 800;
       letter-spacing: .04em;
       text-transform: uppercase;
-      text-align: center;
+      text-align: left;
+      overflow-wrap: anywhere;
     }
 
     .lightbox-meta {
       display: grid;
-      gap: 6px;
+      gap: 5px;
       justify-items: center;
       max-width: 100%;
     }
@@ -818,7 +837,14 @@
       display: grid;
       gap: 8px;
       width: 100%;
-      max-width: 28rem;
+      max-width: none;
+      max-height: min(27svh, 210px);
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      padding: 12px;
+      border: 1px solid rgba(234, 212, 158, .14);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, .055);
       color: #efe6f6;
       font-size: .92rem;
       line-height: 1.45;
@@ -849,15 +875,39 @@
     .lightbox-card-fallback {
       display: grid;
       place-items: center;
-      width: min(82vw, 380px);
-      aspect-ratio: 2 / 3.45;
-      border-radius: 18px;
-      border: 1px solid rgba(234, 212, 158, .18);
-      background: rgba(255, 255, 255, .06);
+      width: 100%;
+      height: 100%;
+      border-radius: inherit;
+      border: 0;
+      background: transparent;
       color: var(--text);
       text-align: center;
       padding: 18px;
       cursor: zoom-out;
+    }
+
+    .lightbox-actions {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+    }
+
+    .lightbox-share {
+      min-height: 44px;
+      padding: 0 18px;
+      border: 1px solid rgba(241, 207, 122, .34);
+      border-radius: 999px;
+      background: rgba(241, 207, 122, .12);
+      color: var(--gold);
+      font: 800 .92rem/1 inherit;
+      cursor: pointer;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, .22);
+    }
+
+    .lightbox-share:focus-visible,
+    .lightbox-close:focus-visible {
+      outline: 2px solid rgba(241, 207, 122, .78);
+      outline-offset: 3px;
     }
 
     body.lightbox-open {
@@ -1063,13 +1113,20 @@
       }
 
       .lightbox-content {
-        padding: 14px;
+        gap: 10px;
+        padding: 12px;
         border-radius: 20px;
       }
 
-      .lightbox-card-image {
-        max-width: min(86vw, 340px);
-        max-height: 72svh;
+      .lightbox-card-frame {
+        width: min(64vw, 230px);
+      }
+
+      .lightbox-description {
+        max-height: 24svh;
+        padding: 10px;
+        font-size: .88rem;
+        line-height: 1.4;
       }
     }
 
@@ -1199,11 +1256,15 @@
   <div class="card-lightbox" id="card-lightbox" role="dialog" aria-modal="true" aria-labelledby="card-lightbox-title" hidden>
     <button class="lightbox-backdrop" type="button" data-lightbox-close aria-label="Закрыть просмотр карты"></button>
     <div class="lightbox-content">
-      <button class="lightbox-close" type="button" data-lightbox-close aria-label="Закрыть просмотр карты">×</button>
-      <p class="lightbox-role" id="card-lightbox-role"></p>
-      <img class="lightbox-card-image" id="card-lightbox-image" alt="" data-lightbox-close onerror="handleCardImageError(this);">
-      <div class="lightbox-card-fallback" id="card-lightbox-fallback" hidden data-lightbox-close>
-        <span id="card-lightbox-fallback-name"></span>
+      <div class="lightbox-topbar">
+        <p class="lightbox-role" id="card-lightbox-role"></p>
+        <button class="lightbox-close" type="button" data-lightbox-close aria-label="Закрыть просмотр карты">×</button>
+      </div>
+      <div class="lightbox-card-frame" data-lightbox-close>
+        <img class="lightbox-card-image" id="card-lightbox-image" alt="" onerror="handleCardImageError(this);">
+        <div class="lightbox-card-fallback" id="card-lightbox-fallback" hidden>
+          <span id="card-lightbox-fallback-name"></span>
+        </div>
       </div>
       <div class="lightbox-meta">
         <h2 class="lightbox-title" id="card-lightbox-title"></h2>
@@ -1212,6 +1273,9 @@
       <div class="lightbox-description" id="card-lightbox-description" hidden>
         <p id="card-lightbox-meaning"></p>
         <p id="card-lightbox-message"></p>
+      </div>
+      <div class="lightbox-actions">
+        <button class="lightbox-share" id="card-lightbox-share" type="button">Поделиться</button>
       </div>
     </div>
   </div>
@@ -1451,12 +1515,14 @@
     const cardLightboxDescription = document.querySelector("#card-lightbox-description");
     const cardLightboxMeaning = document.querySelector("#card-lightbox-meaning");
     const cardLightboxMessage = document.querySelector("#card-lightbox-message");
+    const cardLightboxShare = document.querySelector("#card-lightbox-share");
     const cardDeckSelect = document.querySelector("#card-deck-select");
     const poolModeNote = document.querySelector("#pool-mode-note");
     const useReversedToggle = document.querySelector("#use-reversed-cards");
     const useReversedStorageKey = "tarot-use-reversed-cards";
     const cardDeckStorageKey = "tarot-card-deck-id";
     const poolModeStorageKey = "tarot-card-pool-mode";
+    let currentLightboxCard = null;
 
     const cardDecks = [
       {
@@ -1624,6 +1690,8 @@
         closeCardLightbox();
       }
     });
+
+    cardLightboxShare.addEventListener("click", shareCurrentCard);
 
     document.addEventListener("keydown", event => {
       if (event.key === "Escape" && !cardLightbox.hidden) {
@@ -1863,6 +1931,7 @@
       if (!card.name || !card.image) {
         return;
       }
+      currentLightboxCard = { ...card };
       cardLightboxRole.textContent = card.role || "";
       cardLightboxFallback.hidden = true;
       cardLightboxFallbackName.textContent = card.name;
@@ -1883,6 +1952,7 @@
 
     function closeCardLightbox() {
       cardLightbox.hidden = true;
+      currentLightboxCard = null;
       cardLightboxImage.removeAttribute("src");
       delete cardLightboxImage.dataset.baseImage;
       delete cardLightboxImage.dataset.cardId;
@@ -1896,6 +1966,45 @@
       cardLightboxMeaning.textContent = "";
       cardLightboxMessage.textContent = "";
       document.body.classList.remove("lightbox-open");
+    }
+
+    async function shareCurrentCard() {
+      if (!currentLightboxCard) {
+        return;
+      }
+
+      const orientation = currentLightboxCard.reversed ? "перевернутая" : "";
+      const cardTitle = [currentLightboxCard.name, orientation].filter(Boolean).join(", ");
+      const shareTitle = [currentLightboxCard.role, cardTitle].filter(Boolean).join(": ");
+      const shareText = [
+        shareTitle || cardTitle,
+        currentLightboxCard.meaning,
+        currentLightboxCard.message,
+      ].filter(Boolean).join("\n\n");
+      const shareUrl = window.location.href.split("#")[0];
+
+      try {
+        if (navigator.share) {
+          await navigator.share({
+            title: shareTitle || cardTitle,
+            text: shareText,
+            url: shareUrl,
+          });
+          return;
+        }
+
+        if (navigator.clipboard?.writeText) {
+          await navigator.clipboard.writeText(`${shareText}\n\n${shareUrl}`);
+          showToast("Текст карты и ссылка скопированы.");
+          return;
+        }
+
+        showToast("Поделиться не удалось: скопируйте ссылку из адресной строки.");
+      } catch (error) {
+        if (error?.name !== "AbortError") {
+          showToast("Не получилось подготовить ссылку для отправки.");
+        }
+      }
     }
 
     function resolveDeckImage(deck, cardId) {
