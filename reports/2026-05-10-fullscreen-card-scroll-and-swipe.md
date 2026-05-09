@@ -7,9 +7,9 @@
 - Ветка: `feature/fullscreen-card-scroll-and-swipe`
 - Issue: https://github.com/KostGame/Tarot/issues/18
 - PR: https://github.com/KostGame/Tarot/pull/19
-- PR смержен: нет.
+- PR смержен: да.
 - Commit hash: `7e74b268a595aa48b2e5e3b7f265a88c1e205cac`
-- Merge commit hash: нет.
+- Merge commit hash: `4acdbcd7d859119492a19c0c547999b4bc49a906`
 - GitHub Pages: https://kostgame.github.io/Tarot/
 
 ## Измененные файлы
