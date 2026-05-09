@@ -2366,11 +2366,11 @@
       ctx.stroke();
 
       ctx.fillStyle = gold;
-      ctx.font = "700 34px system-ui, -apple-system, Segoe UI, sans-serif";
+      ctx.font = "800 52px system-ui, -apple-system, Segoe UI, sans-serif";
       ctx.textAlign = "center";
-      ctx.fillText(card.role || "Карта дня", width / 2, 152);
+      ctx.fillText(card.role || "Карта дня", width / 2, 158);
 
-      const cardBox = fitRect(cardImage.width, cardImage.height, 300, 195, 480, 790);
+      const cardBox = fitRect(cardImage.width, cardImage.height, 260, 205, 560, 850);
       ctx.save();
       ctx.shadowColor = "rgba(0,0,0,.5)";
       ctx.shadowBlur = 38;
@@ -2389,18 +2389,28 @@
 
       const orientation = card.reversed ? ", перевернутая" : "";
       ctx.fillStyle = cream;
-      ctx.font = "800 74px system-ui, -apple-system, Segoe UI, sans-serif";
+      ctx.font = "800 80px system-ui, -apple-system, Segoe UI, sans-serif";
       ctx.textAlign = "center";
-      wrapCanvasText(ctx, `${card.name}${orientation}`, width / 2, 1068, 840, 82, 2);
+      wrapCanvasText(ctx, `${card.name}${orientation}`, width / 2, 1106, 880, 88, 2);
+
+      ctx.fillStyle = gold;
+      ctx.font = "700 46px system-ui, -apple-system, Segoe UI, sans-serif";
+      wrapCanvasText(ctx, card.meaning, width / 2, 1254, 830, 58, 3);
+
+      ctx.strokeStyle = "rgba(241,207,122,.28)";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(235, 1430);
+      ctx.lineTo(width - 235, 1430);
+      ctx.stroke();
 
       ctx.fillStyle = muted;
-      ctx.font = "400 48px system-ui, -apple-system, Segoe UI, sans-serif";
-      const bodyText = [card.meaning, card.message].filter(Boolean).join(" ");
-      wrapCanvasText(ctx, bodyText, width / 2, 1240, 860, 66, 7);
+      ctx.font = "400 52px system-ui, -apple-system, Segoe UI, sans-serif";
+      wrapCanvasText(ctx, card.message, width / 2, 1504, 860, 68, 4);
 
       ctx.fillStyle = gold;
       ctx.font = "700 34px system-ui, -apple-system, Segoe UI, sans-serif";
-      ctx.fillText("Карта дня · kostgame.github.io/Tarot", width / 2, 1762);
+      ctx.fillText("Карта дня · kostgame.github.io/Tarot", width / 2, 1790);
     }
 
     function drawShareImage(ctx, image, x, y, width, height) {
