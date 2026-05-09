@@ -754,12 +754,12 @@
       z-index: 1;
       display: grid;
       justify-items: center;
-      grid-template-rows: auto auto auto minmax(0, auto) auto;
       gap: 12px;
       width: min(100%, 440px);
       max-height: calc(100svh - 24px);
-      overflow: hidden;
+      overflow-y: auto;
       overscroll-behavior: contain;
+      -webkit-overflow-scrolling: touch;
       padding: 14px;
       border: 1px solid rgba(241, 207, 122, .26);
       border-radius: 24px;
@@ -838,9 +838,6 @@
       gap: 8px;
       width: 100%;
       max-width: none;
-      max-height: min(27svh, 210px);
-      overflow-y: auto;
-      overscroll-behavior: contain;
       padding: 12px;
       border: 1px solid rgba(234, 212, 158, .14);
       border-radius: 16px;
@@ -886,6 +883,42 @@
       cursor: zoom-out;
     }
 
+    .lightbox-nav {
+      display: grid;
+      grid-template-columns: 44px minmax(0, 1fr) 44px;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+    }
+
+    .lightbox-nav[hidden] {
+      display: none;
+    }
+
+    .lightbox-nav-button {
+      width: 44px;
+      height: 44px;
+      border: 1px solid rgba(234, 212, 158, .22);
+      border-radius: 50%;
+      background: rgba(255, 255, 255, .075);
+      color: var(--text);
+      font: 900 1.25rem/1 inherit;
+      cursor: pointer;
+    }
+
+    .lightbox-nav-button:disabled {
+      cursor: default;
+      opacity: .38;
+    }
+
+    .lightbox-counter {
+      margin: 0;
+      color: var(--muted);
+      font-size: .82rem;
+      font-weight: 800;
+      text-align: center;
+    }
+
     .lightbox-actions {
       display: flex;
       justify-content: center;
@@ -905,7 +938,8 @@
     }
 
     .lightbox-share:focus-visible,
-    .lightbox-close:focus-visible {
+    .lightbox-close:focus-visible,
+    .lightbox-nav-button:focus-visible {
       outline: 2px solid rgba(241, 207, 122, .78);
       outline-offset: 3px;
     }
@@ -1123,7 +1157,6 @@
       }
 
       .lightbox-description {
-        max-height: 24svh;
         padding: 10px;
         font-size: .88rem;
         line-height: 1.4;
@@ -1260,7 +1293,7 @@
         <p class="lightbox-role" id="card-lightbox-role"></p>
         <button class="lightbox-close" type="button" data-lightbox-close aria-label="Закрыть просмотр карты">×</button>
       </div>
-      <div class="lightbox-card-frame" data-lightbox-close>
+      <div class="lightbox-card-frame">
         <img class="lightbox-card-image" id="card-lightbox-image" alt="" onerror="handleCardImageError(this);">
         <div class="lightbox-card-fallback" id="card-lightbox-fallback" hidden>
           <span id="card-lightbox-fallback-name"></span>
@@ -1273,6 +1306,11 @@
       <div class="lightbox-description" id="card-lightbox-description" hidden>
         <p id="card-lightbox-meaning"></p>
         <p id="card-lightbox-message"></p>
+      </div>
+      <div class="lightbox-nav" id="card-lightbox-nav" hidden>
+        <button class="lightbox-nav-button" id="card-lightbox-prev" type="button" aria-label="Предыдущая карта">‹</button>
+        <p class="lightbox-counter" id="card-lightbox-counter"></p>
+        <button class="lightbox-nav-button" id="card-lightbox-next" type="button" aria-label="Следующая карта">›</button>
       </div>
       <div class="lightbox-actions">
         <button class="lightbox-share" id="card-lightbox-share" type="button">Поделиться</button>
@@ -1516,6 +1554,10 @@
     const cardLightboxMeaning = document.querySelector("#card-lightbox-meaning");
     const cardLightboxMessage = document.querySelector("#card-lightbox-message");
     const cardLightboxShare = document.querySelector("#card-lightbox-share");
+    const cardLightboxNav = document.querySelector("#card-lightbox-nav");
+    const cardLightboxPrev = document.querySelector("#card-lightbox-prev");
+    const cardLightboxNext = document.querySelector("#card-lightbox-next");
+    const cardLightboxCounter = document.querySelector("#card-lightbox-counter");
     const cardDeckSelect = document.querySelector("#card-deck-select");
     const poolModeNote = document.querySelector("#pool-mode-note");
     const useReversedToggle = document.querySelector("#use-reversed-cards");
@@ -1523,6 +1565,9 @@
     const cardDeckStorageKey = "tarot-card-deck-id";
     const poolModeStorageKey = "tarot-card-pool-mode";
     let currentLightboxCard = null;
+    let currentLightboxCards = [];
+    let currentLightboxIndex = 0;
+    let lightboxTouchStart = null;
 
     const cardDecks = [
       {
@@ -1673,16 +1718,8 @@
       if (!cardButton) {
         return;
       }
-      openCardLightbox({
-        name: cardButton.dataset.cardName,
-        role: cardButton.dataset.cardRole,
-        cardId: cardButton.dataset.cardId,
-        baseImage: cardButton.dataset.baseImage,
-        image: cardButton.dataset.cardImage,
-        meaning: cardButton.dataset.cardMeaning,
-        message: cardButton.dataset.cardMessage,
-        reversed: cardButton.dataset.cardReversed === "true",
-      });
+      const cardButtons = [...result.querySelectorAll(".tarot-card")];
+      openCardLightbox(cardButtons.map(lightboxCardFromButton), cardButtons.indexOf(cardButton));
     });
 
     cardLightbox.addEventListener("click", event => {
@@ -1692,10 +1729,55 @@
     });
 
     cardLightboxShare.addEventListener("click", shareCurrentCard);
+    cardLightboxPrev.addEventListener("click", () => showLightboxCard(currentLightboxIndex - 1));
+    cardLightboxNext.addEventListener("click", () => showLightboxCard(currentLightboxIndex + 1));
+
+    cardLightbox.addEventListener("touchstart", event => {
+      if (event.touches.length !== 1 || cardLightbox.hidden) {
+        return;
+      }
+      const touch = event.touches[0];
+      lightboxTouchStart = {
+        x: touch.clientX,
+        y: touch.clientY,
+      };
+    }, { passive: true });
+
+    cardLightbox.addEventListener("touchend", event => {
+      if (!lightboxTouchStart || cardLightbox.hidden) {
+        return;
+      }
+      const touch = event.changedTouches[0];
+      const dx = touch.clientX - lightboxTouchStart.x;
+      const dy = touch.clientY - lightboxTouchStart.y;
+      lightboxTouchStart = null;
+
+      if (Math.abs(dx) < 54 || Math.abs(dx) < Math.abs(dy) * 1.35) {
+        return;
+      }
+
+      if (dx < 0) {
+        showLightboxCard(currentLightboxIndex + 1);
+        return;
+      }
+
+      showLightboxCard(currentLightboxIndex - 1);
+    }, { passive: true });
 
     document.addEventListener("keydown", event => {
-      if (event.key === "Escape" && !cardLightbox.hidden) {
+      if (cardLightbox.hidden) {
+        return;
+      }
+      if (event.key === "Escape") {
         closeCardLightbox();
+        return;
+      }
+      if (event.key === "ArrowLeft") {
+        showLightboxCard(currentLightboxIndex - 1);
+        return;
+      }
+      if (event.key === "ArrowRight") {
+        showLightboxCard(currentLightboxIndex + 1);
       }
     });
 
@@ -1742,7 +1824,7 @@
       const messageText = stripHtml(body.match(/<p class="message">([\s\S]*?)<\/p>/)?.[1] ?? "");
       return `
         <article class="card-reading" style="animation-delay:${index * 90}ms">
-          <button class="tarot-card ${card.reversed ? "reversed" : ""} ${card.n.length > 9 ? "compact-name" : ""}" type="button" style="--c1:${c1}; --c2:${c2}; --card-glow:${card.glow}" data-card-name="${safeName}" data-card-role="${safeRole}" data-card-id="${card.id}" data-base-image="${card.image}" data-card-image="${deckImage}" data-card-meaning="${escapeHtml(meaningText)}" data-card-message="${escapeHtml(messageText)}" data-card-reversed="${card.reversed}" aria-label="Рассмотреть карту ${safeName}" title="Нажмите, чтобы рассмотреть карту">
+          <button class="tarot-card ${card.reversed ? "reversed" : ""} ${card.n.length > 9 ? "compact-name" : ""}" type="button" style="--c1:${c1}; --c2:${c2}; --card-glow:${card.glow}" data-card-name="${safeName}" data-card-role="${safeRole}" data-card-index="${index}" data-card-id="${card.id}" data-base-image="${card.image}" data-card-image="${deckImage}" data-card-meaning="${escapeHtml(meaningText)}" data-card-message="${escapeHtml(messageText)}" data-card-reversed="${card.reversed}" aria-label="Рассмотреть карту ${safeName}" title="Нажмите, чтобы рассмотреть карту">
             <img class="card-image" src="${deckImage}" alt="${safeName}" loading="lazy" decoding="async" data-card-id="${card.id}" data-base-image="${card.image}" data-fallback-name="${safeName}" onerror="handleCardImageError(this);">
             <div class="card-fallback" hidden>
               <div class="roman">${card.r}</div>
@@ -1919,6 +2001,14 @@
       });
 
       if (!cardLightbox.hidden && cardLightboxImage.dataset.baseImage && cardLightboxImage.dataset.cardId) {
+        currentLightboxCards = currentLightboxCards.map(card => ({
+          ...card,
+          image: cardImageForDeck({
+            id: card.cardId,
+            image: card.baseImage,
+          }),
+        }));
+        currentLightboxCard = currentLightboxCards[currentLightboxIndex] || currentLightboxCard;
         resetCardImageState(cardLightboxImage);
         cardLightboxImage.src = cardImageForDeck({
           id: cardLightboxImage.dataset.cardId,
@@ -1927,10 +2017,37 @@
       }
     }
 
-    function openCardLightbox(card) {
-      if (!card.name || !card.image) {
+    function lightboxCardFromButton(cardButton) {
+      return {
+        name: cardButton.dataset.cardName,
+        role: cardButton.dataset.cardRole,
+        index: Number(cardButton.dataset.cardIndex || 0),
+        cardId: cardButton.dataset.cardId,
+        baseImage: cardButton.dataset.baseImage,
+        image: cardButton.dataset.cardImage,
+        meaning: cardButton.dataset.cardMeaning,
+        message: cardButton.dataset.cardMessage,
+        reversed: cardButton.dataset.cardReversed === "true",
+      };
+    }
+
+    function openCardLightbox(cards, index = 0) {
+      const nextCards = Array.isArray(cards) ? cards : [cards];
+      currentLightboxCards = nextCards.filter(card => card?.name && card?.image);
+      if (!currentLightboxCards.length) {
         return;
       }
+      cardLightbox.hidden = false;
+      document.body.classList.add("lightbox-open");
+      showLightboxCard(Math.max(0, Math.min(index, currentLightboxCards.length - 1)));
+    }
+
+    function showLightboxCard(index) {
+      if (!currentLightboxCards.length || index < 0 || index >= currentLightboxCards.length) {
+        return;
+      }
+      currentLightboxIndex = index;
+      const card = currentLightboxCards[currentLightboxIndex];
       currentLightboxCard = { ...card };
       cardLightboxRole.textContent = card.role || "";
       cardLightboxFallback.hidden = true;
@@ -1946,13 +2063,31 @@
       cardLightboxMeaning.textContent = card.meaning || "";
       cardLightboxMessage.textContent = card.message || "";
       cardLightboxDescription.hidden = !card.meaning && !card.message;
-      cardLightbox.hidden = false;
-      document.body.classList.add("lightbox-open");
+      updateLightboxNavigation();
+      const lightboxContent = cardLightbox.querySelector(".lightbox-content");
+      if (lightboxContent) {
+        lightboxContent.scrollTop = 0;
+      }
+    }
+
+    function updateLightboxNavigation() {
+      const hasNavigation = currentLightboxCards.length > 1;
+      cardLightboxNav.hidden = !hasNavigation;
+      if (!hasNavigation) {
+        cardLightboxCounter.textContent = "";
+        return;
+      }
+      cardLightboxPrev.disabled = currentLightboxIndex === 0;
+      cardLightboxNext.disabled = currentLightboxIndex === currentLightboxCards.length - 1;
+      cardLightboxCounter.textContent = `${currentLightboxIndex + 1} / ${currentLightboxCards.length}`;
     }
 
     function closeCardLightbox() {
       cardLightbox.hidden = true;
       currentLightboxCard = null;
+      currentLightboxCards = [];
+      currentLightboxIndex = 0;
+      lightboxTouchStart = null;
       cardLightboxImage.removeAttribute("src");
       delete cardLightboxImage.dataset.baseImage;
       delete cardLightboxImage.dataset.cardId;
@@ -1965,6 +2100,10 @@
       cardLightboxDescription.hidden = true;
       cardLightboxMeaning.textContent = "";
       cardLightboxMessage.textContent = "";
+      cardLightboxNav.hidden = true;
+      cardLightboxCounter.textContent = "";
+      cardLightboxPrev.disabled = false;
+      cardLightboxNext.disabled = false;
       document.body.classList.remove("lightbox-open");
     }
 
