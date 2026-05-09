@@ -455,9 +455,11 @@
     }
 
     .tarot-card {
+      appearance: none;
       width: 100%;
       aspect-ratio: 5 / 8;
       min-height: 0;
+      padding: 0;
       border-radius: 16px;
       border: 1px solid rgba(241, 207, 122, .45);
       position: relative;
@@ -469,7 +471,13 @@
         linear-gradient(180deg, rgba(255, 255, 255, .08), rgba(255, 255, 255, .02)),
         rgba(8, 6, 16, .72);
       box-shadow: 0 16px 34px rgba(0, 0, 0, .34), inset 0 0 0 5px rgba(12, 9, 20, .38);
+      cursor: pointer;
       transition: transform .45s ease;
+    }
+
+    .tarot-card:focus-visible {
+      outline: 3px solid rgba(241, 207, 122, .34);
+      outline-offset: 3px;
     }
 
     .tarot-card.reversed .card-image {
@@ -632,6 +640,85 @@
       font-size: .95rem;
     }
 
+    .card-lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 8;
+      display: grid;
+      place-items: center;
+      padding: 20px;
+    }
+
+    .card-lightbox[hidden] {
+      display: none;
+    }
+
+    .lightbox-backdrop {
+      position: absolute;
+      inset: 0;
+      border: 0;
+      background: rgba(4, 3, 8, .82);
+      cursor: zoom-out;
+    }
+
+    .lightbox-content {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      justify-items: center;
+      gap: 12px;
+      width: min(100%, 520px);
+      max-height: calc(100svh - 40px);
+      padding: 18px;
+      border: 1px solid rgba(241, 207, 122, .26);
+      border-radius: 24px;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, .08), rgba(255, 255, 255, .03)),
+        rgba(18, 13, 29, .96);
+      box-shadow: 0 24px 80px rgba(0, 0, 0, .6);
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 42px;
+      height: 42px;
+      border: 1px solid rgba(234, 212, 158, .22);
+      border-radius: 50%;
+      background: rgba(255, 255, 255, .08);
+      color: var(--text);
+      font: 800 1.35rem/1 inherit;
+      cursor: pointer;
+    }
+
+    .lightbox-card-image {
+      display: block;
+      width: auto;
+      max-width: min(82vw, 380px);
+      max-height: min(76svh, 680px);
+      object-fit: contain;
+      border-radius: 18px;
+      box-shadow: 0 20px 54px rgba(0, 0, 0, .5);
+    }
+
+    .lightbox-card-image.reversed {
+      transform: rotate(180deg);
+    }
+
+    .lightbox-title {
+      margin: 0;
+      max-width: 100%;
+      color: var(--text);
+      font: 800 1.2rem/1.2 inherit;
+      text-align: center;
+      overflow-wrap: anywhere;
+    }
+
+    body.lightbox-open {
+      overflow: hidden;
+    }
+
     .warning {
       margin: 14px 3px 0;
       color: rgba(207, 194, 223, .74);
@@ -767,6 +854,78 @@
       .primary {
         min-height: 50px;
       }
+
+      .result {
+        padding: 14px;
+      }
+
+      .result h2 {
+        font-size: 1.28rem;
+      }
+
+      .summary {
+        margin-bottom: 10px;
+        font-size: .88rem;
+        line-height: 1.38;
+      }
+
+      .card-reading {
+        grid-template-columns: minmax(74px, 88px) minmax(0, 1fr);
+        gap: 10px 12px;
+        padding: 10px;
+        border-radius: 18px;
+      }
+
+      .card-reading .tarot-card {
+        grid-column: 1;
+        grid-row: 1 / span 4;
+        align-self: start;
+      }
+
+      .reading-text {
+        display: contents;
+      }
+
+      .role,
+      .orientation,
+      .card-title,
+      .meaning {
+        grid-column: 2;
+      }
+
+      .role,
+      .orientation {
+        width: fit-content;
+        margin-bottom: 0;
+      }
+
+      .card-title {
+        margin-bottom: 0;
+        font-size: 1rem;
+      }
+
+      .meaning {
+        font-size: .85rem;
+        line-height: 1.34;
+      }
+
+      .message {
+        grid-column: 1 / -1;
+        margin-top: 0;
+        padding-top: 2px;
+        font-size: .9rem;
+        line-height: 1.42;
+      }
+
+      .lightbox-content {
+        padding: 14px;
+        border-radius: 20px;
+      }
+
+      .lightbox-card-image {
+        max-width: min(86vw, 340px);
+        max-height: 72svh;
+      }
     }
 
     @media (min-width: 470px) {
@@ -884,6 +1043,14 @@
   </main>
 
   <div class="toast" id="toast"></div>
+  <div class="card-lightbox" id="card-lightbox" role="dialog" aria-modal="true" aria-labelledby="card-lightbox-title" hidden>
+    <button class="lightbox-backdrop" type="button" data-lightbox-close aria-label="Закрыть просмотр карты"></button>
+    <div class="lightbox-content">
+      <button class="lightbox-close" type="button" data-lightbox-close aria-label="Закрыть просмотр карты">×</button>
+      <img class="lightbox-card-image" id="card-lightbox-image" alt="">
+      <h2 class="lightbox-title" id="card-lightbox-title"></h2>
+    </div>
+  </div>
 
   <script>
     const cards = [
@@ -999,6 +1166,9 @@
     const micButton = document.querySelector("#mic");
     const micNote = document.querySelector("#mic-note");
     const toast = document.querySelector("#toast");
+    const cardLightbox = document.querySelector("#card-lightbox");
+    const cardLightboxImage = document.querySelector("#card-lightbox-image");
+    const cardLightboxTitle = document.querySelector("#card-lightbox-title");
     const useReversedToggle = document.querySelector("#use-reversed-cards");
     const useReversedStorageKey = "tarot-use-reversed-cards";
 
@@ -1047,6 +1217,30 @@
       renderQuestion(text, drawCards(3));
     });
 
+    result.addEventListener("click", event => {
+      const cardButton = event.target.closest(".tarot-card");
+      if (!cardButton) {
+        return;
+      }
+      openCardLightbox({
+        name: cardButton.dataset.cardName,
+        image: cardButton.dataset.cardImage,
+        reversed: cardButton.dataset.cardReversed === "true",
+      });
+    });
+
+    cardLightbox.addEventListener("click", event => {
+      if (event.target.closest("[data-lightbox-close]")) {
+        closeCardLightbox();
+      }
+    });
+
+    document.addEventListener("keydown", event => {
+      if (event.key === "Escape" && !cardLightbox.hidden) {
+        closeCardLightbox();
+      }
+    });
+
     function drawCards(count) {
       const source = deckMode === "short" ? shortDeck : fullDeck;
       return [...source]
@@ -1084,7 +1278,7 @@
       const safeName = escapeHtml(card.n);
       return `
         <article class="card-reading" style="animation-delay:${index * 90}ms">
-          <div class="tarot-card ${card.reversed ? "reversed" : ""} ${card.n.length > 9 ? "compact-name" : ""}" style="--c1:${c1}; --c2:${c2}; --card-glow:${card.glow}">
+          <button class="tarot-card ${card.reversed ? "reversed" : ""} ${card.n.length > 9 ? "compact-name" : ""}" type="button" style="--c1:${c1}; --c2:${c2}; --card-glow:${card.glow}" data-card-name="${safeName}" data-card-image="${card.image}" data-card-reversed="${card.reversed}" aria-label="Рассмотреть карту ${safeName}" title="Нажмите, чтобы рассмотреть карту">
             <img class="card-image" src="${card.image}" alt="${safeName}" loading="lazy" decoding="async" onerror="this.hidden=true;this.nextElementSibling.hidden=false;">
             <div class="card-fallback" hidden>
               <div class="roman">${card.r}</div>
@@ -1093,7 +1287,7 @@
               </div>
               <div class="mini-name">${safeName}</div>
             </div>
-          </div>
+          </button>
           <div class="reading-text">
             <p class="role">${role}</p>
             ${orientationBadge}
@@ -1126,6 +1320,25 @@
       } catch {
         showToast("Не удалось сохранить настройку в этом браузере.");
       }
+    }
+
+    function openCardLightbox(card) {
+      if (!card.name || !card.image) {
+        return;
+      }
+      cardLightboxImage.src = card.image;
+      cardLightboxImage.alt = card.name;
+      cardLightboxImage.classList.toggle("reversed", card.reversed);
+      cardLightboxTitle.textContent = card.reversed ? `${card.name}, перевернутая` : card.name;
+      cardLightbox.hidden = false;
+      document.body.classList.add("lightbox-open");
+    }
+
+    function closeCardLightbox() {
+      cardLightbox.hidden = true;
+      cardLightboxImage.removeAttribute("src");
+      cardLightboxImage.classList.remove("reversed");
+      document.body.classList.remove("lightbox-open");
     }
 
     function reversedMeaning(card) {
