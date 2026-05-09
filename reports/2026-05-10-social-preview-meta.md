@@ -6,9 +6,9 @@
 
 - Ветка: `feature/social-preview-meta`
 - Issue: https://github.com/KostGame/Tarot/issues/22
-- PR: будет добавлен после публикации ветки.
+- PR: https://github.com/KostGame/Tarot/pull/24
 - PR смержен: нет.
-- Commit hash: будет добавлен после коммита.
+- Commit hash: `3b4f63da33c72f2c8c4f81ba9bb144c6644af293`
 - Merge commit hash: нет.
 - GitHub Pages: https://kostgame.github.io/Tarot/
 
