@@ -12,7 +12,8 @@
 
 - Ветка: `feature/selectable-card-decks`
 - Commit реализации: `9ad6859`
-- Merge status на момент создания отчета: PR открыт, merge ожидает финальной проверки.
+- PR status: merged.
+- Merge commit: `54294269cff787abf6bbd27854af4ab2bfd3c26f`
 
 ## Что изменено
 
