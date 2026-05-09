@@ -7,9 +7,9 @@
 - Ветка: `feature/refine-fullscreen-card-composition`
 - Issue: https://github.com/KostGame/Tarot/issues/20
 - PR: https://github.com/KostGame/Tarot/pull/21
-- PR смержен: нет.
+- PR смержен: да.
 - Commit hash: `ebf01554ecd595625bedb551ea20245d3870ddfc`
-- Merge commit hash: нет.
+- Merge commit hash: `b751ee3b83f16c0275bc6fa3ecc17f446d980450`
 - GitHub Pages: https://kostgame.github.io/Tarot/
 
 ## Измененные файлы
