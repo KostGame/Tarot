@@ -2254,12 +2254,13 @@
       const orientation = currentLightboxCard.reversed ? "перевернутая" : "";
       const cardTitle = [currentLightboxCard.name, orientation].filter(Boolean).join(", ");
       const shareTitle = [currentLightboxCard.role, cardTitle].filter(Boolean).join(": ");
+      const shareUrl = window.location.href.split("#")[0];
       const shareText = [
         shareTitle || cardTitle,
         currentLightboxCard.meaning,
         currentLightboxCard.message,
+        shareUrl,
       ].filter(Boolean).join("\n\n");
-      const shareUrl = window.location.href.split("#")[0];
 
       try {
         const shareImage = await createTarotShareImage(currentLightboxCard).catch(() => null);
@@ -2282,7 +2283,7 @@
         }
 
         if (navigator.clipboard?.writeText) {
-          await navigator.clipboard.writeText(`${shareText}\n\n${shareUrl}`);
+          await navigator.clipboard.writeText(shareText);
           showToast("Текст карты и ссылка скопированы.");
           return;
         }
@@ -2369,7 +2370,7 @@
       ctx.textAlign = "center";
       ctx.fillText(card.role || "Карта дня", width / 2, 152);
 
-      const cardBox = fitRect(cardImage.width, cardImage.height, 300, 205, 480, 810);
+      const cardBox = fitRect(cardImage.width, cardImage.height, 300, 195, 480, 790);
       ctx.save();
       ctx.shadowColor = "rgba(0,0,0,.5)";
       ctx.shadowBlur = 38;
@@ -2388,18 +2389,18 @@
 
       const orientation = card.reversed ? ", перевернутая" : "";
       ctx.fillStyle = cream;
-      ctx.font = "800 64px system-ui, -apple-system, Segoe UI, sans-serif";
+      ctx.font = "800 74px system-ui, -apple-system, Segoe UI, sans-serif";
       ctx.textAlign = "center";
-      wrapCanvasText(ctx, `${card.name}${orientation}`, width / 2, 1100, 820, 72, 2);
+      wrapCanvasText(ctx, `${card.name}${orientation}`, width / 2, 1068, 840, 82, 2);
 
       ctx.fillStyle = muted;
-      ctx.font = "400 38px system-ui, -apple-system, Segoe UI, sans-serif";
+      ctx.font = "400 48px system-ui, -apple-system, Segoe UI, sans-serif";
       const bodyText = [card.meaning, card.message].filter(Boolean).join(" ");
-      wrapCanvasText(ctx, bodyText, width / 2, 1248, 820, 54, 7);
+      wrapCanvasText(ctx, bodyText, width / 2, 1240, 860, 66, 7);
 
       ctx.fillStyle = gold;
-      ctx.font = "700 30px system-ui, -apple-system, Segoe UI, sans-serif";
-      ctx.fillText("Карта дня · kostgame.github.io/Tarot", width / 2, 1774);
+      ctx.font = "700 34px system-ui, -apple-system, Segoe UI, sans-serif";
+      ctx.fillText("Карта дня · kostgame.github.io/Tarot", width / 2, 1762);
     }
 
     function drawShareImage(ctx, image, x, y, width, height) {
