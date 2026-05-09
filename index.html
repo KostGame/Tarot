@@ -692,6 +692,83 @@
       }
     }
 
+    @media (max-width: 480px) {
+      .app {
+        padding-top: max(10px, env(safe-area-inset-top));
+        padding-bottom: max(18px, env(safe-area-inset-bottom));
+      }
+
+      .top {
+        padding: 0 2px 8px;
+      }
+
+      .mark {
+        width: 44px;
+        height: 44px;
+        margin-bottom: 8px;
+        box-shadow: 0 0 24px rgba(241, 207, 122, .18);
+      }
+
+      .mark svg {
+        width: 26px;
+        height: 26px;
+      }
+
+      h1 {
+        font-size: clamp(2rem, 9vw, 2.65rem);
+        line-height: .98;
+      }
+
+      .lead {
+        margin-top: 8px;
+        font-size: .9rem;
+        line-height: 1.36;
+      }
+
+      .mode-tabs {
+        gap: 5px;
+        padding: 4px;
+        margin: 2px 0 7px;
+        border-radius: 15px;
+      }
+
+      .deck-tabs {
+        margin-bottom: 9px;
+      }
+
+      .tab {
+        min-height: 42px;
+        border-radius: 12px;
+        font-size: .86rem;
+      }
+
+      .deck-tab {
+        min-height: 30px;
+        font-size: .74rem;
+      }
+
+      .panel {
+        padding: 14px;
+        border-radius: 22px;
+      }
+
+      .mode h2,
+      .result h2 {
+        margin-bottom: 6px;
+        font-size: 1.35rem;
+      }
+
+      .hint {
+        margin-bottom: 12px;
+        font-size: .88rem;
+        line-height: 1.36;
+      }
+
+      .primary {
+        min-height: 50px;
+      }
+    }
+
     @media (min-width: 470px) {
       .spread.multi {
         grid-template-columns: 1fr;
