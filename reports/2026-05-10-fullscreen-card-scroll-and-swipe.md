@@ -8,7 +8,7 @@
 - Issue: https://github.com/KostGame/Tarot/issues/18
 - PR: https://github.com/KostGame/Tarot/pull/19
 - PR смержен: нет.
-- Commit hash: `0d7a0dc60c031810c27f2f4f9bd4e4e287aeeeb1`
+- Commit hash: `7e74b268a595aa48b2e5e3b7f265a88c1e205cac`
 - Merge commit hash: нет.
 - GitHub Pages: https://kostgame.github.io/Tarot/
 
