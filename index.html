@@ -132,7 +132,7 @@
 
     .deck-tabs {
       display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 4px;
       width: min(100%, 360px);
       padding: 3px;
@@ -214,6 +214,20 @@
       font-weight: 800;
       line-height: 1;
       cursor: pointer;
+    }
+
+    .pool-mode-note {
+      width: min(100%, 360px);
+      margin: -5px auto 12px;
+      color: var(--gold);
+      font-size: .78rem;
+      font-weight: 700;
+      line-height: 1.3;
+      text-align: center;
+    }
+
+    .pool-mode-note[hidden] {
+      display: none;
     }
 
     .settings {
@@ -743,6 +757,8 @@
       gap: 10px;
       width: min(100%, 520px);
       max-height: calc(100svh - 40px);
+      overflow-y: auto;
+      overscroll-behavior: contain;
       padding: 18px;
       border: 1px solid rgba(241, 207, 122, .26);
       border-radius: 24px;
@@ -770,7 +786,7 @@
       display: block;
       width: auto;
       max-width: min(82vw, 380px);
-      max-height: min(76svh, 680px);
+      max-height: min(62svh, 560px);
       object-fit: contain;
       border-radius: 18px;
       box-shadow: 0 20px 54px rgba(0, 0, 0, .5);
@@ -796,6 +812,21 @@
       gap: 6px;
       justify-items: center;
       max-width: 100%;
+    }
+
+    .lightbox-description {
+      display: grid;
+      gap: 8px;
+      width: 100%;
+      max-width: 28rem;
+      color: #efe6f6;
+      font-size: .92rem;
+      line-height: 1.45;
+      text-align: left;
+    }
+
+    .lightbox-description p {
+      margin: 0;
     }
 
     .lightbox-title {
@@ -1105,9 +1136,11 @@
     </nav>
 
     <nav class="deck-tabs" aria-label="Выбор колоды">
-      <button class="deck-tab active" type="button" data-deck="full">Полная колода</button>
-      <button class="deck-tab" type="button" data-deck="short">Короткая</button>
+      <button class="deck-tab active" type="button" data-pool-mode="all">Все</button>
+      <button class="deck-tab" type="button" data-pool-mode="major-court">Старшие + двор</button>
+      <button class="deck-tab" type="button" data-pool-mode="majors">Старшие</button>
     </nav>
+    <p class="pool-mode-note" id="pool-mode-note" hidden></p>
 
     <label class="card-deck-picker">
       <span class="card-deck-icon" aria-hidden="true">◐</span>
@@ -1176,6 +1209,10 @@
         <h2 class="lightbox-title" id="card-lightbox-title"></h2>
         <p class="lightbox-orientation" id="card-lightbox-orientation" hidden>Перевернутая</p>
       </div>
+      <div class="lightbox-description" id="card-lightbox-description" hidden>
+        <p id="card-lightbox-meaning"></p>
+        <p id="card-lightbox-message"></p>
+      </div>
     </div>
   </div>
 
@@ -1208,8 +1245,6 @@
       { n: "Туз Жезлов", r: "A", image: "assets/cards/wands-01-ace.jpg", g: "wand", c: ["#6d392d", "#70456d"], glow: "rgba(241,207,122,.42)", m: "искра, желание, начало", d: "Есть импульс, который стоит уважить. Дайте ему маленькое, конкретное действие." },
       { n: "Туз Пентаклей", r: "A", image: "assets/cards/pentacles-01-ace.jpg", g: "pentacle", c: ["#31573c", "#6b5529"], glow: "rgba(158,213,189,.42)", m: "возможность, ресурс, земная польза", d: "Обратите внимание на практичный шанс. Он может выглядеть скромно, но иметь крепкие корни." }
     ];
-
-    const shortDeck = [...cards];
 
     const minorSuits = [
       { name: "Кубков", slug: "cups", icon: "cup", c: ["#2b5a68", "#7a4766"], glow: "rgba(223,143,168,.42)", m: "чувства, отношения, эмоциональная честность", d: "Проверьте, что вы чувствуете на самом деле. Бережный разговор с собой уже многое проясняет." },
@@ -1256,8 +1291,30 @@
       card.id = cardIdFromImagePath(card.image);
     });
 
+    const majorDeck = cards.filter(card => isMajorCard(card));
+    const majorCourtDeck = cards.filter(card => isMajorCard(card) || isCourtCard(card));
+    const poolModes = [
+      { id: "all", label: "Все", deck: fullDeck },
+      { id: "major-court", label: "Старшие + двор", deck: majorCourtDeck },
+      { id: "majors", label: "Старшие", deck: majorDeck },
+    ];
+    const coverageSafePoolMode = {
+      full: "all",
+      "major-court": "major-court",
+      partial: "major-court",
+      "major-only": "majors",
+    };
+
     function cardIdFromImagePath(imagePath) {
       return imagePath.split("/").pop().replace(/\.[^.]+$/, "");
+    }
+
+    function isMajorCard(card) {
+      return card.id.startsWith("major-");
+    }
+
+    function isCourtCard(card) {
+      return /-(11-page|12-knight|13-queen|14-king)$/.test(card.id);
     }
 
     function buildMajorDeckMap(basePath) {
@@ -1391,14 +1448,20 @@
     const cardLightboxFallbackName = document.querySelector("#card-lightbox-fallback-name");
     const cardLightboxTitle = document.querySelector("#card-lightbox-title");
     const cardLightboxOrientation = document.querySelector("#card-lightbox-orientation");
+    const cardLightboxDescription = document.querySelector("#card-lightbox-description");
+    const cardLightboxMeaning = document.querySelector("#card-lightbox-meaning");
+    const cardLightboxMessage = document.querySelector("#card-lightbox-message");
     const cardDeckSelect = document.querySelector("#card-deck-select");
+    const poolModeNote = document.querySelector("#pool-mode-note");
     const useReversedToggle = document.querySelector("#use-reversed-cards");
     const useReversedStorageKey = "tarot-use-reversed-cards";
     const cardDeckStorageKey = "tarot-card-deck-id";
+    const poolModeStorageKey = "tarot-card-pool-mode";
 
     const cardDecks = [
       {
         id: "rws-classic",
+        name: "Классика",
         label: "Классика",
         optionLabel: "Классика",
         description: "Rider-Waite-Smith, локальные изображения",
@@ -1409,6 +1472,7 @@
       },
       {
         id: "rws-dark-classic",
+        name: "Темная классика",
         label: "Темная классика",
         optionLabel: "Темная классика",
         description: "Та же колода с темной CSS-обработкой",
@@ -1420,8 +1484,9 @@
       },
       {
         id: "pixel-tarot",
-        label: "Пиксельная",
-        optionLabel: "Пиксельная · эксп.",
+        name: "Pixel Tarot",
+        label: "Pixel Tarot",
+        optionLabel: "Pixel Tarot · все карты",
         description: "Pixel art, полный набор 78 карт",
         cssClass: "deck-pixel-tarot",
         status: "experimental",
@@ -1433,12 +1498,13 @@
       },
       {
         id: "veil-of-fate",
+        name: "Veil of Fate",
         label: "Veil of Fate",
-        optionLabel: "Veil of Fate · эксп.",
+        optionLabel: "Veil of Fate · старшие + двор",
         description: "Темный partial deck: major arcana и court cards",
         cssClass: "deck-veil-of-fate",
         status: "experimental",
-        coverage: "partial",
+        coverage: "major-court",
         fallbackDeckId: "rws-classic",
         sourceUrl: "https://dajeki.itch.io/veil-of-fate-mystic-tarot-icons",
         licenseNote: "CC0 по странице источника, AI-assisted, требуется ручная проверка пользователем",
@@ -1446,8 +1512,9 @@
       },
       {
         id: "major-pixel-jcanabal",
+        name: "Pixel Mono",
         label: "Pixel Mono",
-        optionLabel: "Pixel Mono · только старшие · эксп.",
+        optionLabel: "Pixel Mono · только старшие",
         description: "Monochrome pixel major arcana",
         cssClass: "deck-major-pixel-jcanabal",
         status: "experimental",
@@ -1459,8 +1526,9 @@
       },
       {
         id: "major-pixel-zune",
+        name: "Pixel Zune",
         label: "Pixel Zune",
-        optionLabel: "Pixel Zune · только старшие · эксп.",
+        optionLabel: "Pixel Zune · только старшие",
         description: "Major arcana pixel deck",
         cssClass: "deck-major-pixel-zune",
         status: "experimental",
@@ -1474,12 +1542,15 @@
 
     let recognition;
     let listening = false;
-    let deckMode = "full";
+    let poolMode = readPoolMode();
     let useReversedCards = readUseReversedCards();
     let selectedCardDeck = readSelectedCardDeck();
+    let currentReading = null;
 
     renderCardDeckOptions();
     applySelectedCardDeck();
+    enforcePoolModeForDeck({ notify: false });
+    applyPoolMode();
     useReversedToggle.checked = useReversedCards;
 
     tabs.forEach(tab => {
@@ -1493,17 +1564,21 @@
 
     deckTabs.forEach(tab => {
       tab.addEventListener("click", () => {
-        deckMode = tab.dataset.deck;
-        deckTabs.forEach(item => item.classList.toggle("active", item === tab));
-        result.classList.remove("visible");
+        poolMode = normalizePoolMode(tab.dataset.poolMode);
+        const adjusted = enforcePoolModeForDeck({ notify: true });
+        writePoolMode(poolMode);
+        applyPoolMode();
+        rerenderCurrentReading({ redrawIfInvalid: true });
       });
     });
 
     cardDeckSelect.addEventListener("change", () => {
       selectedCardDeck = normalizeCardDeckId(cardDeckSelect.value);
       writeSelectedCardDeck(selectedCardDeck.id);
+      const adjusted = enforcePoolModeForDeck({ notify: true });
       applySelectedCardDeck();
-      refreshRenderedCardImages();
+      applyPoolMode();
+      rerenderCurrentReading({ redrawIfInvalid: adjusted });
     });
 
     useReversedToggle.addEventListener("change", () => {
@@ -1538,6 +1613,8 @@
         cardId: cardButton.dataset.cardId,
         baseImage: cardButton.dataset.baseImage,
         image: cardButton.dataset.cardImage,
+        meaning: cardButton.dataset.cardMeaning,
+        message: cardButton.dataset.cardMessage,
         reversed: cardButton.dataset.cardReversed === "true",
       });
     });
@@ -1555,7 +1632,7 @@
     });
 
     function drawCards(count) {
-      const source = deckMode === "short" ? shortDeck : fullDeck;
+      const source = getActivePoolDeck();
       return [...source]
         .sort(() => Math.random() - .5)
         .slice(0, count)
@@ -1563,6 +1640,7 @@
     }
 
     function renderDay(card) {
+      currentReading = { type: "day", cards: [card] };
       result.innerHTML = `
         <h2>Ваш ориентир на сегодня</h2>
         <p class="summary">Карта приглашает провести день внимательнее к себе и выбрать одно доброе действие без спешки.</p>
@@ -1574,6 +1652,7 @@
     }
 
     function renderQuestion(text, selected) {
+      currentReading = { type: "question", questionText: text, cards: selected };
       result.innerHTML = `
         <h2>Совет по вопросу</h2>
         <p class="summary">«${escapeHtml(text)}»</p>
@@ -1591,9 +1670,11 @@
       const safeName = escapeHtml(card.n);
       const safeRole = escapeHtml(role);
       const deckImage = cardImageForDeck(card);
+      const meaningText = stripHtml(body.match(/<p class="meaning">([\s\S]*?)<\/p>/)?.[1] ?? "");
+      const messageText = stripHtml(body.match(/<p class="message">([\s\S]*?)<\/p>/)?.[1] ?? "");
       return `
         <article class="card-reading" style="animation-delay:${index * 90}ms">
-          <button class="tarot-card ${card.reversed ? "reversed" : ""} ${card.n.length > 9 ? "compact-name" : ""}" type="button" style="--c1:${c1}; --c2:${c2}; --card-glow:${card.glow}" data-card-name="${safeName}" data-card-role="${safeRole}" data-card-id="${card.id}" data-base-image="${card.image}" data-card-image="${deckImage}" data-card-reversed="${card.reversed}" aria-label="Рассмотреть карту ${safeName}" title="Нажмите, чтобы рассмотреть карту">
+          <button class="tarot-card ${card.reversed ? "reversed" : ""} ${card.n.length > 9 ? "compact-name" : ""}" type="button" style="--c1:${c1}; --c2:${c2}; --card-glow:${card.glow}" data-card-name="${safeName}" data-card-role="${safeRole}" data-card-id="${card.id}" data-base-image="${card.image}" data-card-image="${deckImage}" data-card-meaning="${escapeHtml(meaningText)}" data-card-message="${escapeHtml(messageText)}" data-card-reversed="${card.reversed}" aria-label="Рассмотреть карту ${safeName}" title="Нажмите, чтобы рассмотреть карту">
             <img class="card-image" src="${deckImage}" alt="${safeName}" loading="lazy" decoding="async" data-card-id="${card.id}" data-base-image="${card.image}" data-fallback-name="${safeName}" onerror="handleCardImageError(this);">
             <div class="card-fallback" hidden>
               <div class="roman">${card.r}</div>
@@ -1659,14 +1740,88 @@
       }
     }
 
+    function readPoolMode() {
+      try {
+        return normalizePoolMode(localStorage.getItem(poolModeStorageKey));
+      } catch {
+        return "all";
+      }
+    }
+
+    function writePoolMode(value) {
+      try {
+        localStorage.setItem(poolModeStorageKey, value);
+      } catch {
+        showToast("Не удалось сохранить состав карт в этом браузере.");
+      }
+    }
+
     function normalizeCardDeckId(deckId) {
       return cardDecks.find(deck => deck.id === deckId) ?? cardDecks[0];
+    }
+
+    function normalizePoolMode(value) {
+      return poolModes.some(mode => mode.id === value) ? value : "all";
     }
 
     function applySelectedCardDeck() {
       cardDecks.forEach(deck => document.body.classList.remove(deck.cssClass));
       document.body.classList.add(selectedCardDeck.cssClass);
       cardDeckSelect.value = selectedCardDeck.id;
+    }
+
+    function applyPoolMode() {
+      deckTabs.forEach(tab => {
+        tab.classList.toggle("active", tab.dataset.poolMode === poolMode);
+      });
+    }
+
+    function enforcePoolModeForDeck({ notify } = { notify: false }) {
+      const safeMode = coverageSafePoolMode[selectedCardDeck.coverage] ?? "all";
+      const previousMode = poolMode;
+      if (selectedCardDeck.coverage !== "full" && poolMode !== safeMode) {
+        poolMode = safeMode;
+        writePoolMode(poolMode);
+        if (notify) {
+          const modeLabel = poolModes.find(mode => mode.id === poolMode)?.label ?? "";
+          showPoolModeNote(`Короткая колода включена: в выбранном наборе доступны ${modeLabel.toLowerCase()}.`);
+        }
+      } else {
+        hidePoolModeNote();
+      }
+      return previousMode !== poolMode;
+    }
+
+    function showPoolModeNote(text) {
+      poolModeNote.textContent = text;
+      poolModeNote.hidden = false;
+      showToast(text);
+    }
+
+    function hidePoolModeNote() {
+      poolModeNote.hidden = true;
+      poolModeNote.textContent = "";
+    }
+
+    function getActivePoolDeck() {
+      return poolModes.find(mode => mode.id === poolMode)?.deck ?? fullDeck;
+    }
+
+    function rerenderCurrentReading({ redrawIfInvalid } = { redrawIfInvalid: false }) {
+      if (!currentReading) {
+        return;
+      }
+
+      const activeIds = new Set(getActivePoolDeck().map(card => card.id));
+      const needsRedraw = redrawIfInvalid && currentReading.cards.some(card => !activeIds.has(card.id));
+      if (currentReading.type === "day") {
+        renderDay(needsRedraw ? drawCards(1)[0] : currentReading.cards[0]);
+        return;
+      }
+
+      if (currentReading.type === "question") {
+        renderQuestion(currentReading.questionText, needsRedraw ? drawCards(3) : currentReading.cards);
+      }
     }
 
     function cardImageForDeck(card) {
@@ -1719,6 +1874,9 @@
       cardLightboxImage.classList.toggle("reversed", card.reversed);
       cardLightboxTitle.textContent = card.name;
       cardLightboxOrientation.hidden = !card.reversed;
+      cardLightboxMeaning.textContent = card.meaning || "";
+      cardLightboxMessage.textContent = card.message || "";
+      cardLightboxDescription.hidden = !card.meaning && !card.message;
       cardLightbox.hidden = false;
       document.body.classList.add("lightbox-open");
     }
@@ -1734,6 +1892,9 @@
       cardLightboxOrientation.hidden = true;
       cardLightboxFallback.hidden = true;
       cardLightboxFallbackName.textContent = "";
+      cardLightboxDescription.hidden = true;
+      cardLightboxMeaning.textContent = "";
+      cardLightboxMessage.textContent = "";
       document.body.classList.remove("lightbox-open");
     }
 
@@ -1753,10 +1914,21 @@
     function resetCardImageState(image) {
       image.hidden = false;
       image.removeAttribute("hidden");
+      delete image.dataset.triedBaseImage;
       image.nextElementSibling?.setAttribute("hidden", "");
     }
 
     function handleCardImageError(image) {
+      if (image.dataset.baseImage && image.src && !image.dataset.triedBaseImage) {
+        image.dataset.triedBaseImage = "true";
+        image.src = image.dataset.baseImage;
+        const cardButton = image.closest(".tarot-card");
+        if (cardButton) {
+          cardButton.dataset.cardImage = image.dataset.baseImage;
+        }
+        return;
+      }
+
       const fallback = image.nextElementSibling;
       if (fallback?.classList.contains("card-fallback")) {
         image.hidden = true;
@@ -1824,6 +1996,12 @@
         '"': "&quot;",
         "'": "&#039;"
       }[char]));
+    }
+
+    function stripHtml(text) {
+      const parser = document.createElement("textarea");
+      parser.innerHTML = text.replace(/<[^>]+>/g, " ");
+      return parser.value.replace(/\s+/g, " ").trim();
     }
 
     function setupSpeech() {

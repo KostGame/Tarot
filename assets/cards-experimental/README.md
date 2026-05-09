@@ -7,7 +7,7 @@ Structure:
 - `pixel-tarot/` - full 78-card pixel deck from Papitas319, normalized to canonical card ids.
 - `major-pixel-jcanabal/` - major-only pixel deck from jcanabal, normalized to canonical major arcana ids.
 - `major-pixel-zune/` - major-only pixel deck from ZUNE, normalized to canonical major arcana ids.
-- `veil-of-fate/` - partial deck from Dajeki: major arcana and court cards only, normalized to canonical card ids.
+- `veil-of-fate/` - major-and-court deck from Dajeki: major arcana and court cards only, normalized to canonical card ids.
 
 Usage rules:
 
