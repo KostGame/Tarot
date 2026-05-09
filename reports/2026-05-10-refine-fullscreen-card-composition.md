@@ -6,9 +6,9 @@
 
 - Ветка: `feature/refine-fullscreen-card-composition`
 - Issue: https://github.com/KostGame/Tarot/issues/20
-- PR: будет добавлен после публикации ветки.
+- PR: https://github.com/KostGame/Tarot/pull/21
 - PR смержен: нет.
-- Commit hash: будет добавлен после коммита.
+- Commit hash: `ebf01554ecd595625bedb551ea20245d3870ddfc`
 - Merge commit hash: нет.
 - GitHub Pages: https://kostgame.github.io/Tarot/
 
