@@ -254,12 +254,15 @@
 
     .settings:not([open]) {
       width: 44px;
+      border-color: transparent;
       border-radius: 999px;
+      background: transparent;
+      box-shadow: none;
     }
 
     .settings summary {
       width: 44px;
-      min-height: 40px;
+      height: 44px;
       display: grid;
       place-items: center;
       margin: 0 auto;
@@ -1351,8 +1354,6 @@
     </section>
 
     <section class="result" id="result" aria-live="polite"></section>
-
-    <p class="warning">Расклад носит развлекательный и рефлексивный характер.</p>
 
     <details class="settings">
       <summary aria-label="Настройки" title="Настройки">⚙</summary>
