@@ -202,7 +202,7 @@
     }
 
     .card-deck-picker select {
-      width: min(100%, 220px);
+      width: min(100%, 280px);
       min-height: 36px;
       border: 1px solid rgba(185, 156, 255, .18);
       border-radius: 12px;
@@ -580,6 +580,15 @@
         rgba(9, 7, 17, .98);
     }
 
+    .deck-pixel-tarot .card-image,
+    .deck-pixel-tarot .lightbox-card-image,
+    .deck-major-pixel-jcanabal .card-image,
+    .deck-major-pixel-jcanabal .lightbox-card-image,
+    .deck-major-pixel-zune .card-image,
+    .deck-major-pixel-zune .lightbox-card-image {
+      image-rendering: pixelated;
+    }
+
     .card-fallback {
       position: absolute;
       inset: 0;
@@ -731,7 +740,7 @@
       z-index: 1;
       display: grid;
       justify-items: center;
-      gap: 12px;
+      gap: 10px;
       width: min(100%, 520px);
       max-height: calc(100svh - 40px);
       padding: 18px;
@@ -765,10 +774,28 @@
       object-fit: contain;
       border-radius: 18px;
       box-shadow: 0 20px 54px rgba(0, 0, 0, .5);
+      cursor: zoom-out;
     }
 
     .lightbox-card-image.reversed {
       transform: rotate(180deg);
+    }
+
+    .lightbox-role {
+      margin: 0;
+      color: var(--gold);
+      font-size: .78rem;
+      font-weight: 800;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      text-align: center;
+    }
+
+    .lightbox-meta {
+      display: grid;
+      gap: 6px;
+      justify-items: center;
+      max-width: 100%;
     }
 
     .lightbox-title {
@@ -778,6 +805,28 @@
       font: 800 1.2rem/1.2 inherit;
       text-align: center;
       overflow-wrap: anywhere;
+    }
+
+    .lightbox-orientation {
+      margin: 0;
+      color: var(--muted);
+      font-size: .82rem;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .lightbox-card-fallback {
+      display: grid;
+      place-items: center;
+      width: min(82vw, 380px);
+      aspect-ratio: 2 / 3.45;
+      border-radius: 18px;
+      border: 1px solid rgba(234, 212, 158, .18);
+      background: rgba(255, 255, 255, .06);
+      color: var(--text);
+      text-align: center;
+      padding: 18px;
+      cursor: zoom-out;
     }
 
     body.lightbox-open {
@@ -1118,8 +1167,15 @@
     <button class="lightbox-backdrop" type="button" data-lightbox-close aria-label="Закрыть просмотр карты"></button>
     <div class="lightbox-content">
       <button class="lightbox-close" type="button" data-lightbox-close aria-label="Закрыть просмотр карты">×</button>
-      <img class="lightbox-card-image" id="card-lightbox-image" alt="">
-      <h2 class="lightbox-title" id="card-lightbox-title"></h2>
+      <p class="lightbox-role" id="card-lightbox-role"></p>
+      <img class="lightbox-card-image" id="card-lightbox-image" alt="" data-lightbox-close onerror="handleCardImageError(this);">
+      <div class="lightbox-card-fallback" id="card-lightbox-fallback" hidden data-lightbox-close>
+        <span id="card-lightbox-fallback-name"></span>
+      </div>
+      <div class="lightbox-meta">
+        <h2 class="lightbox-title" id="card-lightbox-title"></h2>
+        <p class="lightbox-orientation" id="card-lightbox-orientation" hidden>Перевернутая</p>
+      </div>
     </div>
   </div>
 
@@ -1196,6 +1252,97 @@
 
     const fullDeck = cards;
 
+    cards.forEach(card => {
+      card.id = cardIdFromImagePath(card.image);
+    });
+
+    function cardIdFromImagePath(imagePath) {
+      return imagePath.split("/").pop().replace(/\.[^.]+$/, "");
+    }
+
+    function buildMajorDeckMap(basePath) {
+      const map = {};
+      [
+        "major-00-fool",
+        "major-01-magician",
+        "major-02-high-priestess",
+        "major-03-empress",
+        "major-04-emperor",
+        "major-05-hierophant",
+        "major-06-lovers",
+        "major-07-chariot",
+        "major-08-strength",
+        "major-09-hermit",
+        "major-10-wheel-of-fortune",
+        "major-11-justice",
+        "major-12-hanged-man",
+        "major-13-death",
+        "major-14-temperance",
+        "major-15-devil",
+        "major-16-tower",
+        "major-17-star",
+        "major-18-moon",
+        "major-19-sun",
+        "major-20-judgement",
+        "major-21-world",
+      ].forEach(cardId => {
+        map[cardId] = `${basePath}/${cardId}.png`;
+      });
+      return map;
+    }
+
+    function buildFullDeckMap(basePath) {
+      const map = buildMajorDeckMap(basePath);
+      [
+        "cups",
+        "swords",
+        "wands",
+        "pentacles",
+      ].forEach(suit => {
+        [
+          "01-ace",
+          "02-two",
+          "03-three",
+          "04-four",
+          "05-five",
+          "06-six",
+          "07-seven",
+          "08-eight",
+          "09-nine",
+          "10-ten",
+          "11-page",
+          "12-knight",
+          "13-queen",
+          "14-king",
+        ].forEach(rank => {
+          map[`${suit}-${rank}`] = `${basePath}/${suit}-${rank}.png`;
+        });
+      });
+      return map;
+    }
+
+    function buildVeilOfFateMap(basePath) {
+      return {
+        ...buildMajorDeckMap(basePath),
+        "cups-11-page": `${basePath}/cups-11-page.png`,
+        "cups-12-knight": `${basePath}/cups-12-knight.png`,
+        "cups-13-queen": `${basePath}/cups-13-queen.png`,
+        "cups-14-king": `${basePath}/cups-14-king.png`,
+        "swords-11-page": `${basePath}/swords-11-page.png`,
+        "swords-12-knight": `${basePath}/swords-12-knight.png`,
+        "swords-13-queen": `${basePath}/swords-13-queen.png`,
+        "swords-14-king": `${basePath}/swords-14-king.png`,
+        "wands-11-page": `${basePath}/wands-11-page.png`,
+        "wands-12-knight": `${basePath}/wands-12-knight.png`,
+        "wands-13-queen": `${basePath}/wands-13-queen.png`,
+        "wands-14-king": `${basePath}/wands-14-king.png`,
+        "pentacles-11-page": `${basePath}/pentacles-11-page.png`,
+        "pentacles-12-knight": `${basePath}/pentacles-12-knight.png`,
+        "pentacles-13-queen": `${basePath}/pentacles-13-queen.png`,
+        "pentacles-14-king": `${basePath}/pentacles-14-king.png`,
+      };
+    }
+
     const roles = [
       { title: "Что происходит сейчас", line: card => card.reversed ? `Сейчас карта «${card.n}» в перевернутом положении показывает: тема есть, но проявляется не напрямую. ${reversedMeaning(card)}` : `Сейчас тема карты «${card.n}» подсвечивает: ${card.m}.` },
       { title: "На что обратить внимание", line: card => card.reversed ? `Обратите внимание, где вы торопите себя или ждете мгновенной ясности. ${reversedMessage(card)}` : `Обратите внимание на то, где в вопросе проявляется ${card.m.split(",")[0]}.` },
@@ -1238,8 +1385,12 @@
     const micNote = document.querySelector("#mic-note");
     const toast = document.querySelector("#toast");
     const cardLightbox = document.querySelector("#card-lightbox");
+    const cardLightboxRole = document.querySelector("#card-lightbox-role");
     const cardLightboxImage = document.querySelector("#card-lightbox-image");
+    const cardLightboxFallback = document.querySelector("#card-lightbox-fallback");
+    const cardLightboxFallbackName = document.querySelector("#card-lightbox-fallback-name");
     const cardLightboxTitle = document.querySelector("#card-lightbox-title");
+    const cardLightboxOrientation = document.querySelector("#card-lightbox-orientation");
     const cardDeckSelect = document.querySelector("#card-deck-select");
     const useReversedToggle = document.querySelector("#use-reversed-cards");
     const useReversedStorageKey = "tarot-use-reversed-cards";
@@ -1249,20 +1400,75 @@
       {
         id: "rws-classic",
         label: "Классика",
+        optionLabel: "Классика",
         description: "Rider-Waite-Smith, локальные изображения",
-        assetBase: "assets/cards",
         cssClass: "deck-rws-classic",
-        darkFriendly: false,
-        source: "Wikimedia Commons / Rider-Waite-Smith",
+        status: "stable",
+        coverage: "full",
+        sourceUrl: "https://commons.wikimedia.org/wiki/Category:Rider-Waite-Smith_tarot_deck_(TaionWC)",
       },
       {
         id: "rws-dark-classic",
         label: "Темная классика",
+        optionLabel: "Темная классика",
         description: "Та же колода с темной CSS-обработкой",
-        assetBase: "assets/cards",
         cssClass: "deck-rws-dark-classic",
-        darkFriendly: true,
-        source: "CSS preset over rws-classic",
+        status: "stable",
+        coverage: "full",
+        fallbackDeckId: "rws-classic",
+        sourceUrl: "https://commons.wikimedia.org/wiki/Category:Rider-Waite-Smith_tarot_deck_(TaionWC)",
+      },
+      {
+        id: "pixel-tarot",
+        label: "Пиксельная",
+        optionLabel: "Пиксельная · эксп.",
+        description: "Pixel art, полный набор 78 карт",
+        cssClass: "deck-pixel-tarot",
+        status: "experimental",
+        coverage: "full",
+        fallbackDeckId: "rws-classic",
+        sourceUrl: "https://papitas319.itch.io/tarot-pixel-assets",
+        licenseNote: "Name your own price, требуется ручная проверка лицензии пользователем",
+        cards: buildFullDeckMap("assets/cards-experimental/pixel-tarot"),
+      },
+      {
+        id: "veil-of-fate",
+        label: "Veil of Fate",
+        optionLabel: "Veil of Fate · эксп.",
+        description: "Темный partial deck: major arcana и court cards",
+        cssClass: "deck-veil-of-fate",
+        status: "experimental",
+        coverage: "partial",
+        fallbackDeckId: "rws-classic",
+        sourceUrl: "https://dajeki.itch.io/veil-of-fate-mystic-tarot-icons",
+        licenseNote: "CC0 по странице источника, AI-assisted, требуется ручная проверка пользователем",
+        cards: buildVeilOfFateMap("assets/cards-experimental/veil-of-fate"),
+      },
+      {
+        id: "major-pixel-jcanabal",
+        label: "Pixel Mono",
+        optionLabel: "Pixel Mono · только старшие · эксп.",
+        description: "Monochrome pixel major arcana",
+        cssClass: "deck-major-pixel-jcanabal",
+        status: "experimental",
+        coverage: "major-only",
+        fallbackDeckId: "rws-classic",
+        sourceUrl: "https://jcanabal.itch.io/major-arcana-pixel-art-free",
+        licenseNote: "Free major arcana pack, требуется ручная проверка пользователем",
+        cards: buildMajorDeckMap("assets/cards-experimental/major-pixel-jcanabal"),
+      },
+      {
+        id: "major-pixel-zune",
+        label: "Pixel Zune",
+        optionLabel: "Pixel Zune · только старшие · эксп.",
+        description: "Major arcana pixel deck",
+        cssClass: "deck-major-pixel-zune",
+        status: "experimental",
+        coverage: "major-only",
+        fallbackDeckId: "rws-classic",
+        sourceUrl: "https://starsinabox.itch.io/majorarcana",
+        licenseNote: "Free / name your own price, требуется ручная проверка пользователем",
+        cards: buildMajorDeckMap("assets/cards-experimental/major-pixel-zune"),
       },
     ];
 
@@ -1328,6 +1534,8 @@
       }
       openCardLightbox({
         name: cardButton.dataset.cardName,
+        role: cardButton.dataset.cardRole,
+        cardId: cardButton.dataset.cardId,
         baseImage: cardButton.dataset.baseImage,
         image: cardButton.dataset.cardImage,
         reversed: cardButton.dataset.cardReversed === "true",
@@ -1381,11 +1589,12 @@
       const orientationBadge = card.reversed ? '<p class="orientation">Перевернутая</p>' : "";
       const displayName = card.n;
       const safeName = escapeHtml(card.n);
+      const safeRole = escapeHtml(role);
       const deckImage = cardImageForDeck(card);
       return `
         <article class="card-reading" style="animation-delay:${index * 90}ms">
-          <button class="tarot-card ${card.reversed ? "reversed" : ""} ${card.n.length > 9 ? "compact-name" : ""}" type="button" style="--c1:${c1}; --c2:${c2}; --card-glow:${card.glow}" data-card-name="${safeName}" data-base-image="${card.image}" data-card-image="${deckImage}" data-card-reversed="${card.reversed}" aria-label="Рассмотреть карту ${safeName}" title="Нажмите, чтобы рассмотреть карту">
-            <img class="card-image" src="${deckImage}" alt="${safeName}" loading="lazy" decoding="async" onerror="this.hidden=true;this.nextElementSibling.hidden=false;">
+          <button class="tarot-card ${card.reversed ? "reversed" : ""} ${card.n.length > 9 ? "compact-name" : ""}" type="button" style="--c1:${c1}; --c2:${c2}; --card-glow:${card.glow}" data-card-name="${safeName}" data-card-role="${safeRole}" data-card-id="${card.id}" data-base-image="${card.image}" data-card-image="${deckImage}" data-card-reversed="${card.reversed}" aria-label="Рассмотреть карту ${safeName}" title="Нажмите, чтобы рассмотреть карту">
+            <img class="card-image" src="${deckImage}" alt="${safeName}" loading="lazy" decoding="async" data-card-id="${card.id}" data-base-image="${card.image}" data-fallback-name="${safeName}" onerror="handleCardImageError(this);">
             <div class="card-fallback" hidden>
               <div class="roman">${card.r}</div>
               <div class="glyph-wrap">
@@ -1430,7 +1639,7 @@
 
     function renderCardDeckOptions() {
       cardDeckSelect.innerHTML = cardDecks
-        .map(deck => `<option value="${deck.id}" ${deck.id === selectedCardDeck.id ? "selected" : ""}>${deck.label}</option>`)
+        .map(deck => `<option value="${deck.id}" ${deck.id === selectedCardDeck.id ? "selected" : ""}>${deck.optionLabel ?? deck.label}</option>`)
         .join("");
     }
 
@@ -1461,22 +1670,23 @@
     }
 
     function cardImageForDeck(card) {
-      if (!card.image) {
+      if (!card?.id || !card?.image) {
         return "";
       }
-      if (selectedCardDeck.assetBase === cardDecks[0].assetBase) {
-        return card.image;
-      }
-      return `${selectedCardDeck.assetBase}/${card.image.split("/").pop()}`;
+      const resolvedImage = resolveDeckImage(selectedCardDeck, card.id);
+      return resolvedImage || card.image;
     }
 
     function refreshRenderedCardImages() {
       result.querySelectorAll(".tarot-card").forEach(cardButton => {
         const image = cardButton.querySelector(".card-image");
-        const nextImage = cardImageForDeck({ image: cardButton.dataset.baseImage });
+        const nextImage = cardImageForDeck({
+          id: cardButton.dataset.cardId,
+          image: cardButton.dataset.baseImage,
+        });
         cardButton.dataset.cardImage = nextImage;
         if (image) {
-          image.hidden = false;
+          resetCardImageState(image);
           image.src = nextImage;
         }
         const fallback = cardButton.querySelector(".card-fallback");
@@ -1485,8 +1695,12 @@
         }
       });
 
-      if (!cardLightbox.hidden && cardLightboxImage.dataset.baseImage) {
-        cardLightboxImage.src = cardImageForDeck({ image: cardLightboxImage.dataset.baseImage });
+      if (!cardLightbox.hidden && cardLightboxImage.dataset.baseImage && cardLightboxImage.dataset.cardId) {
+        resetCardImageState(cardLightboxImage);
+        cardLightboxImage.src = cardImageForDeck({
+          id: cardLightboxImage.dataset.cardId,
+          image: cardLightboxImage.dataset.baseImage,
+        });
       }
     }
 
@@ -1494,11 +1708,17 @@
       if (!card.name || !card.image) {
         return;
       }
+      cardLightboxRole.textContent = card.role || "";
+      cardLightboxFallback.hidden = true;
+      cardLightboxFallbackName.textContent = card.name;
       cardLightboxImage.dataset.baseImage = card.baseImage;
+      cardLightboxImage.dataset.cardId = card.cardId;
+      resetCardImageState(cardLightboxImage);
       cardLightboxImage.src = card.image;
       cardLightboxImage.alt = card.name;
       cardLightboxImage.classList.toggle("reversed", card.reversed);
-      cardLightboxTitle.textContent = card.reversed ? `${card.name}, перевернутая` : card.name;
+      cardLightboxTitle.textContent = card.name;
+      cardLightboxOrientation.hidden = !card.reversed;
       cardLightbox.hidden = false;
       document.body.classList.add("lightbox-open");
     }
@@ -1507,9 +1727,51 @@
       cardLightbox.hidden = true;
       cardLightboxImage.removeAttribute("src");
       delete cardLightboxImage.dataset.baseImage;
+      delete cardLightboxImage.dataset.cardId;
       cardLightboxImage.classList.remove("reversed");
+      cardLightboxRole.textContent = "";
+      cardLightboxTitle.textContent = "";
+      cardLightboxOrientation.hidden = true;
+      cardLightboxFallback.hidden = true;
+      cardLightboxFallbackName.textContent = "";
       document.body.classList.remove("lightbox-open");
     }
+
+    function resolveDeckImage(deck, cardId) {
+      if (!deck) {
+        return "";
+      }
+      if (deck.cards && deck.cards[cardId]) {
+        return deck.cards[cardId];
+      }
+      if (deck.fallbackDeckId) {
+        return resolveDeckImage(normalizeCardDeckId(deck.fallbackDeckId), cardId);
+      }
+      return "";
+    }
+
+    function resetCardImageState(image) {
+      image.hidden = false;
+      image.removeAttribute("hidden");
+      image.nextElementSibling?.setAttribute("hidden", "");
+    }
+
+    function handleCardImageError(image) {
+      const fallback = image.nextElementSibling;
+      if (fallback?.classList.contains("card-fallback")) {
+        image.hidden = true;
+        fallback.hidden = false;
+        return;
+      }
+
+      if (image.id === "card-lightbox-image") {
+        image.hidden = true;
+        cardLightboxFallback.hidden = false;
+        cardLightboxFallbackName.textContent = image.alt || cardLightboxTitle.textContent || "";
+      }
+    }
+
+    window.handleCardImageError = handleCardImageError;
 
     function reversedMeaning(card) {
       return `перевернутое положение мягко указывает на задержку, внутренний спор или привычку смотреть на тему «${card.m.split(",")[0]}» слишком напряженно.`;
