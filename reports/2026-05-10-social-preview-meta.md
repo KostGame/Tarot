@@ -7,9 +7,9 @@
 - Ветка: `feature/social-preview-meta`
 - Issue: https://github.com/KostGame/Tarot/issues/22
 - PR: https://github.com/KostGame/Tarot/pull/24
-- PR смержен: нет.
+- PR смержен: да.
 - Commit hash: `3b4f63da33c72f2c8c4f81ba9bb144c6644af293`
-- Merge commit hash: нет.
+- Merge commit hash: `2681b5806ba5e219c6fd9d141fe44944ec89d01e`
 - GitHub Pages: https://kostgame.github.io/Tarot/
 
 ## Измененные файлы
