@@ -10,8 +10,8 @@
 ## Git
 
 - Branch: `feature/issue-57-restrict-telegram-fallback`
-- PR: pending
-- Commit: pending
+- PR: [#58 Restrict Telegram share fallback](https://github.com/KostGame/Tarot/pull/58)
+- Commit: `ce45d9f`
 - Merged by agent: no
 
 ## Scope
