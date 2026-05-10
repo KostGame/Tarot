@@ -253,9 +253,9 @@
 
     .bottom-quick-actions {
       display: flex;
-      align-items: flex-start;
+      align-items: center;
       justify-content: center;
-      gap: 10px;
+      gap: 12px;
       width: min(100%, 520px);
       margin: 12px auto 0;
       padding: 8px 10px;
@@ -263,6 +263,37 @@
       border-radius: 18px;
       background: rgba(8, 6, 16, .24);
       box-shadow: inset 0 1px 0 rgba(255, 255, 255, .05);
+    }
+
+    .daily-counter {
+      display: grid;
+      gap: 4px;
+      width: min(100%, 520px);
+      margin: 10px auto 0;
+      padding: 10px 14px 11px;
+      border: 1px solid rgba(234, 212, 158, .16);
+      border-radius: 18px;
+      background: rgba(8, 6, 16, .24);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, .05);
+      text-align: center;
+    }
+
+    .daily-counter[hidden] {
+      display: none;
+    }
+
+    .daily-counter-total,
+    .daily-counter-breakdown {
+      margin: 0;
+      color: var(--muted);
+      font-size: .82rem;
+      line-height: 1.35;
+    }
+
+    .daily-counter-total strong,
+    .daily-counter-breakdown strong {
+      color: var(--gold);
+      font-weight: 850;
     }
 
     .settings {
@@ -1288,15 +1319,16 @@
 	}
 
     .lightbox-actions {
-      display: flex;
-      justify-content: center;
-      position: relative;
+      display: grid;
+      grid-template-columns: 1fr auto 40px;
+      align-items: center;
       width: 100%;
-      padding-right: 52px;
       margin-top: 2px;
     }
 
     .lightbox-share {
+      grid-column: 2;
+      justify-self: center;
       min-height: 44px;
 	  padding: 0 18px;
 	  border: 1px solid rgba(241, 207, 122, .42);
@@ -1309,9 +1341,9 @@
     }
 
     .lightbox-guide-link {
-      position: absolute;
-      right: 0;
-      bottom: 0;
+      grid-column: 3;
+      justify-self: end;
+      position: static;
       display: grid;
       place-items: center;
       width: 40px;
@@ -1800,6 +1832,10 @@
         </svg>
       </button>
     </div>
+    <div class="daily-counter" id="daily-counter" aria-live="polite" hidden>
+      <p class="daily-counter-total">Сегодня выбрали карт: <strong id="daily-counter-total-value">—</strong></p>
+      <p class="daily-counter-breakdown">Карта дня: <strong id="daily-counter-day-value">—</strong> · Совет: <strong id="daily-counter-advice-value">—</strong></p>
+    </div>
     </div>
 
     <section class="guide-screen" id="guide-screen" aria-labelledby="guide-title" hidden>
@@ -2143,9 +2179,23 @@
     const guideFilters = document.querySelector("#guide-filters");
     const guideFilterButtons = [...guideFilters.querySelectorAll(".guide-filter")];
     const cardLightboxGuide = document.querySelector("#card-lightbox-guide");
+    const dailyCounter = document.querySelector("#daily-counter");
+    const dailyCounterTotalValue = document.querySelector("#daily-counter-total-value");
+    const dailyCounterDayValue = document.querySelector("#daily-counter-day-value");
+    const dailyCounterAdviceValue = document.querySelector("#daily-counter-advice-value");
     const useReversedStorageKey = "tarot-use-reversed-cards";
     const cardDeckStorageKey = "tarot-card-deck-id";
     const poolModeStorageKey = "tarot-card-pool-mode";
+    const firebaseCounterConfig = {
+      apiKey: "AIzaSyBiK-yJvgyciKJc6GnooWAywZcMu6_r-6k",
+      authDomain: "tarot-counter-36e72.firebaseapp.com",
+      databaseURL: "https://tarot-counter-36e72-default-rtdb.europe-west1.firebasedatabase.app",
+      projectId: "tarot-counter-36e72",
+      storageBucket: "tarot-counter-36e72.firebasestorage.app",
+      messagingSenderId: "519497030536",
+      appId: "1:519497030536:web:802c66c6f2a83506be783d",
+      measurementId: "G-KGT3RJXC0R"
+    };
     let currentLightboxCard = null;
     let currentLightboxCards = [];
     let currentLightboxIndex = 0;
@@ -2154,6 +2204,8 @@
     let guideSearchValue = "";
     let guideGroup = "all";
     let guideFocusCardId = "";
+    let firebaseCounterApiPromise = null;
+    let firebaseCounterApi = null;
 
     const cardDecks = [
       {
@@ -2307,6 +2359,7 @@
     document.querySelector("#draw-day").addEventListener("click", () => {
       const card = drawCards(1)[0];
       renderDay(card);
+      void incrementFirebaseDailyCounter("day");
     });
 
     document.querySelector("#draw-question").addEventListener("click", () => {
@@ -2317,6 +2370,7 @@
         return;
       }
       renderQuestion(text, drawCards(3));
+      void incrementFirebaseDailyCounter("advice");
     });
 
     result.addEventListener("click", event => {
@@ -2791,6 +2845,113 @@
       renderGuideView({ focusCardId: guideFocusCardId });
       window.scrollTo({ top: 0, behavior: "smooth" });
       requestAnimationFrame(() => guideSearchInput.focus({ preventScroll: true }));
+    }
+
+    function getLocalDateStamp(date = new Date()) {
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, "0");
+      const day = String(date.getDate()).padStart(2, "0");
+      return `${year}-${month}-${day}`;
+    }
+
+    function safeCounterNumber(value) {
+      const number = Number(value ?? 0);
+      return Number.isFinite(number) && number >= 0 ? Math.floor(number) : 0;
+    }
+
+    function renderDailyCounter(stats) {
+      if (!stats) {
+        hideDailyCounter();
+        return;
+      }
+
+      dailyCounterTotalValue.textContent = String(stats.total);
+      dailyCounterDayValue.textContent = String(stats.day);
+      dailyCounterAdviceValue.textContent = String(stats.advice);
+      dailyCounter.hidden = false;
+    }
+
+    function hideDailyCounter() {
+      dailyCounter.hidden = true;
+    }
+
+    async function loadFirebaseDailyCounterApi() {
+      if (firebaseCounterApi) {
+        return firebaseCounterApi;
+      }
+      if (firebaseCounterApiPromise) {
+        return firebaseCounterApiPromise;
+      }
+
+      firebaseCounterApiPromise = (async () => {
+        try {
+          const [appModule, databaseModule] = await Promise.all([
+            import("https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js"),
+            import("https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js"),
+          ]);
+          const app = appModule.initializeApp(firebaseCounterConfig);
+          return {
+            app,
+            db: databaseModule.getDatabase(app),
+            ref: databaseModule.ref,
+            get: databaseModule.get,
+            update: databaseModule.update,
+            increment: databaseModule.increment,
+          };
+        } catch (error) {
+          console.warn("Firebase daily counter unavailable:", error);
+          return null;
+        }
+      })().then(api => {
+        firebaseCounterApi = api;
+        if (!api) {
+          firebaseCounterApiPromise = null;
+        }
+        return api;
+      });
+
+      return firebaseCounterApiPromise;
+    }
+
+    async function refreshFirebaseDailyCounter() {
+      const api = await loadFirebaseDailyCounterApi();
+      if (!api) {
+        hideDailyCounter();
+        return null;
+      }
+
+      try {
+        const snapshot = await api.get(api.ref(api.db, `publicStats/${getLocalDateStamp()}`));
+        const stats = snapshot.exists() ? snapshot.val() ?? {} : {};
+        renderDailyCounter({
+          total: safeCounterNumber(stats.total),
+          day: safeCounterNumber(stats.day),
+          advice: safeCounterNumber(stats.advice),
+        });
+        return stats;
+      } catch (error) {
+        console.warn("Firebase daily counter read failed:", error);
+        hideDailyCounter();
+        return null;
+      }
+    }
+
+    async function incrementFirebaseDailyCounter(metric) {
+      const api = await loadFirebaseDailyCounterApi();
+      if (!api) {
+        return null;
+      }
+
+      try {
+        await api.update(api.ref(api.db, `publicStats/${getLocalDateStamp()}`), {
+          total: api.increment(1),
+          [metric]: api.increment(1),
+        });
+        return refreshFirebaseDailyCounter();
+      } catch (error) {
+        console.warn("Firebase daily counter update failed:", error);
+        return null;
+      }
     }
 
     function rerenderCurrentReading({ redrawIfInvalid } = { redrawIfInvalid: false }) {
@@ -3371,6 +3532,7 @@
     }
 
     setupSpeech();
+    void refreshFirebaseDailyCounter();
   </script>
 </body>
 </html>
