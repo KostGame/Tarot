@@ -7,9 +7,9 @@
 - Ветка: `feature/etteilla-type-i-mapping`
 - Issue: https://github.com/KostGame/Tarot/issues/26
 - Source: https://etteilla.org/en/deck/10/original-etteilla-tarot-le-jeu-de-toth
-- PR: будет создан после commit
+- PR: https://github.com/KostGame/Tarot/pull/30
 - PR смержен: нет
-- Commit hash: будет добавлен после commit
+- Commit hash: `9fd7c158b3133bab00ce5d67422038c805f1ee66`
 - Merge commit hash: нет
 
 ## Цель
@@ -95,4 +95,3 @@ This is not a native Rider-Waite-Smith mapping. It is an experimental historical
 
 - Created `docs/ETTEILLA_MAPPING.md`.
 - Updated `docs/ASSET_CANDIDATES.md`.
-
