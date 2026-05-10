@@ -2409,24 +2409,24 @@
       ctx.fillStyle = cream;
         ctx.font = "800 84px system-ui, -apple-system, Segoe UI, sans-serif";
         ctx.textAlign = "center";
-        const titleY = cardBox.y + cardBox.h + 92;
-        wrapCanvasText(ctx, `${card.name}${orientation}`, width / 2, titleY, width * .88, 84, 2);
+        const titleY = cardBox.y + cardBox.h + 72;
+		wrapCanvasText(ctx, `${card.name}${orientation}`, width / 2, titleY, width * .88, 84, 2);
 
-        ctx.fillStyle = gold;
-        ctx.font = "700 42px system-ui, -apple-system, Segoe UI, sans-serif";
-        wrapCanvasText(ctx, card.meaning, width / 2, titleY + 106, width * .88, 52, 3);
+		ctx.fillStyle = gold;
+		ctx.font = "700 42px system-ui, -apple-system, Segoe UI, sans-serif";
+		wrapCanvasText(ctx, card.meaning, width / 2, titleY + 96, width * .88, 52, 3);
 
-      ctx.strokeStyle = "rgba(241,207,122,.28)";
-      ctx.lineWidth = 2;
-      ctx.beginPath();
-        const dividerY = titleY + 242;
-        ctx.moveTo(width * .20, dividerY);
-        ctx.lineTo(width * .80, dividerY);
-        ctx.stroke();
+		ctx.strokeStyle = "rgba(241,207,122,.28)";
+		ctx.lineWidth = 2;
+		ctx.beginPath();
+		const dividerY = titleY + 156;
+		ctx.moveTo(width * .20, dividerY);
+		ctx.lineTo(width * .80, dividerY);
+		ctx.stroke();
 
-        ctx.fillStyle = muted;
-        ctx.font = "400 48px system-ui, -apple-system, Segoe UI, sans-serif";
-        wrapCanvasText(ctx, card.message, width / 2, dividerY + 78, width * .88, 54, 4);
+		ctx.fillStyle = muted;
+		ctx.font = "400 48px system-ui, -apple-system, Segoe UI, sans-serif";
+		wrapCanvasText(ctx, card.message, width / 2, dividerY + 56, width * .88, 54, 4);
 
       ctx.fillStyle = gold;
       ctx.font = "700 34px system-ui, -apple-system, Segoe UI, sans-serif";
