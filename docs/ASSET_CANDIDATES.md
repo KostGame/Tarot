@@ -88,6 +88,16 @@
 - UI order if later approved: place immediately after `rws-classic` and `rws-dark-classic`, before other experimental decks.
 - Fallback plan if later approved: keep `rws-classic` fallback for missing or unmapped cards.
 
+### `etteilla-type-i`
+
+- Source: [Original Etteilla Tarot - Le Jeu de Toth](https://etteilla.org/en/deck/10/original-etteilla-tarot-le-jeu-de-toth).
+- Status: historical experimental deck, documentation only.
+- Intended local path if approved later: `assets/cards-experimental/etteilla-type-i/`.
+- Coverage note: Original Etteilla Type I is a full `78/78` deck.
+- Mapping note: majors and minors are documented in `docs/ETTEILLA_MAPPING.md`; this is an experimental historical correspondence layer, not a native RWS mapping.
+- Decision for this task: keep `etteilla-type-i` out of the UI and do not download assets in this PR.
+- Fallback plan if later approved: keep `rws-classic` fallback for missing or unmapped cards.
+
 ### `marseille-historical`
 
 - Source: [Wikipedia / Tarot of Marseilles](https://en.wikipedia.org/wiki/Tarot_of_Marseilles).
