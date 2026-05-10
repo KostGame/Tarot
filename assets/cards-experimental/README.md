@@ -12,6 +12,7 @@ Structure:
 Candidate decks not stored here yet:
 
 - `etteilla-historical/` - candidate path for a historical Etteilla deck. Not connected to UI and no images are committed because the Wikimedia Commons source does not provide a safe automatic 78-card pack with stable suit/rank filenames. See `docs/ASSET_CANDIDATES.md`.
+- `marseille-historical/` - candidate path for a historical Tarot de Marseille deck. Not connected to UI and no images are committed because the deck uses pip cards and title-based historical correspondences rather than a simple Rider-Waite-style scene mapping. See `docs/ASSET_CANDIDATES.md`.
 
 Usage rules:
 
