@@ -35,11 +35,12 @@
 ## Git
 
 - Branch: `feature/issue-52-messenger-share-fallback`
-- PR: pending
-- Commit: pending
-- Merged by agent: pending
+- PR: [#54 Add messenger share fallback](https://github.com/KostGame/Tarot/pull/54)
+- Commit: `d7c7ab7`
+- Merged by agent: no
 
 ## Blockers
 
 - Активных открытых PR на момент проверки не было.
 - Блокеров по коду не обнаружено.
+- Интерактивный browser smoke-test в этой среде не завершён: browser-use plugin не содержит `browser-client.mjs`, а headless Edge/Chrome не смог стабильно открыть локальный сервер. PR оставлен открытым для визуальной проверки перед merge.
