@@ -800,19 +800,18 @@
       box-shadow: 0 24px 80px rgba(0, 0, 0, .6);
     }
 
-    .lightbox-topbar {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) auto auto;
-      align-items: center;
-      gap: 8px;
-      width: 100%;
-      min-height: 38px;
-      position: sticky;
-      top: 0;
-      z-index: 2;
-      padding-bottom: 2px;
-      background: linear-gradient(180deg, rgba(27, 20, 43, .98), rgba(27, 20, 43, .84));
-    }
+	.lightbox-topbar {
+	  display: grid;
+	  grid-template-columns: minmax(0, 1fr) auto auto;
+	  align-items: center;
+	  gap: 8px;
+	  width: 100%;
+	  min-height: 30px;
+	  position: static;
+	  z-index: 2;
+	  padding: 0;
+	  background: transparent;
+	}
 
     .lightbox-close {
       width: 38px;
@@ -866,16 +865,16 @@
       transform: rotate(180deg);
     }
 
-    .lightbox-role {
-      margin: 0;
-      color: var(--gold);
-      font-size: .72rem;
-      font-weight: 800;
-      letter-spacing: .03em;
-      text-transform: uppercase;
-      text-align: left;
-      overflow-wrap: anywhere;
-    }
+	.lightbox-role {
+	  margin: 0;
+	  color: var(--gold);
+	  font-size: .95rem;
+	  font-weight: 900;
+	  letter-spacing: .03em;
+	  text-transform: uppercase;
+	  text-align: left;
+	  overflow-wrap: anywhere;
+	}
 
     .lightbox-meta {
       display: grid;
