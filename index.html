@@ -81,6 +81,14 @@
       overflow-x: hidden;
     }
 
+    .main-screen {
+      display: block;
+    }
+
+    .main-screen[hidden] {
+      display: none;
+    }
+
     .top {
       padding: 10px 2px 16px;
       text-align: center;
@@ -243,17 +251,33 @@
       display: none;
     }
 
-    .settings {
+    .bottom-quick-actions {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 10px;
       width: min(100%, 520px);
       margin: 12px auto 0;
+      padding: 8px 10px;
       border: 1px solid rgba(234, 212, 158, .16);
-      border-radius: 16px;
-      background: rgba(8, 6, 16, .28);
+      border-radius: 18px;
+      background: rgba(8, 6, 16, .24);
       box-shadow: inset 0 1px 0 rgba(255, 255, 255, .05);
+    }
+
+    .settings {
+      width: 100%;
+      margin: 0;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none;
+      flex: 1 1 auto;
     }
 
     .settings:not([open]) {
       width: 44px;
+      flex: 0 0 44px;
       border-color: transparent;
       border-radius: 999px;
       background: transparent;
@@ -267,11 +291,27 @@
       place-items: center;
       margin: 0 auto;
       padding: 0;
-      color: var(--muted);
+      border: 0;
+      border-radius: 50%;
+      background: transparent;
+      color: var(--gold);
       font-size: 1.1rem;
       font-weight: 800;
       cursor: pointer;
       list-style: none;
+      transition: background .2s ease, transform .2s ease, filter .2s ease;
+    }
+
+    .settings summary:hover,
+    .guide-toggle:hover,
+    .lightbox-guide-link:hover {
+      background: rgba(241, 207, 122, .08);
+    }
+
+    .settings summary:active,
+    .guide-toggle:active,
+    .lightbox-guide-link:active {
+      transform: scale(.98);
     }
 
     .settings summary::-webkit-details-marker {
@@ -280,6 +320,227 @@
 
     .settings summary::after {
       content: none;
+    }
+
+    .guide-toggle {
+      display: grid;
+      place-items: center;
+      width: 44px;
+      height: 44px;
+      flex: 0 0 44px;
+      border: 0;
+      border-radius: 50%;
+      background: transparent;
+      color: var(--gold);
+      cursor: pointer;
+      transition: background .2s ease, transform .2s ease, filter .2s ease, opacity .2s ease;
+    }
+
+    .guide-toggle:focus-visible,
+    .guide-close:focus-visible,
+    .guide-filter:focus-visible,
+    .guide-card:focus-visible,
+    .lightbox-guide-link:focus-visible {
+      outline: 2px solid rgba(241, 207, 122, .78);
+      outline-offset: 3px;
+    }
+
+    .guide-screen {
+      display: grid;
+      gap: 10px;
+      width: min(100%, 520px);
+      margin: 10px auto 0;
+    }
+
+    .guide-screen[hidden] {
+      display: none;
+    }
+
+    .guide-topbar {
+      display: grid;
+      grid-template-columns: 42px minmax(0, 1fr) 42px;
+      gap: 0 8px;
+      align-items: center;
+      width: 100%;
+      min-height: 56px;
+    }
+
+    .guide-topbar h2 {
+      margin: 0;
+      color: var(--text);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.35rem;
+      line-height: 1.05;
+      text-align: center;
+      letter-spacing: 0;
+    }
+
+    .guide-topbar-spacer {
+      width: 42px;
+      height: 42px;
+    }
+
+    .guide-close {
+      display: grid;
+      place-items: center;
+      width: 42px;
+      height: 42px;
+      border: 1px solid rgba(234, 212, 158, .16);
+      border-radius: 999px;
+      background: rgba(8, 6, 16, .28);
+      color: var(--gold);
+      cursor: pointer;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, .05);
+    }
+
+    .guide-search {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 48px;
+      padding: 0 12px;
+      border: 1px solid rgba(234, 212, 158, .16);
+      border-radius: 16px;
+      background: rgba(8, 6, 16, .28);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, .05);
+    }
+
+    .guide-search-icon {
+      display: grid;
+      place-items: center;
+      width: 18px;
+      height: 18px;
+      color: var(--gold);
+      flex: 0 0 auto;
+    }
+
+    .guide-search input {
+      width: 100%;
+      min-width: 0;
+      border: 0;
+      background: transparent;
+      color: var(--text);
+      font: 700 .95rem/1 inherit;
+      outline: none;
+    }
+
+    .guide-search input::placeholder {
+      color: rgba(207, 194, 223, .72);
+    }
+
+    .guide-filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .guide-filter {
+      min-height: 32px;
+      border: 1px solid rgba(234, 212, 158, .16);
+      border-radius: 999px;
+      padding: 0 11px;
+      background: rgba(8, 6, 16, .24);
+      color: var(--muted);
+      font: 800 .74rem/1 inherit;
+      cursor: pointer;
+      transition: background .2s ease, color .2s ease, transform .2s ease, opacity .2s ease;
+    }
+
+    .guide-filter.active {
+      background: linear-gradient(135deg, rgba(241, 207, 122, .24), rgba(185, 156, 255, .22));
+      color: var(--text);
+      box-shadow: 0 10px 28px rgba(0, 0, 0, .22);
+    }
+
+    .guide-filter:disabled {
+      cursor: default;
+      opacity: .38;
+    }
+
+    .guide-counter {
+      margin: 0;
+      color: var(--gold);
+      font-size: .78rem;
+      font-weight: 700;
+      line-height: 1.3;
+      text-align: center;
+    }
+
+    .guide-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .guide-card {
+      display: grid;
+      gap: 8px;
+      min-width: 0;
+      border: 1px solid rgba(234, 212, 158, .16);
+      border-radius: 18px;
+      padding: 9px;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, .055), rgba(255, 255, 255, .02)),
+        rgba(8, 6, 16, .32);
+      box-shadow: 0 14px 30px rgba(0, 0, 0, .28);
+      cursor: pointer;
+      transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+      text-align: left;
+    }
+
+    .guide-card:hover {
+      transform: translateY(-1px);
+    }
+
+    .guide-card.focused {
+      border-color: rgba(241, 207, 122, .52);
+      box-shadow: 0 18px 34px rgba(0, 0, 0, .34), 0 0 0 1px rgba(241, 207, 122, .18);
+    }
+
+    .guide-card-media {
+      position: relative;
+      display: grid;
+      place-items: center;
+      aspect-ratio: 2 / 3.45;
+      border-radius: 14px;
+      overflow: hidden;
+      background: rgba(255, 255, 255, .04);
+    }
+
+    .guide-card-image {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      background: rgba(255, 255, 255, .04);
+    }
+
+    .guide-card-body {
+      display: grid;
+      gap: 4px;
+      padding: 8px 2px 1px;
+    }
+
+    .guide-card-name {
+      margin: 0;
+      color: var(--text);
+      font: 850 .98rem/1.14 inherit;
+      overflow-wrap: anywhere;
+    }
+
+    .guide-card-meanings {
+      margin: 4px 0 0;
+      color: var(--gold);
+      font: 700 .72rem/1.26 inherit;
+      overflow-wrap: anywhere;
+    }
+
+    .guide-empty {
+      margin: 2px 0 0;
+      color: var(--muted);
+      font-size: .9rem;
+      line-height: 1.4;
+      text-align: center;
     }
 
     .settings-body {
@@ -1026,24 +1287,42 @@
 	  white-space: nowrap;
 	}
 
-	.lightbox-actions {
-	  display: flex;
-	  justify-content: center;
-	  width: 100%;
-	  margin-top: 2px;
-	}
+    .lightbox-actions {
+      display: flex;
+      justify-content: center;
+      position: relative;
+      width: 100%;
+      padding-right: 52px;
+      margin-top: 2px;
+    }
 
-	.lightbox-share {
-	  min-height: 44px;
+    .lightbox-share {
+      min-height: 44px;
 	  padding: 0 18px;
 	  border: 1px solid rgba(241, 207, 122, .42);
 	  border-radius: 999px;
 	  background: rgba(241, 207, 122, .12);
 	  color: var(--gold);
-	  font: 850 .92rem/1 inherit;
-	  cursor: pointer;
-	  box-shadow: 0 10px 24px rgba(0, 0, 0, .22);
-	}
+      font: 850 .92rem/1 inherit;
+      cursor: pointer;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, .22);
+    }
+
+    .lightbox-guide-link {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      display: grid;
+      place-items: center;
+      width: 40px;
+      height: 40px;
+      border: 0;
+      border-radius: 50%;
+      background: transparent;
+      color: var(--gold);
+      cursor: pointer;
+      transition: background .2s ease, transform .2s ease, filter .2s ease;
+    }
 
     .image-preview {
       position: fixed;
@@ -1439,6 +1718,7 @@
 </head>
 <body>
   <main class="app">
+    <div class="main-screen" id="main-screen">
     <header class="top">
       <div class="mark" aria-hidden="true">
         <svg width="34" height="34" viewBox="0 0 64 64" fill="none">
@@ -1496,21 +1776,67 @@
 
     <section class="result" id="result" aria-live="polite"></section>
 
-    <details class="settings">
-      <summary aria-label="Настройки" title="Настройки">⚙</summary>
-      <div class="settings-body">
-        <div class="setting-row">
-          <div>
-            <p class="setting-title">Перевернутые карты</p>
-            <p class="setting-description">Если включить, карта может выпасть прямой или перевернутой. Это усложняет трактовку и подходит для более опытного чтения.</p>
+    <div class="bottom-quick-actions">
+      <details class="settings">
+        <summary aria-label="Настройки" title="Настройки">⚙</summary>
+        <div class="settings-body">
+          <div class="setting-row">
+            <div>
+              <p class="setting-title">Перевернутые карты</p>
+              <p class="setting-description">Если включить, карта может выпасть прямой или перевернутой. Это усложняет трактовку и подходит для более опытного чтения.</p>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="use-reversed-cards" aria-label="Перевернутые карты">
+              <span class="switch-ui" aria-hidden="true"></span>
+            </label>
           </div>
-          <label class="switch">
-            <input type="checkbox" id="use-reversed-cards" aria-label="Перевернутые карты">
-            <span class="switch-ui" aria-hidden="true"></span>
-          </label>
         </div>
+      </details>
+      <button class="guide-toggle" id="open-guide" type="button" aria-label="Справочник карт" title="Справочник карт">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <rect x="4.5" y="5" width="10" height="14" rx="2" stroke="currentColor" stroke-width="1.8"/>
+          <rect x="9.5" y="3.5" width="10" height="14" rx="2" stroke="currentColor" stroke-width="1.8"/>
+          <path d="M11.5 8.5h2M11.5 11.5h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+    </div>
+
+    <section class="guide-screen" id="guide-screen" aria-labelledby="guide-title" hidden>
+      <div class="guide-topbar">
+        <button class="guide-close" id="guide-close" type="button" aria-label="Закрыть справочник карт" title="Закрыть справочник карт">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M14 6 8 12l6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <h2 id="guide-title">Справочник карт</h2>
+        <span class="guide-topbar-spacer" aria-hidden="true"></span>
       </div>
-    </details>
+
+      <label class="guide-search" for="guide-search-input">
+        <span class="guide-search-icon" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+            <circle cx="10.5" cy="10.5" r="6.5" stroke="currentColor" stroke-width="2"/>
+            <path d="M15.5 15.5 20 20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </span>
+        <input id="guide-search-input" type="search" placeholder="Поиск по названию" autocomplete="off" />
+      </label>
+
+      <div class="guide-filters" id="guide-filters" role="group" aria-label="Фильтр по группе">
+        <button class="guide-filter active" type="button" data-guide-group="all">Все</button>
+        <button class="guide-filter" type="button" data-guide-group="major">Старшие</button>
+        <button class="guide-filter" type="button" data-guide-group="cups">Кубки</button>
+        <button class="guide-filter" type="button" data-guide-group="swords">Мечи</button>
+        <button class="guide-filter" type="button" data-guide-group="wands">Жезлы</button>
+        <button class="guide-filter" type="button" data-guide-group="pentacles">Пентакли</button>
+        <button class="guide-filter" type="button" data-guide-group="court">Двор</button>
+      </div>
+
+      <p class="guide-counter" id="guide-counter"></p>
+      <div class="guide-grid" id="guide-grid"></div>
+      <p class="guide-empty" id="guide-empty" hidden>Ничего не найдено. Попробуйте другой поиск или фильтр.</p>
+    </section>
   </main>
 
   <div class="toast" id="toast"></div>
@@ -1542,6 +1868,12 @@
       </div>
       <div class="lightbox-actions">
         <button class="lightbox-share" id="card-lightbox-share" type="button">Поделиться</button>
+        <button class="lightbox-guide-link" id="card-lightbox-guide" type="button" aria-label="Посмотреть в справочнике" title="Посмотреть в справочнике">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M5 6.5A2.5 2.5 0 0 1 7.5 4H18v14H7.5A2.5 2.5 0 0 0 5 20.5V6.5Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+            <path d="M8 8.5h6M8 12h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </button>
       </div>
     </div>
   </div>
@@ -1800,6 +2132,17 @@
     const cardDeckSelect = document.querySelector("#card-deck-select");
     const poolModeNote = document.querySelector("#pool-mode-note");
     const useReversedToggle = document.querySelector("#use-reversed-cards");
+    const mainScreen = document.querySelector("#main-screen");
+    const guideScreen = document.querySelector("#guide-screen");
+    const openGuideButton = document.querySelector("#open-guide");
+    const guideCloseButton = document.querySelector("#guide-close");
+    const guideSearchInput = document.querySelector("#guide-search-input");
+    const guideCounter = document.querySelector("#guide-counter");
+    const guideEmpty = document.querySelector("#guide-empty");
+    const guideGrid = document.querySelector("#guide-grid");
+    const guideFilters = document.querySelector("#guide-filters");
+    const guideFilterButtons = [...guideFilters.querySelectorAll(".guide-filter")];
+    const cardLightboxGuide = document.querySelector("#card-lightbox-guide");
     const useReversedStorageKey = "tarot-use-reversed-cards";
     const cardDeckStorageKey = "tarot-card-deck-id";
     const poolModeStorageKey = "tarot-card-pool-mode";
@@ -1808,6 +2151,9 @@
     let currentLightboxIndex = 0;
     let lightboxTouchStart = null;
     let shareInProgress = false;
+    let guideSearchValue = "";
+    let guideGroup = "all";
+    let guideFocusCardId = "";
 
     const cardDecks = [
       {
@@ -1934,6 +2280,9 @@
         writePoolMode(poolMode);
         applyPoolMode();
         rerenderCurrentReading({ redrawIfInvalid: true });
+        if (!guideScreen.hidden) {
+          renderGuideView({ focusCardId: guideFocusCardId });
+        }
       });
     });
 
@@ -1944,6 +2293,9 @@
       applySelectedCardDeck();
       applyPoolMode();
       rerenderCurrentReading({ redrawIfInvalid: adjusted });
+      if (!guideScreen.hidden) {
+        renderGuideView({ focusCardId: guideFocusCardId });
+      }
     });
 
     useReversedToggle.addEventListener("change", () => {
@@ -1974,6 +2326,45 @@
       }
       const cardButtons = [...result.querySelectorAll(".tarot-card")];
       openCardLightbox(cardButtons.map(lightboxCardFromButton), cardButtons.indexOf(cardButton));
+    });
+
+    openGuideButton.addEventListener("click", () => {
+      openGuideView();
+    });
+
+    guideCloseButton.addEventListener("click", closeGuideView);
+
+    guideSearchInput.addEventListener("input", () => {
+      guideFocusCardId = "";
+      renderGuideView();
+    });
+
+    guideFilters.addEventListener("click", event => {
+      const button = event.target.closest(".guide-filter");
+      if (!button) {
+        return;
+      }
+      guideGroup = button.dataset.guideGroup || "all";
+      guideFocusCardId = "";
+      renderGuideView();
+    });
+
+    guideGrid.addEventListener("click", event => {
+      const cardButton = event.target.closest(".guide-card");
+      if (!cardButton) {
+        return;
+      }
+      openCardLightbox([lightboxCardFromButton(cardButton)]);
+    });
+
+    cardLightboxGuide.addEventListener("click", () => {
+      if (!currentLightboxCard) {
+        return;
+      }
+      openGuideView({
+        name: currentLightboxCard.name,
+        cardId: currentLightboxCard.cardId || "",
+      });
     });
 
     cardLightbox.addEventListener("click", event => {
@@ -2026,6 +2417,10 @@
     }, { passive: true });
 
     document.addEventListener("keydown", event => {
+      if (!guideScreen.hidden && cardLightbox.hidden && event.key === "Escape") {
+        closeGuideView();
+        return;
+      }
       if (cardLightbox.hidden) {
         return;
       }
@@ -2228,6 +2623,174 @@
 
     function getActivePoolDeck() {
       return poolModes.find(mode => mode.id === poolMode)?.deck ?? fullDeck;
+    }
+
+    function getGuideCards() {
+      return getActivePoolDeck();
+    }
+
+    function guideGroupForCard(card) {
+      if (isMajorCard(card)) {
+        return "major";
+      }
+      if (isCourtCard(card)) {
+        return "court";
+      }
+      const suit = card.id.split("-")[0];
+      return ["cups", "swords", "wands", "pentacles"].includes(suit) ? suit : "all";
+    }
+
+    function guideGroupLabel(group) {
+      return {
+        all: "Все карты",
+        major: "Старшие арканы",
+        cups: "Кубки",
+        swords: "Мечи",
+        wands: "Жезлы",
+        pentacles: "Пентакли",
+        court: "Двор",
+      }[group] ?? "Карты";
+    }
+
+    function guideCardMatchesGroup(card, group) {
+      if (group === "all") {
+        return true;
+      }
+      if (group === "major") {
+        return isMajorCard(card);
+      }
+      if (group === "court") {
+        return isCourtCard(card);
+      }
+      return card.id.startsWith(`${group}-`);
+    }
+
+    function guideCardMatchesSearch(card, searchValue) {
+      if (!searchValue) {
+        return true;
+      }
+      return card.n.toLowerCase().includes(searchValue);
+    }
+
+    function guideCardFromData(card) {
+      return {
+        name: card.n,
+        role: guideGroupLabel(guideGroupForCard(card)),
+        index: 0,
+        cardId: card.id,
+        baseImage: card.image,
+        image: cardImageForDeck(card),
+        meaning: card.m,
+        message: card.d,
+        reversed: false,
+      };
+    }
+
+    function renderGuideCard(card, focused = false) {
+      const safeName = escapeHtml(card.n);
+      const safeMeaning = escapeHtml(card.m);
+      const cardImage = cardImageForDeck(card);
+      const role = escapeHtml(guideGroupLabel(guideGroupForCard(card)));
+      return `
+        <button
+          class="guide-card ${focused ? "focused" : ""}"
+          type="button"
+          style="--c1:${card.c[0]}; --c2:${card.c[1]}; --card-glow:${card.glow}"
+          data-card-name="${safeName}"
+          data-card-role="${role}"
+          data-card-index="0"
+          data-card-id="${card.id}"
+          data-base-image="${card.image}"
+          data-card-image="${cardImage}"
+          data-card-meaning="${safeMeaning}"
+          data-card-message="${escapeHtml(card.d)}"
+          data-card-reversed="false"
+          aria-label="Открыть карту ${safeName}"
+          title="Нажмите, чтобы открыть карту">
+          <span class="guide-card-media">
+            <img class="guide-card-image" src="${cardImage}" alt="${safeName}" loading="lazy" decoding="async" data-card-id="${card.id}" data-base-image="${card.image}" data-fallback-name="${safeName}" onerror="handleCardImageError(this);">
+            <span class="card-fallback" hidden>
+              <span class="roman">${escapeHtml(card.r)}</span>
+              <span class="glyph-wrap">
+                <svg class="glyph" viewBox="0 0 64 64" fill="none" aria-hidden="true">${cardArt(card)}</svg>
+              </span>
+              <span class="mini-name">${safeName}</span>
+            </span>
+          </span>
+          <span class="guide-card-body">
+            <span class="guide-card-name">${safeName}</span>
+            <span class="guide-card-meanings">${safeMeaning}</span>
+          </span>
+        </button>
+      `;
+    }
+
+    function updateGuideFilterButtons(availableGroups) {
+      guideFilterButtons.forEach(button => {
+        const isActive = button.dataset.guideGroup === guideGroup;
+        const group = button.dataset.guideGroup || "all";
+        button.disabled = group !== "all" && !availableGroups.has(group);
+        button.classList.toggle("active", isActive);
+        button.setAttribute("aria-pressed", String(isActive));
+      });
+    }
+
+    function renderGuideView({ focusCardId = guideFocusCardId } = {}) {
+      const pool = getGuideCards();
+      const availableGroups = new Set(pool.map(guideGroupForCard));
+      if (guideGroup !== "all" && !availableGroups.has(guideGroup)) {
+        guideGroup = "all";
+      }
+      guideSearchValue = normalizeGuideSearch(guideSearchInput.value);
+      const filtered = pool.filter(card => guideCardMatchesGroup(card, guideGroup) && guideCardMatchesSearch(card, guideSearchValue));
+      guideCounter.textContent = filtered.length
+        ? `Показано ${filtered.length} из ${pool.length}`
+        : `Показано 0 из ${pool.length}`;
+      guideEmpty.hidden = filtered.length > 0;
+      guideGrid.innerHTML = filtered.map(card => renderGuideCard(card, card.id === focusCardId)).join("");
+      updateGuideFilterButtons(availableGroups);
+
+      if (!filtered.length) {
+        return;
+      }
+
+      if (focusCardId) {
+        requestAnimationFrame(() => {
+          const target = guideGrid.querySelector(`[data-card-id="${focusCardId}"]`);
+          target?.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" });
+        });
+      }
+    }
+
+    function closeGuideView() {
+      if (guideScreen.hidden) {
+        return;
+      }
+      guideScreen.hidden = true;
+      mainScreen.hidden = false;
+      guideFocusCardId = "";
+      requestAnimationFrame(() => openGuideButton?.focus({ preventScroll: true }));
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function openGuideView(card = null) {
+      closeImagePreview();
+      closeCardLightbox();
+      guideFocusCardId = card?.cardId || card?.id || "";
+      if (card?.name) {
+        guideGroup = "all";
+        const isAvailable = guideFocusCardId ? getGuideCards().some(item => item.id === guideFocusCardId) : false;
+        guideSearchInput.value = isAvailable ? card.name : "";
+        guideSearchValue = normalizeGuideSearch(guideSearchInput.value);
+        if (!isAvailable) {
+          guideFocusCardId = "";
+        }
+      }
+      guideScreen.hidden = false;
+      mainScreen.hidden = true;
+      renderGuideView({ focusCardId: guideFocusCardId });
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      requestAnimationFrame(() => guideSearchInput.focus({ preventScroll: true }));
     }
 
     function rerenderCurrentReading({ redrawIfInvalid } = { redrawIfInvalid: false }) {
