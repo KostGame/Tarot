@@ -1513,7 +1513,7 @@
       return /-(11-page|12-knight|13-queen|14-king)$/.test(card.id);
     }
 
-    function buildMajorDeckMap(basePath) {
+    function buildMajorDeckMap(basePath, extension = "png") {
       const map = {};
       [
         "major-00-fool",
@@ -1539,13 +1539,13 @@
         "major-20-judgement",
         "major-21-world",
       ].forEach(cardId => {
-        map[cardId] = `${basePath}/${cardId}.png`;
+        map[cardId] = `${basePath}/${cardId}.${extension}`;
       });
       return map;
     }
 
-    function buildFullDeckMap(basePath) {
-      const map = buildMajorDeckMap(basePath);
+    function buildFullDeckMap(basePath, extension = "png") {
+      const map = buildMajorDeckMap(basePath, extension);
       [
         "cups",
         "swords",
@@ -1568,7 +1568,7 @@
           "13-queen",
           "14-king",
         ].forEach(rank => {
-          map[`${suit}-${rank}`] = `${basePath}/${suit}-${rank}.png`;
+          map[`${suit}-${rank}`] = `${basePath}/${suit}-${rank}.${extension}`;
         });
       });
       return map;
@@ -1690,6 +1690,20 @@
         coverage: "full",
         fallbackDeckId: "rws-classic",
         sourceUrl: "https://commons.wikimedia.org/wiki/Category:Rider-Waite-Smith_tarot_deck_(TaionWC)",
+      },
+      {
+        id: "marseille-historical",
+        name: "Tarot de Marseille",
+        label: "Tarot de Marseille",
+        optionLabel: "Tarot de Marseille · историческая · экспериментальная",
+        description: "Историческая колода Nicolas Conver 1760, только старшие арканы",
+        cssClass: "deck-marseille-historical",
+        status: "experimental",
+        coverage: "major-only",
+        fallbackDeckId: "rws-classic",
+        sourceUrl: "https://commons.wikimedia.org/wiki/Category:Tarot_de_Marseille_-_Nicolas_Conver_1760",
+        licenseNote: "CC BY-SA 4.0 на страницах файлов Commons; проверьте атрибуцию при дальнейшем использовании",
+        cards: buildMajorDeckMap("assets/cards-experimental/marseille-historical", "jpg"),
       },
       {
         id: "pixel-tarot",
@@ -2045,8 +2059,12 @@
         poolMode = safeMode;
         writePoolMode(poolMode);
         if (notify) {
-          const modeLabel = poolModes.find(mode => mode.id === poolMode)?.label ?? "";
-          showPoolModeNote(`Короткая колода включена: в выбранном наборе доступны ${modeLabel.toLowerCase()}.`);
+          if (selectedCardDeck.id === "marseille-historical") {
+            showPoolModeNote("Tarot de Marseille подключена как историческая колода только со старшими арканами. Младшие карты не входят в pack.");
+          } else {
+            const modeLabel = poolModes.find(mode => mode.id === poolMode)?.label ?? "";
+            showPoolModeNote(`Короткая колода включена: в выбранном наборе доступны ${modeLabel.toLowerCase()}.`);
+          }
         }
       } else {
         hidePoolModeNote();
