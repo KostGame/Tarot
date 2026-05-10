@@ -2370,7 +2370,7 @@
       ctx.textAlign = "center";
       ctx.fillText(card.role || "Карта дня", width / 2, 158);
 
-      const cardBox = fitRect(cardImage.width, cardImage.height, 260, 205, 560, 850);
+      const cardBox = fitRect(cardImage.width, cardImage.height, 270, 195, 540, 800);
       ctx.save();
       ctx.shadowColor = "rgba(0,0,0,.5)";
       ctx.shadowBlur = 38;
@@ -2391,22 +2391,22 @@
       ctx.fillStyle = cream;
       ctx.font = "800 80px system-ui, -apple-system, Segoe UI, sans-serif";
       ctx.textAlign = "center";
-      wrapCanvasText(ctx, `${card.name}${orientation}`, width / 2, 1106, 880, 88, 2);
+      wrapCanvasText(ctx, `${card.name}${orientation}`, width / 2, 1124, 880, 88, 2);
 
       ctx.fillStyle = gold;
       ctx.font = "700 46px system-ui, -apple-system, Segoe UI, sans-serif";
-      wrapCanvasText(ctx, card.meaning, width / 2, 1254, 830, 58, 3);
+      wrapCanvasText(ctx, card.meaning, width / 2, 1290, 830, 58, 3);
 
       ctx.strokeStyle = "rgba(241,207,122,.28)";
       ctx.lineWidth = 2;
       ctx.beginPath();
-      ctx.moveTo(235, 1430);
-      ctx.lineTo(width - 235, 1430);
+      ctx.moveTo(235, 1460);
+      ctx.lineTo(width - 235, 1460);
       ctx.stroke();
 
       ctx.fillStyle = muted;
       ctx.font = "400 52px system-ui, -apple-system, Segoe UI, sans-serif";
-      wrapCanvasText(ctx, card.message, width / 2, 1504, 860, 68, 4);
+      wrapCanvasText(ctx, card.message, width / 2, 1532, 860, 68, 4);
 
       ctx.fillStyle = gold;
       ctx.font = "700 34px system-ui, -apple-system, Segoe UI, sans-serif";
