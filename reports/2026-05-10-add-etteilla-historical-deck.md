@@ -6,9 +6,9 @@
 
 - Ветка: `feature/add-etteilla-historical-deck`
 - Issue: https://github.com/KostGame/Tarot/issues/26
-- PR: будет добавлен после публикации ветки.
+- PR: https://github.com/KostGame/Tarot/pull/27
 - PR смержен: нет.
-- Commit hash: будет добавлен после коммита.
+- Commit hash: `e417297a2557dee2e9f8e482cb336fae503a6438`
 - Merge commit hash: нет.
 - GitHub Pages: https://kostgame.github.io/Tarot/
 
