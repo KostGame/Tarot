@@ -462,6 +462,10 @@
       color: rgba(207, 194, 223, .72);
     }
 
+    .guide-deck-picker {
+      margin: 0 auto 2px;
+    }
+
     .guide-filters {
       display: flex;
       flex-wrap: wrap;
@@ -502,17 +506,18 @@
 
     .guide-grid {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-columns: minmax(0, 1fr);
       gap: 10px;
     }
 
     .guide-card {
       display: grid;
-      gap: 8px;
+      grid-template-columns: 74px minmax(0, 1fr);
+      gap: 10px;
       min-width: 0;
       border: 1px solid rgba(234, 212, 158, .16);
       border-radius: 18px;
-      padding: 9px;
+      padding: 9px 10px;
       background:
         linear-gradient(180deg, rgba(255, 255, 255, .055), rgba(255, 255, 255, .02)),
         rgba(8, 6, 16, .32);
@@ -524,6 +529,11 @@
 
     .guide-card:hover {
       transform: translateY(-1px);
+    }
+
+    .guide-card:focus-visible {
+      outline: 2px solid rgba(241, 207, 122, .78);
+      outline-offset: 3px;
     }
 
     .guide-card.focused {
@@ -551,8 +561,16 @@
 
     .guide-card-body {
       display: grid;
-      gap: 4px;
-      padding: 8px 2px 1px;
+      gap: 5px;
+      min-width: 0;
+      padding: 1px 0;
+    }
+
+    .guide-card-heading {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 34px;
+      gap: 8px;
+      align-items: start;
     }
 
     .guide-card-name {
@@ -562,11 +580,63 @@
       overflow-wrap: anywhere;
     }
 
+    .guide-card-native {
+      margin: -2px 0 0;
+      color: rgba(207, 194, 223, .72);
+      font: 700 .72rem/1.2 inherit;
+      overflow-wrap: anywhere;
+    }
+
+    .guide-favorite {
+      display: grid;
+      place-items: center;
+      width: 32px;
+      height: 32px;
+      border: 1px solid rgba(234, 212, 158, .18);
+      border-radius: 50%;
+      background: rgba(8, 6, 16, .32);
+      color: rgba(241, 207, 122, .62);
+      font: 900 1rem/1 inherit;
+      cursor: pointer;
+    }
+
+    .guide-favorite.active {
+      background: rgba(241, 207, 122, .12);
+      color: var(--gold);
+    }
+
     .guide-card-meanings {
       margin: 4px 0 0;
       color: var(--gold);
       font: 700 .72rem/1.26 inherit;
       overflow-wrap: anywhere;
+    }
+
+    .guide-card-short {
+      margin: 0;
+      color: var(--muted);
+      font-size: .78rem;
+      line-height: 1.34;
+      overflow-wrap: anywhere;
+    }
+
+    .guide-card-details {
+      margin: 1px 0 0;
+      color: rgba(207, 194, 223, .86);
+      font-size: .76rem;
+      line-height: 1.34;
+    }
+
+    .guide-card-details summary {
+      width: fit-content;
+      color: var(--gold);
+      font-weight: 850;
+      cursor: pointer;
+      list-style-position: inside;
+    }
+
+    .guide-card-details p {
+      margin: 7px 0 0;
     }
 
     .guide-empty {
@@ -1210,6 +1280,8 @@
 	  width: 100%;
 	  max-width: 370px;
 	  min-height: 0;
+	  max-height: min(34svh, 320px);
+	  overflow-y: auto;
 	  padding: 0 4px;
 	  border: 0;
 	  border-radius: 0;
@@ -1239,6 +1311,18 @@
 	  font-weight: 400;
 	  line-height: 1.36;
 	  text-align: center;
+	}
+
+	#card-lightbox-message .guide-lightbox-section {
+	  margin: 12px 0 0;
+	}
+
+	#card-lightbox-message .guide-lightbox-section strong {
+	  display: block;
+	  margin-bottom: 3px;
+	  color: var(--gold);
+	  font-size: .86em;
+	  font-weight: 900;
 	}
 
     .lightbox-description p {
@@ -1882,8 +1966,15 @@
         <input id="guide-search-input" type="search" placeholder="Поиск по названию" autocomplete="off" />
       </label>
 
+      <label class="card-deck-picker guide-deck-picker">
+        <span class="card-deck-icon">Колода</span>
+        <span class="sr-only">Стиль карт в справочнике</span>
+        <select id="guide-card-deck-select" aria-label="Стиль карт в справочнике"></select>
+      </label>
+
       <div class="guide-filters" id="guide-filters" role="group" aria-label="Фильтр по группе">
         <button class="guide-filter active" type="button" data-guide-group="all">Все</button>
+        <button class="guide-filter" type="button" data-guide-group="favorites">Избранные</button>
         <button class="guide-filter" type="button" data-guide-group="major">Старшие</button>
         <button class="guide-filter" type="button" data-guide-group="cups">Кубки</button>
         <button class="guide-filter" type="button" data-guide-group="swords">Мечи</button>
@@ -2189,6 +2280,7 @@
     const imagePreview = document.querySelector("#image-preview");
     const imagePreviewCard = document.querySelector("#image-preview-card");
     const cardDeckSelect = document.querySelector("#card-deck-select");
+    const guideCardDeckSelect = document.querySelector("#guide-card-deck-select");
     const poolModeNote = document.querySelector("#pool-mode-note");
     const useReversedToggle = document.querySelector("#use-reversed-cards");
     const mainScreen = document.querySelector("#main-screen");
@@ -2209,6 +2301,8 @@
     const useReversedStorageKey = "tarot-use-reversed-cards";
     const cardDeckStorageKey = "tarot-card-deck-id";
     const poolModeStorageKey = "tarot-card-pool-mode";
+    const guideFavoritesStorageKey = "tarot-card-guide-favorites";
+    const cardGuideContentPath = "assets/data/card-guide-content.json";
     const appShareUrl = "https://kostgame.github.io/Tarot/";
     const firebaseCounterConfig = {
       apiKey: "AIzaSyBiK-yJvgyciKJc6GnooWAywZcMu6_r-6k",
@@ -2228,6 +2322,9 @@
     let guideSearchValue = "";
     let guideGroup = "all";
     let guideFocusCardId = "";
+    let guideFavorites = readGuideFavorites();
+    let guideContentById = new Map();
+    let guideContentStatus = "loading";
     let firebaseCounterApiPromise = null;
     let firebaseCounterApi = null;
 
@@ -2374,6 +2471,16 @@
       }
     });
 
+    guideCardDeckSelect.addEventListener("change", () => {
+      selectedCardDeck = normalizeCardDeckId(guideCardDeckSelect.value);
+      writeSelectedCardDeck(selectedCardDeck.id);
+      const adjusted = enforcePoolModeForDeck({ notify: true });
+      applySelectedCardDeck();
+      applyPoolMode();
+      rerenderCurrentReading({ redrawIfInvalid: adjusted });
+      renderGuideView({ focusCardId: guideFocusCardId });
+    });
+
     useReversedToggle.addEventListener("change", () => {
       useReversedCards = useReversedToggle.checked;
       writeUseReversedCards(useReversedCards);
@@ -2432,11 +2539,36 @@
     });
 
     guideGrid.addEventListener("click", event => {
-      const cardButton = event.target.closest(".guide-card");
-      if (!cardButton) {
+      const favoriteButton = event.target.closest("[data-guide-favorite]");
+      if (favoriteButton) {
+        toggleGuideFavorite(favoriteButton.dataset.guideFavorite);
         return;
       }
-      openCardLightbox([lightboxCardFromButton(cardButton)]);
+
+      if (event.target.closest("button, a, input, textarea, select, label, summary, details")) {
+        return;
+      }
+
+      const guideCard = event.target.closest(".guide-card");
+      if (!guideCard) {
+        return;
+      }
+      openCardLightbox([lightboxCardFromButton(guideCard)]);
+    });
+
+    guideGrid.addEventListener("keydown", event => {
+      if (event.key !== "Enter" && event.key !== " ") {
+        return;
+      }
+      if (event.target.closest("button, a, input, textarea, select, label, summary, details")) {
+        return;
+      }
+      const guideCard = event.target.closest(".guide-card");
+      if (!guideCard) {
+        return;
+      }
+      event.preventDefault();
+      openCardLightbox([lightboxCardFromButton(guideCard)]);
     });
 
     cardLightboxGuide.addEventListener("click", () => {
@@ -2615,9 +2747,11 @@
     }
 
     function renderCardDeckOptions() {
-      cardDeckSelect.innerHTML = cardDecks
+      const options = cardDecks
         .map(deck => `<option value="${deck.id}" ${deck.id === selectedCardDeck.id ? "selected" : ""}>${deck.optionLabel ?? deck.label}</option>`)
         .join("");
+      cardDeckSelect.innerHTML = options;
+      guideCardDeckSelect.innerHTML = options;
     }
 
     function readSelectedCardDeck() {
@@ -2664,6 +2798,7 @@
       cardDecks.forEach(deck => document.body.classList.remove(deck.cssClass));
       document.body.classList.add(selectedCardDeck.cssClass);
       cardDeckSelect.value = selectedCardDeck.id;
+      guideCardDeckSelect.value = selectedCardDeck.id;
     }
 
     function applyPoolMode() {
@@ -2707,8 +2842,70 @@
       return poolModes.find(mode => mode.id === poolMode)?.deck ?? fullDeck;
     }
 
+    function readGuideFavorites() {
+      try {
+        const parsed = JSON.parse(localStorage.getItem(guideFavoritesStorageKey) || "[]");
+        return new Set(Array.isArray(parsed) ? parsed.filter(Boolean) : []);
+      } catch {
+        return new Set();
+      }
+    }
+
+    function writeGuideFavorites() {
+      try {
+        localStorage.setItem(guideFavoritesStorageKey, JSON.stringify([...guideFavorites]));
+      } catch {
+        showToast("Не удалось сохранить избранные карты в этом браузере.");
+      }
+    }
+
+    function toggleGuideFavorite(cardId) {
+      if (!cardId) {
+        return;
+      }
+      if (guideFavorites.has(cardId)) {
+        guideFavorites.delete(cardId);
+      } else {
+        guideFavorites.add(cardId);
+      }
+      writeGuideFavorites();
+      renderGuideView({ focusCardId: cardId });
+    }
+
+    async function loadCardGuideContent() {
+      try {
+        const response = await fetch(cardGuideContentPath, { cache: "no-cache" });
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}`);
+        }
+        const data = await response.json();
+        const cards = Array.isArray(data?.cards) ? data.cards : [];
+        guideContentById = new Map(cards.filter(card => card?.id).map(card => [card.id, card]));
+        guideContentStatus = guideContentById.size ? "loaded" : "empty";
+      } catch (error) {
+        guideContentStatus = "error";
+        console.warn("Card guide content unavailable:", error);
+      }
+
+      if (!guideScreen.hidden) {
+        renderGuideView({ focusCardId: guideFocusCardId });
+      }
+    }
+
     function getGuideCards() {
-      return getActivePoolDeck();
+      return fullDeck;
+    }
+
+    function getGuideContent(card) {
+      const content = guideContentById.get(card.id) || {};
+      return {
+        name: content.name || card.n,
+        nativeName: content.nativeName || "",
+        group: content.group || guideGroupForCard(card),
+        keywords: content.keywords || card.m,
+        short: content.short || card.d,
+        extended: content.extended || null,
+      };
     }
 
     function guideGroupForCard(card) {
@@ -2725,6 +2922,7 @@
     function guideGroupLabel(group) {
       return {
         all: "Все карты",
+        favorites: "Избранные",
         major: "Старшие арканы",
         cups: "Кубки",
         swords: "Мечи",
@@ -2737,6 +2935,9 @@
     function guideCardMatchesGroup(card, group) {
       if (group === "all") {
         return true;
+      }
+      if (group === "favorites") {
+        return guideFavorites.has(card.id);
       }
       if (group === "major") {
         return isMajorCard(card);
@@ -2751,32 +2952,77 @@
       if (!searchValue) {
         return true;
       }
-      return card.n.toLowerCase().includes(searchValue);
+      const content = getGuideContent(card);
+      return [
+        card.n,
+        content.name,
+        content.nativeName,
+        content.keywords,
+        content.short,
+      ].join(" ").toLowerCase().includes(searchValue);
     }
 
     function guideCardFromData(card) {
+      const content = getGuideContent(card);
+      const extendedHtml = renderGuideLightboxMessage(content);
       return {
-        name: card.n,
+        name: content.name,
         role: guideGroupLabel(guideGroupForCard(card)),
         index: 0,
         cardId: card.id,
         baseImage: card.image,
         image: cardImageForDeck(card),
-        meaning: card.m,
-        message: card.d,
+        meaning: content.keywords,
+        message: content.short,
+        messageHtml: extendedHtml,
         reversed: false,
       };
     }
 
+    function guideExtendedSections(content) {
+      const extended = content.extended || {};
+      return [
+        ["Образ", extended.image],
+        ["Символика", extended.symbolism],
+        ["Значение", extended.meanings],
+        ["Тон", extended.tone],
+      ].filter(([, text]) => Boolean(text));
+    }
+
+    function renderGuideExtendedHtml(content) {
+      const sections = guideExtendedSections(content);
+      if (!sections.length) {
+        return "";
+      }
+      return sections
+        .map(([title, text]) => `<p><strong>${escapeHtml(title)}.</strong> ${escapeHtml(String(text))}</p>`)
+        .join("");
+    }
+
+    function renderGuideLightboxMessage(content) {
+      const intro = content.short ? `<p>${escapeHtml(content.short)}</p>` : "";
+      const details = guideExtendedSections(content)
+        .map(([title, text]) => `<p class="guide-lightbox-section"><strong>${escapeHtml(title)}</strong>${escapeHtml(String(text))}</p>`)
+        .join("");
+      return intro + details;
+    }
+
     function renderGuideCard(card, focused = false) {
-      const safeName = escapeHtml(card.n);
-      const safeMeaning = escapeHtml(card.m);
+      const content = getGuideContent(card);
+      const safeName = escapeHtml(content.name);
+      const safeNativeName = escapeHtml(content.nativeName);
+      const safeMeaning = escapeHtml(content.keywords);
+      const safeShort = escapeHtml(content.short);
+      const detailsHtml = renderGuideExtendedHtml(content);
+      const lightboxMessageHtml = renderGuideLightboxMessage(content);
       const cardImage = cardImageForDeck(card);
       const role = escapeHtml(guideGroupLabel(guideGroupForCard(card)));
+      const isFavorite = guideFavorites.has(card.id);
       return `
-        <button
+        <article
           class="guide-card ${focused ? "focused" : ""}"
-          type="button"
+          role="button"
+          tabindex="0"
           style="--c1:${card.c[0]}; --c2:${card.c[1]}; --card-glow:${card.glow}"
           data-card-name="${safeName}"
           data-card-role="${role}"
@@ -2785,7 +3031,8 @@
           data-base-image="${card.image}"
           data-card-image="${cardImage}"
           data-card-meaning="${safeMeaning}"
-          data-card-message="${escapeHtml(card.d)}"
+          data-card-message="${safeShort}"
+          data-card-message-html="${escapeHtml(lightboxMessageHtml)}"
           data-card-reversed="false"
           aria-label="Открыть карту ${safeName}"
           title="Нажмите, чтобы открыть карту">
@@ -2800,10 +3047,18 @@
             </span>
           </span>
           <span class="guide-card-body">
-            <span class="guide-card-name">${safeName}</span>
+            <span class="guide-card-heading">
+              <span>
+                <span class="guide-card-name">${safeName}</span>
+                ${safeNativeName ? `<span class="guide-card-native">${safeNativeName}</span>` : ""}
+              </span>
+              <button class="guide-favorite ${isFavorite ? "active" : ""}" type="button" data-guide-favorite="${card.id}" aria-pressed="${isFavorite}" aria-label="${isFavorite ? "Убрать из избранного" : "Добавить в избранное"} ${safeName}" title="${isFavorite ? "Убрать из избранного" : "Добавить в избранное"}">★</button>
+            </span>
             <span class="guide-card-meanings">${safeMeaning}</span>
+            <span class="guide-card-short">${safeShort}</span>
+            ${detailsHtml ? `<details class="guide-card-details"><summary>Развернуть описание</summary>${detailsHtml}</details>` : ""}
           </span>
-        </button>
+        </article>
       `;
     }
 
@@ -2811,7 +3066,7 @@
       guideFilterButtons.forEach(button => {
         const isActive = button.dataset.guideGroup === guideGroup;
         const group = button.dataset.guideGroup || "all";
-        button.disabled = group !== "all" && !availableGroups.has(group);
+        button.disabled = group !== "all" && group !== "favorites" && !availableGroups.has(group);
         button.classList.toggle("active", isActive);
         button.setAttribute("aria-pressed", String(isActive));
       });
@@ -2820,15 +3075,17 @@
     function renderGuideView({ focusCardId = guideFocusCardId } = {}) {
       const pool = getGuideCards();
       const availableGroups = new Set(pool.map(guideGroupForCard));
-      if (guideGroup !== "all" && !availableGroups.has(guideGroup)) {
+      if (guideGroup !== "all" && guideGroup !== "favorites" && !availableGroups.has(guideGroup)) {
         guideGroup = "all";
       }
       guideSearchValue = normalizeGuideSearch(guideSearchInput.value);
       const filtered = pool.filter(card => guideCardMatchesGroup(card, guideGroup) && guideCardMatchesSearch(card, guideSearchValue));
-      guideCounter.textContent = filtered.length
-        ? `Показано ${filtered.length} из ${pool.length}`
-        : `Показано 0 из ${pool.length}`;
+      const contentNote = guideContentStatus === "loaded" ? "" : " · базовые тексты";
+      guideCounter.textContent = `Показано ${filtered.length} из ${pool.length}${contentNote}`;
       guideEmpty.hidden = filtered.length > 0;
+      guideEmpty.textContent = guideGroup === "favorites"
+        ? "В избранном пока пусто. Нажмите звезду на карте, чтобы сохранить ее здесь."
+        : "Ничего не найдено. Попробуйте другой поиск или фильтр.";
       guideGrid.innerHTML = filtered.map(card => renderGuideCard(card, card.id === focusCardId)).join("");
       updateGuideFilterButtons(availableGroups);
 
@@ -3052,6 +3309,7 @@
         image: cardButton.dataset.cardImage,
         meaning: cardButton.dataset.cardMeaning,
         message: cardButton.dataset.cardMessage,
+        messageHtml: cardButton.dataset.cardMessageHtml || "",
         reversed: cardButton.dataset.cardReversed === "true",
       };
     }
@@ -3108,8 +3366,12 @@
       cardLightboxTitle.textContent = card.name;
       cardLightboxOrientation.hidden = !card.reversed;
       cardLightboxMeaning.textContent = card.meaning || "";
-      cardLightboxMessage.textContent = card.message || "";
-      cardLightboxDescription.hidden = !card.meaning && !card.message;
+      if (card.messageHtml) {
+        cardLightboxMessage.innerHTML = card.messageHtml;
+      } else {
+        cardLightboxMessage.textContent = card.message || "";
+      }
+      cardLightboxDescription.hidden = !card.meaning && !card.message && !card.messageHtml;
       updateLightboxNavigation();
       const lightboxContent = cardLightbox.querySelector(".lightbox-content");
       if (lightboxContent) {
@@ -3583,7 +3845,7 @@
     }
 
     function escapeHtml(text) {
-      return text.replace(/[&<>"']/g, char => ({
+      return String(text ?? "").replace(/[&<>"']/g, char => ({
         "&": "&amp;",
         "<": "&lt;",
         ">": "&gt;",
@@ -3643,6 +3905,7 @@
     }
 
     setupSpeech();
+    void loadCardGuideContent();
     void refreshFirebaseDailyCounter();
   </script>
 </body>
