@@ -7,9 +7,9 @@
 - Ветка: `feature/etteilla-type-i-ui-blocker`
 - Issue: https://github.com/KostGame/Tarot/issues/32
 - Source: https://etteilla.org/en/deck/10/original-etteilla-tarot-le-jeu-de-toth
-- PR: будет создан после commit
+- PR: https://github.com/KostGame/Tarot/pull/33
 - PR смержен: нет
-- Commit hash: будет добавлен после commit
+- Commit hash: `798654087f1907a81c450e05f33b622c4e158009`
 - Merge commit hash: нет
 
 ## Результат
