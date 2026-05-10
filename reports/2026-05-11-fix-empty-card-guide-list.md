@@ -6,7 +6,7 @@
 
 - Ветка: `feature/issue-63-normalize-guide-search`
 - Commit: `23eb5b42e11fbdea1a2108bb28908021af9b3a6a`
-- PR: будет создан после push
+- PR: https://github.com/KostGame/Tarot/pull/64
 - Merge агентом: нет
 
 ## Причина бага
