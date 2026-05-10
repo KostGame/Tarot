@@ -42,4 +42,6 @@
 
 - Branch: `feature/issue-42-native-card-titles-fix`
 - Head commit: `3b019a7` (`Fix Marseille native title mapping`)
-- PR #62: needs to be updated on remote branch `feature/issue-42-native-card-titles`
+- PR #62: https://github.com/KostGame/Tarot/pull/62
+- PR state: ready for review
+- Remote branch updated: `feature/issue-42-native-card-titles`
