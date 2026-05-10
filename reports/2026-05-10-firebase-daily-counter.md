@@ -13,6 +13,12 @@
 - Добавлена тихая деградация: если Firebase недоступен или запрос не проходит, приложение продолжает работать как раньше и пишет только `console.warn`.
 - Добавлена документация `docs/FIREBASE_COUNTER.md`.
 
+## Git
+
+- PR: [#50 Add Firebase daily counter](https://github.com/KostGame/Tarot/pull/50)
+- Merge commit: `69ab2dbee896413f69eab5d5e03646c75123989b`
+- Ветка: `feature/firebase-daily-counter`
+
 ## Файлы
 
 - `index.html`
