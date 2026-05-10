@@ -13,7 +13,7 @@
 - Merge commit hash: нет
 - Follow-up branch: `feature/etteilla-type-i-asset-recheck`
 - Follow-up PR: https://github.com/KostGame/Tarot/pull/34
-- Follow-up commit hash: `dfb206dbc69ef7b6f703fedb72ae021229a93f48`
+- Follow-up first commit hash: `dfb206dbc69ef7b6f703fedb72ae021229a93f48`
 
 ## Результат
 
