@@ -2376,7 +2376,7 @@
       drawShareGlow(ctx, 80, 980, 320, "rgba(241,207,122,.12)");
       drawShareStars(ctx, width, height);
 
-      roundRect(ctx, 68, 68, width - 136, height - 136, 52);
+      roundRect(ctx, 56, 68, width - 112, height - 136, 52);
       ctx.fillStyle = "rgba(31,23,49,.78)";
       ctx.fill();
       ctx.strokeStyle = "rgba(241,207,122,.28)";
@@ -2384,11 +2384,11 @@
       ctx.stroke();
 
       ctx.fillStyle = gold;
-      ctx.font = "800 52px system-ui, -apple-system, Segoe UI, sans-serif";
+      ctx.font = "800 60px system-ui, -apple-system, Segoe UI, sans-serif";
       ctx.textAlign = "center";
-      ctx.fillText(card.role || "Карта дня", width / 2, 158);
+      ctx.fillText(card.role || "Карта дня", width / 2, 152);
 
-      const cardBox = fitRect(cardImage.width, cardImage.height, 270, 195, 540, 800);
+      const cardBox = fitRect(cardImage.width, cardImage.height, 320, 220, 620, 860);
       ctx.save();
       ctx.shadowColor = "rgba(0,0,0,.5)";
       ctx.shadowBlur = 38;
@@ -2407,24 +2407,24 @@
 
       const orientation = card.reversed ? ", перевернутая" : "";
       ctx.fillStyle = cream;
-      ctx.font = "800 80px system-ui, -apple-system, Segoe UI, sans-serif";
+      ctx.font = "800 84px system-ui, -apple-system, Segoe UI, sans-serif";
       ctx.textAlign = "center";
-      wrapCanvasText(ctx, `${card.name}${orientation}`, width / 2, 1124, 880, 88, 2);
+      wrapCanvasText(ctx, `${card.name}${orientation}`, width / 2, 1102, 920, 92, 2);
 
       ctx.fillStyle = gold;
-      ctx.font = "700 46px system-ui, -apple-system, Segoe UI, sans-serif";
-      wrapCanvasText(ctx, card.meaning, width / 2, 1290, 830, 58, 3);
+      ctx.font = "700 43px system-ui, -apple-system, Segoe UI, sans-serif";
+      wrapCanvasText(ctx, card.meaning, width / 2, 1268, 880, 54, 3);
 
       ctx.strokeStyle = "rgba(241,207,122,.28)";
       ctx.lineWidth = 2;
       ctx.beginPath();
-      ctx.moveTo(235, 1460);
-      ctx.lineTo(width - 235, 1460);
+      ctx.moveTo(215, 1434);
+      ctx.lineTo(width - 215, 1434);
       ctx.stroke();
 
       ctx.fillStyle = muted;
-      ctx.font = "400 52px system-ui, -apple-system, Segoe UI, sans-serif";
-      wrapCanvasText(ctx, card.message, width / 2, 1532, 860, 68, 4);
+      ctx.font = "400 49px system-ui, -apple-system, Segoe UI, sans-serif";
+      wrapCanvasText(ctx, card.message, width / 2, 1498, 900, 64, 4);
 
       ctx.fillStyle = gold;
       ctx.font = "700 34px system-ui, -apple-system, Segoe UI, sans-serif";
