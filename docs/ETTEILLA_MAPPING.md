@@ -7,6 +7,7 @@ Status: historical experimental deck, documentation only.
 ## Source
 
 - [Original Etteilla Tarot - Le Jeu de Toth](https://etteilla.org/en/deck/10/original-etteilla-tarot-le-jeu-de-toth)
+- Reuse note: the source states CC BY-NC 4.0 reuse for informational, academic, and research-oriented websites for public-domain decks.
 
 ## Deck facts
 
@@ -79,4 +80,5 @@ This is not a native Rider-Waite-Smith mapping. It is an experimental historical
 
 Keep `etteilla-type-i` as a historical experimental deck in documentation only for now.
 Do not connect the deck in the UI until a manually verified asset pack exists.
+Automated validation against the source image host returned `error code: 1016`, so the safe pack assembly step is currently blocked.
 When assets are ready, keep `rws-classic` as fallback for missing or unmapped cards.

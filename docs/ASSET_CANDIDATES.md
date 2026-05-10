@@ -95,7 +95,9 @@
 - Intended local path if approved later: `assets/cards-experimental/etteilla-type-i/`.
 - Coverage note: Original Etteilla Type I is a full `78/78` deck.
 - Mapping note: majors and minors are documented in `docs/ETTEILLA_MAPPING.md`; this is an experimental historical correspondence layer, not a native RWS mapping.
-- Decision for this task: keep `etteilla-type-i` out of the UI and do not download assets in this PR.
+- License / reuse note: the Etteilla Foundation allows reuse for informational, academic, and research-oriented websites under CC BY-NC 4.0 for public-domain decks. The project fits that non-commercial profile.
+- Blocker note for Issue #32: automated asset retrieval from the structured source returned `error code: 1016` from the image host during validation, so a safe local 78-card pack could not be assembled automatically.
+- Decision for this task: keep `etteilla-type-i` out of the UI until a manual asset pack can be downloaded and verified card by card.
 - Fallback plan if later approved: keep `rws-classic` fallback for missing or unmapped cards.
 
 ### `marseille-historical`
