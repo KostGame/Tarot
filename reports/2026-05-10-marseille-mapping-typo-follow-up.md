@@ -6,6 +6,9 @@
 
 - В [`docs/MARSEILLE_MAPPING.md`](D:/Ydisk/YandexDisk/AI/Git/Tarot/docs/MARSEILLE_MAPPING.md) исправлена опечатка:
   - `II L'IMPÉRATRICE` -> `III L'IMPÉRATRICE`
+- Ветка: `feature/marseille-mapping-typo-follow-up`
+- PR: https://github.com/KostGame/Tarot/pull/37
+- Commit: `312125289883e56d2ff5cd8818bf367514db53f6`
 
 ## Что не менялось
 
