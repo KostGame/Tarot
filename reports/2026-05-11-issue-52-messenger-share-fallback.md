@@ -38,7 +38,7 @@
 
 - Branch: `feature/issue-52-messenger-share-fallback`
 - PR: [#54 Add messenger share fallback](https://github.com/KostGame/Tarot/pull/54)
-- Commit: `d7c7ab7`
+- Commit: `790f87e`
 - Merged by agent: no
 
 ## Blockers
