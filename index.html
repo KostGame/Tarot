@@ -3211,12 +3211,17 @@
           }
         }
 
-        const fallbackUrl = buildMessengerShareUrl(shareData.url, shareData.text);
-        if (openMessengerShareEndpoint(fallbackUrl)) {
+        if (isTelegramWebView()) {
+          const fallbackUrl = buildMessengerShareUrl(shareData.url, shareData.text);
+          if (openMessengerShareEndpoint(fallbackUrl)) {
+            return;
+          }
+
+          showTelegramShareButton(fallbackUrl);
           return;
         }
 
-        showMessengerShareButton(fallbackUrl);
+        showCopyFallbackButton(shareData.clipboardText);
       } catch (error) {
         if (error?.name !== "AbortError") {
           showToast("Не получилось подготовить ссылку для отправки.");
@@ -3259,6 +3264,11 @@
       return `${messengerShareEndpoint}?url=${encodeURIComponent(url)}&text=${encodeURIComponent(text)}`;
     }
 
+    function isTelegramWebView() {
+      const ua = navigator.userAgent || "";
+      return /Telegram|TelegramBot|TgWebView/i.test(ua);
+    }
+
     function openMessengerShareEndpoint(url) {
       const shareWindow = window.open(url, "_blank");
       if (shareWindow) {
@@ -3267,11 +3277,27 @@
       return Boolean(shareWindow);
     }
 
-    function showMessengerShareButton(url) {
-      showToast("Можно отправить ссылку.", {
-        label: "Отправить",
+    function showTelegramShareButton(url) {
+      showToast("Можно отправить в Telegram.", {
+        label: "Отправить в Telegram",
         onClick: () => {
           window.location.href = url;
+        },
+      });
+    }
+
+    function showCopyFallbackButton(text) {
+      showToast("Ссылка готова.", {
+        label: "Скопировать",
+        onClick: () => {
+          if (navigator.clipboard?.writeText) {
+            navigator.clipboard.writeText(text)
+              .then(() => showToast("Текст карты и ссылка скопированы."))
+              .catch(() => showToast("Не удалось скопировать текст."));
+            return;
+          }
+
+          showToast("Clipboard недоступен в этом браузере.");
         },
       });
     }
