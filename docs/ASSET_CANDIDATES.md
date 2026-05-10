@@ -90,11 +90,11 @@
 
 ### `etteilla-type-i`
 
-- Source: [Original Etteilla Tarot - Le Jeu de Toth](https://etteilla.org/en/deck/10/original-etteilla-tarot-le-jeu-de-toth), [Aeclectic Tarot review](https://www.aeclectic.net/tarot/cards/book-of-thoth-etteilla/), [LearnTarot reference](https://www.learntarot.com/bhdesc.htm).
+- Source: [Original Etteilla Tarot - Le Jeu de Toth](https://etteilla.org/en/deck/10/original-etteilla-tarot-le-jeu-de-toth).
 - Status: historical experimental deck, documentation only.
 - Intended local path if approved later: `assets/cards-experimental/etteilla-type-i/`.
 - Coverage note: Original Etteilla Type I is a full `78/78` deck.
-- Mapping note: majors should follow the historical correspondence table in `docs/ETTEILLA_MAPPING.md`; minors map by suit and rank to the app's current model.
+- Mapping note: majors and minors are documented in `docs/ETTEILLA_MAPPING.md`; this is an experimental historical correspondence layer, not a native RWS mapping.
 - Decision for this task: keep `etteilla-type-i` out of the UI and do not download assets in this PR.
 - Fallback plan if later approved: keep `rws-classic` fallback for missing or unmapped cards.
 

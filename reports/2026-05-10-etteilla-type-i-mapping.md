@@ -5,27 +5,27 @@
 ## Основное
 
 - Ветка: `feature/etteilla-type-i-mapping`
-- Источники:
-  - https://etteilla.org/en/deck/10/original-etteilla-tarot-le-jeu-de-toth
-  - https://www.aeclectic.net/tarot/cards/book-of-thoth-etteilla/
-  - https://learntarot.com/bhdesc.htm
-- PR: не создан
+- Issue: https://github.com/KostGame/Tarot/issues/26
+- Source: https://etteilla.org/en/deck/10/original-etteilla-tarot-le-jeu-de-toth
+- PR: будет создан после commit
 - PR смержен: нет
 - Commit hash: будет добавлен после commit
 - Merge commit hash: нет
 
 ## Цель
 
-Подготовить надежный mapping plan для `etteilla-type-i` без скачивания ассетов и без подключения в UI.
-
-## Deck id
-
-- `etteilla-type-i`
+Подготовить надежный mapping plan для `etteilla-type-i` без подключения колоды в UI и без скачивания ассетов.
 
 ## Deck facts
 
-- Original Etteilla Type I имеет `78/78` карт.
-- Это историческая experimental deck.
+- `etteilla-type-i`
+- Original Etteilla Type I has `78/78` cards.
+- The source has an explicit structure:
+  - Major Arcana `0-21`
+  - Swords
+  - Coins
+  - Batons
+  - Cups
 
 ## Minor mapping
 
@@ -35,7 +35,7 @@
 - Cups -> Кубки
 - `1` -> Ace
 - `2..10` -> `2..10`
-- Jake / Knave -> Page
+- Jake -> Page
 - Cavalier -> Knight
 - Queen -> Queen
 - King -> King
@@ -46,44 +46,53 @@ Confidence: high
 
 Historical correspondence:
 
-- `0/78 Folly` -> Fool
-- `1 Chaos` -> Hierophant
-- `2 Light` -> Sun
-- `3 Plants` -> Moon
-- `4 Heavens` -> Star
-- `5 Man and Animals` -> World
-- `6 Stars` -> Empress
-- `7 Birds and Fish` -> Emperor
-- `8 Rest` -> High Priestess
-- `9 Justice` -> Justice
-- `10 Temperance` -> Temperance
-- `11 Strength` -> Strength
-- `12 Prudence` -> Hanged Man
-- `13 High Priest` -> Lovers
-- `14 Devil` -> Devil
-- `15 Magician` -> Magician
-- `16 Last Judgment` -> Judgement
-- `17 Death` -> Death
-- `18 Hermit` -> Hermit
-- `19 Temple Struck by Lightning` -> Tower
-- `20 Wheel of Fortune` -> Wheel of Fortune
-- `21 Chariot / African Despot` -> Chariot
+- Major 0 / Fool -> Шут
+- Major 1 / Chaos -> Иерофант
+- Major 2 / Light -> Солнце
+- Major 3 / Plants -> Луна
+- Major 4 / Heavens -> Звезда
+- Major 5 / Man and Animals -> Мир
+- Major 6 / Stars -> Императрица
+- Major 7 / Birds and Fish -> Император
+- Major 8 / Rest -> Жрица
+- Major 9 / Justice -> Справедливость
+- Major 10 / Temperance -> Умеренность
+- Major 11 / Strength -> Сила
+- Major 12 / Prudence -> Повешенный
+- Major 13 / High Priest -> Влюбленные
+- Major 14 / Devil -> Дьявол
+- Major 15 / Magician -> Маг
+- Major 16 / Last Judgment -> Суд
+- Major 17 / Death -> Смерть
+- Major 18 / Hermit -> Отшельник
+- Major 19 / Temple Struck by Lightning -> Башня
+- Major 20 / Wheel of Fortune -> Колесо Фортуны
+- Major 21 / Chariot -> Колесница
 
 Confidence: medium
 
-## Notes
+## Interpretation note
 
-- Etteilla Type I is historical and experimental, not native Rider-Waite-Smith.
-- The mapping is a correspondence layer for the current app model, not a claim of shared historical interpretation.
-- The deck must stay out of the UI until a manually verified local asset pack exists.
+This is not a native Rider-Waite-Smith mapping. It is an experimental historical correspondence layer prepared for the app's current model.
+
+## Validation checklist
+
+- 78 source cards
+- 78 target cards
+- no duplicates
+- no missing cards
+- 22 majors by dictionary
+- 56 minors by suit/rank
+
+## Result
+
+- Etteilla Type I remains a historical experimental deck.
+- UI is not connected in this PR.
 - No assets were downloaded.
+- `rws-classic` remains the fallback for a future asset pack.
 
 ## Documentation updates
 
-- Added `docs/ETTEILLA_MAPPING.md`.
-- Added `etteilla-type-i` to `docs/ASSET_CANDIDATES.md`.
-
-## Recommendation
-
-Keep the deck documentation-only for now. A future asset connection should happen only after a card-by-card filename and numbering review.
+- Created `docs/ETTEILLA_MAPPING.md`.
+- Updated `docs/ASSET_CANDIDATES.md`.
 

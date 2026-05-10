@@ -1,20 +1,22 @@
-# Etteilla Type I Mapping Plan
+# Etteilla Type I Mapping
 
 Deck id: `etteilla-type-i`
 
 Status: historical experimental deck, documentation only.
 
-## Sources
+## Source
 
-- [Original Etteilla Tarot - Le Jeu de Toth | Divination Tarot](https://etteilla.org/en/deck/10/original-etteilla-tarot-le-jeu-de-toth)
-- [Book of Thoth Etteilla Tarot Review, Rating + Card Images | Aeclectic Tarot](https://www.aeclectic.net/tarot/cards/book-of-thoth-etteilla/)
-- [Book of Thoth - Etteilla Tarot](https://www.learntarot.com/bhdesc.htm)
+- [Original Etteilla Tarot - Le Jeu de Toth](https://etteilla.org/en/deck/10/original-etteilla-tarot-le-jeu-de-toth)
 
 ## Deck facts
 
-- Original Etteilla Type I is a complete `78/78` card deck.
-- Structure: `22` major arcana and `56` minor arcana.
-- Minor arcana use suit symbols and court titles that are compatible with a stable historical mapping plan.
+- Original Etteilla Type I has `78/78` cards.
+- The source shows an explicit structure:
+  - Major Arcana `0-21`
+  - Swords
+  - Coins
+  - Batons
+  - Cups
 
 ## Minor mapping
 
@@ -24,51 +26,57 @@ Status: historical experimental deck, documentation only.
 - Cups -> Кубки
 - `1` -> Ace
 - `2..10` -> `2..10`
-- Jake / Knave -> Page
+- Jake -> Page
 - Cavalier -> Knight
 - Queen -> Queen
 - King -> King
 
+Confidence: high
+
 ## Major mapping
 
-Use historical correspondence, not blind numerical matching.
+Historical correspondence:
 
-- `0 / 78 Folly` -> Fool
-- `1 Chaos` -> Hierophant
-- `2 Light` -> Sun
-- `3 Plants` -> Moon
-- `4 Heavens` -> Star
-- `5 Man and Animals` -> World
-- `6 Stars` -> Empress
-- `7 Birds and Fish` -> Emperor
-- `8 Rest` -> High Priestess
-- `9 Justice` -> Justice
-- `10 Temperance` -> Temperance
-- `11 Strength` -> Strength
-- `12 Prudence` -> Hanged Man
-- `13 High Priest` -> Lovers
-- `14 Devil` -> Devil
-- `15 Magician` -> Magician
-- `16 Last Judgment` -> Judgement
-- `17 Death` -> Death
-- `18 Hermit` -> Hermit
-- `19 Temple Struck by Lightning` -> Tower
-- `20 Wheel of Fortune` -> Wheel of Fortune
-- `21 Chariot / African Despot` -> Chariot
+- Major 0 / Fool -> Шут
+- Major 1 / Chaos -> Иерофант
+- Major 2 / Light -> Солнце
+- Major 3 / Plants -> Луна
+- Major 4 / Heavens -> Звезда
+- Major 5 / Man and Animals -> Мир
+- Major 6 / Stars -> Императрица
+- Major 7 / Birds and Fish -> Император
+- Major 8 / Rest -> Жрица
+- Major 9 / Justice -> Справедливость
+- Major 10 / Temperance -> Умеренность
+- Major 11 / Strength -> Сила
+- Major 12 / Prudence -> Повешенный
+- Major 13 / High Priest -> Влюбленные
+- Major 14 / Devil -> Дьявол
+- Major 15 / Magician -> Маг
+- Major 16 / Last Judgment -> Суд
+- Major 17 / Death -> Смерть
+- Major 18 / Hermit -> Отшельник
+- Major 19 / Temple Struck by Lightning -> Башня
+- Major 20 / Wheel of Fortune -> Колесо Фортуны
+- Major 21 / Chariot -> Колесница
 
-## Confidence
+Confidence: medium
 
-- Major mapping confidence: medium
-- Minor mapping confidence: high
+## Interpretation note
 
-## Notes and risks
+This is not a native Rider-Waite-Smith mapping. It is an experimental historical correspondence layer prepared for the app's current card model.
 
-- Etteilla Type I is historical and experimental, not native Rider-Waite-Smith.
-- The mapping above is designed for the app's current card model and reading layer.
-- The plan should be treated as a correspondence layer, not as a claim that Etteilla and RWS share the same divinatory structure.
-- UI should stay disconnected until a safe local asset pack exists and filenames are verified card-by-card.
+## Validation checklist
+
+- [ ] 78 source cards
+- [ ] 78 target cards
+- [ ] no duplicates
+- [ ] no missing cards
+- [ ] 22 majors by dictionary
+- [ ] 56 minors by suit/rank
 
 ## Recommendation
 
 Keep `etteilla-type-i` as a historical experimental deck in documentation only for now.
-When assets are prepared, connect the deck behind a separate review step and keep `rws-classic` as fallback for missing or unmapped cards.
+Do not connect the deck in the UI until a manually verified asset pack exists.
+When assets are ready, keep `rws-classic` as fallback for missing or unmapped cards.
