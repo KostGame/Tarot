@@ -87,3 +87,14 @@
 - Decision for Issue #26: keep `etteilla-historical` out of the deck selector until a manual asset pack is prepared and reviewed.
 - UI order if later approved: place immediately after `rws-classic` and `rws-dark-classic`, before other experimental decks.
 - Fallback plan if later approved: keep `rws-classic` fallback for missing or unmapped cards.
+
+### `marseille-historical`
+
+- Source: [Wikipedia / Tarot of Marseilles](https://en.wikipedia.org/wiki/Tarot_of_Marseilles).
+- Status: candidate only, not connected to UI.
+- Intended local path if approved later: `assets/cards-experimental/marseille-historical/`.
+- Coverage note: Tarot de Marseille minors are pip cards, not illustrated Rider-Waite scenes, so the app's current reading layer is a learning layer rather than a native Marseille interpretation.
+- Mapping note: majors should be mapped by title, not blindly by number, because Marseille numbering varies across traditions.
+- Justice/Strength warning: Tarot de Marseille commonly places Justice at VIII and Strength at XI; this app follows Rider-Waite ids, so `La Justice` must map to app Justice and `La Force` must map to app Strength.
+- Decision for Issue #28: prepare the mapping in documentation only; do not download assets or expose `marseille-historical` in the deck selector yet.
+- Fallback plan if later approved: keep `rws-classic` fallback for missing or unmapped cards.
