@@ -3186,6 +3186,12 @@
           }
         }
 
+        if (navigator.clipboard?.writeText) {
+          await navigator.clipboard.writeText(shareData.clipboardText);
+          showToast("Текст карты и ссылка скопированы.");
+          return;
+        }
+
         const fallbackUrl = buildMessengerShareUrl(shareData.url, shareData.text);
         if (openMessengerShareEndpoint(fallbackUrl)) {
           return;
@@ -3226,6 +3232,7 @@
       return {
         title,
         text,
+        clipboardText: [text, url].filter(Boolean).join("\n\n"),
         url: appShareUrl,
       };
     }

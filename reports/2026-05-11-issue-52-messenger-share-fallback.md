@@ -4,7 +4,8 @@
 
 - Сохранён текущий сценарий share canvas: сначала приложение пробует Web Share API с PNG.
 - Если PNG share недоступен или падает не из-за отмены пользователем, приложение пробует обычный Web Share API с коротким текстом и ссылкой.
-- Если native share не сработал, открывается внешний messenger endpoint `https://t.me/share/url` с параметрами `url` и `text`.
+- Если native share не сработал, приложение пробует clipboard fallback с текстом карты и ссылкой на приложение.
+- Если clipboard недоступен или заблокирован, открывается внешний messenger endpoint `https://t.me/share/url` с параметрами `url` и `text`.
 - `url` и `text` кодируются через `encodeURIComponent`.
 - Если автоматический переход заблокирован, показывается компактная кнопка `Отправить`.
 - Ссылка для шаринга закреплена на `https://kostgame.github.io/Tarot/`.
@@ -28,8 +29,9 @@
 - Проверено статически, что порядок fallback соответствует Issue:
   1. Web Share API с PNG.
   2. Web Share API с текстом и URL.
-  3. Messenger endpoint с `url` и `text`.
-  4. Компактная кнопка `Отправить`, если `window.open` заблокирован.
+  3. Clipboard fallback с текстом карты и ссылкой.
+  4. Messenger endpoint с `url` и `text`.
+  5. Компактная кнопка `Отправить`, если `window.open` заблокирован.
 - Проверено, что fallback text остаётся коротким и не содержит HTML или Markdown.
 
 ## Git
