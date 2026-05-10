@@ -2210,7 +2210,6 @@
     const cardDeckStorageKey = "tarot-card-deck-id";
     const poolModeStorageKey = "tarot-card-pool-mode";
     const appShareUrl = "https://kostgame.github.io/Tarot/";
-    const messengerShareEndpoint = "https://t.me/share/url";
     const firebaseCounterConfig = {
       apiKey: "AIzaSyBiK-yJvgyciKJc6GnooWAywZcMu6_r-6k",
       authDomain: "tarot-counter-36e72.firebaseapp.com",
@@ -3211,17 +3210,12 @@
           }
         }
 
-        if (isTelegramWebView()) {
-          const fallbackUrl = buildMessengerShareUrl(shareData.url, shareData.text);
-          if (openMessengerShareEndpoint(fallbackUrl)) {
-            return;
-          }
-
-          showTelegramShareButton(fallbackUrl);
+        const didCopyText = await tryClipboardShare(shareData.clipboardText);
+        if (didCopyText) {
           return;
         }
 
-        showCopyFallbackButton(shareData.clipboardText);
+        showManualShareFallback(shareData.clipboardText);
       } catch (error) {
         if (error?.name !== "AbortError") {
           showToast("Не получилось подготовить ссылку для отправки.");
@@ -3257,47 +3251,30 @@
         title,
         text,
         url: appShareUrl,
+        clipboardText: `${text}\n\n${appShareUrl}`,
       };
     }
 
-    function buildMessengerShareUrl(url, text) {
-      return `${messengerShareEndpoint}?url=${encodeURIComponent(url)}&text=${encodeURIComponent(text)}`;
-    }
-
-    function isTelegramWebView() {
-      const ua = navigator.userAgent || "";
-      return /Telegram|TelegramBot|TgWebView/i.test(ua);
-    }
-
-    function openMessengerShareEndpoint(url) {
-      const shareWindow = window.open(url, "_blank");
-      if (shareWindow) {
-        shareWindow.opener = null;
+    async function tryClipboardShare(text) {
+      if (!navigator.clipboard?.writeText) {
+        return false;
       }
-      return Boolean(shareWindow);
+
+      try {
+        await navigator.clipboard.writeText(text);
+        showToast("Текст карты и ссылка скопированы.");
+        return true;
+      } catch (error) {
+        console.warn("Clipboard share failed:", error);
+        return false;
+      }
     }
 
-    function showTelegramShareButton(url) {
-      showToast("Можно отправить в Telegram.", {
-        label: "Отправить в Telegram",
+    function showManualShareFallback(text) {
+      showToast("Скопируйте текст карты вручную.", {
+        label: "Показать",
         onClick: () => {
-          window.location.href = url;
-        },
-      });
-    }
-
-    function showCopyFallbackButton(text) {
-      showToast("Ссылка готова.", {
-        label: "Скопировать",
-        onClick: () => {
-          if (navigator.clipboard?.writeText) {
-            navigator.clipboard.writeText(text)
-              .then(() => showToast("Текст карты и ссылка скопированы."))
-              .catch(() => showToast("Не удалось скопировать текст."));
-            return;
-          }
-
-          showToast("Clipboard недоступен в этом браузере.");
+          window.prompt("Скопируйте текст вручную:", text);
         },
       });
     }
