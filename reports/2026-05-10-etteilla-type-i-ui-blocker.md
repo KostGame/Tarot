@@ -8,8 +8,8 @@
 - Issue: https://github.com/KostGame/Tarot/issues/32
 - Source: https://etteilla.org/en/deck/10/original-etteilla-tarot-le-jeu-de-toth
 - PR: https://github.com/KostGame/Tarot/pull/33
-- PR смержен: нет
-- Commit hash: `798654087f1907a81c450e05f33b622c4e158009`
+- PR смержен: да
+- Commit hash: `1804ae9d1ef89c5c997eab5ba8c25c5ab5090fec`
 - Merge commit hash: нет
 
 ## Результат
@@ -58,6 +58,7 @@ Etteilla Type I не подключена в UI.
 - `npm run check` - not available, `package.json` is absent in this repo.
 - `npm test` - not available, `package.json` is absent in this repo.
 - `npm run build` - not available, `package.json` is absent in this repo.
+- GitHub Actions / commit statuses for `1804ae9d1ef89c5c997eab5ba8c25c5ab5090fec` - not found.
 
 ## Recommendation
 
