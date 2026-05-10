@@ -22,6 +22,18 @@
 - Покрытие: 78/78 карт.
 - Примечание: отдельные ассеты не требуются, используется CSS-обработка.
 
+### `marseille-historical`
+
+- Статус: подключено в UI как историческая экспериментальная колода major-only.
+- Источник: [Commons category / Tarot de Marseille - Nicolas Conver 1760](https://commons.wikimedia.org/wiki/Category:Tarot_de_Marseille_-_Nicolas_Conver_1760)
+- Локальные файлы: `assets/cards-experimental/marseille-historical/`
+- Покрытие: 22/22 старших арканов.
+- Режим состава в UI: автоматически используется `Старшие`, младшие не вытягиваются для этой колоды.
+- Маппинг: старшие арканы маппятся по названию; `VIII LA JUSTICE` кладется в app Justice, а `XI LA FORCE` в app Strength, чтобы совпасть с текущими id приложения.
+- Лицензия: файлы на Commons отмечены как `CC BY-SA 4.0`; при дальнейшем использовании нужна атрибуция и соблюдение условий share-alike.
+- Примечание: это историческая колода Tarot de Marseille на базе Nicolas Conver 1760, а не native Rider-Waite-Smith mapping.
+- Решение: колода подключена в UI, но остается экспериментальной и major-only.
+
 ### `pixel-tarot`
 
 - Статус: подключено как экспериментальный полный набор.
@@ -98,15 +110,4 @@
 - License / reuse note: the Etteilla Foundation allows reuse for informational, academic, and research-oriented websites under CC BY-NC 4.0 for public-domain decks. The project fits that non-commercial profile.
 - Blocker note for Issue #32: repeated automated asset retrieval checks failed. Local `curl` could not resolve `etteilla.org`; direct `eti.la` image URLs returned Cloudflare `530 / error code: 1016`; Node `fetch` failed for both hosts. A related `ancient.cards` page is reachable but exposes screenshots, not a structured 78-card asset pack.
 - Decision for this task: keep `etteilla-type-i` out of the UI until a manual asset pack can be downloaded and verified card by card.
-- Fallback plan if later approved: keep `rws-classic` fallback for missing or unmapped cards.
-
-### `marseille-historical`
-
-- Source: [Wikipedia / Tarot of Marseilles](https://en.wikipedia.org/wiki/Tarot_of_Marseilles).
-- Status: candidate only, not connected to UI.
-- Intended local path if approved later: `assets/cards-experimental/marseille-historical/`.
-- Coverage note: Tarot de Marseille minors are pip cards, not illustrated Rider-Waite scenes, so the app's current reading layer is a learning layer rather than a native Marseille interpretation.
-- Mapping note: majors should be mapped by title, not blindly by number, because Marseille numbering varies across traditions.
-- Justice/Strength warning: Tarot de Marseille commonly places Justice at VIII and Strength at XI; this app follows Rider-Waite ids, so `La Justice` must map to app Justice and `La Force` must map to app Strength.
-- Decision for Issue #28: prepare the mapping in documentation only; do not download assets or expose `marseille-historical` in the deck selector yet.
 - Fallback plan if later approved: keep `rws-classic` fallback for missing or unmapped cards.

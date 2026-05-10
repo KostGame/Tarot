@@ -8,11 +8,11 @@ Structure:
 - `major-pixel-jcanabal/` - major-only pixel deck from jcanabal, normalized to canonical major arcana ids.
 - `major-pixel-zune/` - major-only pixel deck from ZUNE, normalized to canonical major arcana ids.
 - `veil-of-fate/` - major-and-court deck from Dajeki: major arcana and court cards only, normalized to canonical card ids.
+- `marseille-historical/` - historical Tarot de Marseille major-only deck from Nicolas Conver 1760, normalized to app major ids and connected in UI as `major-only`. See `docs/MARSEILLE_MAPPING.md`.
 
 Candidate decks not stored here yet:
 
 - `etteilla-historical/` - candidate path for a historical Etteilla deck. Not connected to UI and no images are committed because the Wikimedia Commons source does not provide a safe automatic 78-card pack with stable suit/rank filenames. See `docs/ASSET_CANDIDATES.md`.
-- `marseille-historical/` - candidate path for a historical Tarot de Marseille deck. Not connected to UI and no images are committed because the deck uses pip cards and title-based historical correspondences rather than a simple Rider-Waite-style scene mapping. See `docs/ASSET_CANDIDATES.md`.
 
 Usage rules:
 
