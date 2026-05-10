@@ -23,7 +23,7 @@ Map by title, not blindly by number.
 - `LE MAT` -> app Fool (`major-00-fool`)
 - `I LE BATELEUR` -> app Magician (`major-01-magician`)
 - `II LA PAPESSE` -> app High Priestess (`major-02-high-priestess`)
-- `II L'IMPÉRATRICE` -> app Empress (`major-03-empress`)
+- `III L'IMPÉRATRICE` -> app Empress (`major-03-empress`)
 - `IIII-L'EMPEREUR` -> app Emperor (`major-04-emperor`)
 - `V LE PAPE` -> app Hierophant (`major-05-hierophant`)
 - `VI L'AMOUREUX` -> app Lovers (`major-06-lovers`)
