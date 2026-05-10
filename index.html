@@ -1436,6 +1436,10 @@
       left: 50%;
       bottom: max(18px, env(safe-area-inset-bottom));
       z-index: 4;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
       width: min(calc(100% - 32px), 440px);
       transform: translate(-50%, 18px);
       opacity: 0;
@@ -1450,9 +1454,26 @@
       transition: opacity .24s ease, transform .24s ease;
     }
 
+    .toast.has-action {
+      justify-content: space-between;
+      pointer-events: auto;
+    }
+
     .toast.visible {
       opacity: 1;
       transform: translate(-50%, 0);
+    }
+
+    .toast-action {
+      min-height: 34px;
+      border: 1px solid rgba(241, 207, 122, .38);
+      border-radius: 999px;
+      padding: 0 13px;
+      background: rgba(241, 207, 122, .12);
+      color: var(--gold);
+      font: 850 .82rem/1 inherit;
+      cursor: pointer;
+      white-space: nowrap;
     }
 
     @media (max-width: 370px) {
@@ -2186,6 +2207,8 @@
     const useReversedStorageKey = "tarot-use-reversed-cards";
     const cardDeckStorageKey = "tarot-card-deck-id";
     const poolModeStorageKey = "tarot-card-pool-mode";
+    const appShareUrl = "https://kostgame.github.io/Tarot/";
+    const messengerShareEndpoint = "https://t.me/share/url";
     const firebaseCounterConfig = {
       apiKey: "AIzaSyBiK-yJvgyciKJc6GnooWAywZcMu6_r-6k",
       authDomain: "tarot-counter-36e72.firebaseapp.com",
@@ -3136,44 +3159,39 @@
       }
 
       setShareButtonBusy(true);
-      const orientation = currentLightboxCard.reversed ? "перевернутая" : "";
-      const cardTitle = [currentLightboxCard.name, orientation].filter(Boolean).join(", ");
-      const shareTitle = [currentLightboxCard.role, cardTitle].filter(Boolean).join(": ");
-      const shareUrl = window.location.href.split("#")[0];
-      const shareText = [
-        shareTitle || cardTitle,
-        currentLightboxCard.meaning,
-        currentLightboxCard.message,
-        shareUrl,
-      ].filter(Boolean).join("\n\n");
+      const shareData = getCardShareData(currentLightboxCard);
 
       try {
         const shareImage = await createTarotShareImage(currentLightboxCard).catch(() => null);
         if (shareImage && navigator.share && navigator.canShare?.({ files: [shareImage] })) {
-          await navigator.share({
+          const didShareImage = await tryNativeShare({
             files: [shareImage],
-            title: shareTitle || cardTitle,
-            text: shareText,
+            title: shareData.title,
+            text: shareData.text,
+            url: shareData.url,
           });
-          return;
+          if (didShareImage !== false) {
+            return;
+          }
         }
 
         if (navigator.share) {
-          await navigator.share({
-            title: shareTitle || cardTitle,
-            text: shareText,
-            url: shareUrl,
+          const didShareText = await tryNativeShare({
+            title: shareData.title,
+            text: shareData.text,
+            url: shareData.url,
           });
+          if (didShareText !== false) {
+            return;
+          }
+        }
+
+        const fallbackUrl = buildMessengerShareUrl(shareData.url, shareData.text);
+        if (openMessengerShareEndpoint(fallbackUrl)) {
           return;
         }
 
-        if (navigator.clipboard?.writeText) {
-          await navigator.clipboard.writeText(shareText);
-          showToast("Текст карты и ссылка скопированы.");
-          return;
-        }
-
-        showToast("Поделиться не удалось: скопируйте ссылку из адресной строки.");
+        showMessengerShareButton(fallbackUrl);
       } catch (error) {
         if (error?.name !== "AbortError") {
           showToast("Не получилось подготовить ссылку для отправки.");
@@ -3181,6 +3199,56 @@
       } finally {
         setShareButtonBusy(false);
       }
+    }
+
+    async function tryNativeShare(data) {
+      try {
+        await navigator.share(data);
+        return true;
+      } catch (error) {
+        if (error?.name === "AbortError") {
+          return null;
+        }
+        console.warn("Native share failed:", error);
+        return false;
+      }
+    }
+
+    function getCardShareData(card) {
+      const orientation = card.reversed ? "перевернутая" : "";
+      const cardTitle = [card.name, orientation].filter(Boolean).join(", ");
+      const title = [card.role, cardTitle].filter(Boolean).join(": ") || cardTitle;
+      const text = [
+        title,
+        card.meaning,
+        card.message,
+      ].filter(Boolean).join("\n\n");
+      return {
+        title,
+        text,
+        url: appShareUrl,
+      };
+    }
+
+    function buildMessengerShareUrl(url, text) {
+      return `${messengerShareEndpoint}?url=${encodeURIComponent(url)}&text=${encodeURIComponent(text)}`;
+    }
+
+    function openMessengerShareEndpoint(url) {
+      const shareWindow = window.open(url, "_blank");
+      if (shareWindow) {
+        shareWindow.opener = null;
+      }
+      return Boolean(shareWindow);
+    }
+
+    function showMessengerShareButton(url) {
+      showToast("Можно отправить ссылку.", {
+        label: "Отправить",
+        onClick: () => {
+          window.location.href = url;
+        },
+      });
     }
 
     function setShareButtonBusy(isBusy) {
@@ -3464,11 +3532,26 @@
       });
     }
 
-    function showToast(text) {
-      toast.textContent = text;
+    function showToast(text, action) {
+      toast.textContent = "";
+      toast.classList.toggle("has-action", Boolean(action));
+      const message = document.createElement("span");
+      message.textContent = text;
+      toast.append(message);
+      if (action) {
+        const button = document.createElement("button");
+        button.className = "toast-action";
+        button.type = "button";
+        button.textContent = action.label;
+        button.addEventListener("click", action.onClick, { once: true });
+        toast.append(button);
+      }
       toast.classList.add("visible");
       clearTimeout(showToast.timer);
-      showToast.timer = setTimeout(() => toast.classList.remove("visible"), 2400);
+      showToast.timer = setTimeout(() => {
+        toast.classList.remove("visible");
+        toast.classList.remove("has-action");
+      }, action ? 7000 : 2400);
     }
 
     function escapeHtml(text) {
