@@ -2908,6 +2908,10 @@
       };
     }
 
+    function normalizeGuideSearch(value) {
+      return String(value || "").trim().toLowerCase();
+    }
+
     function guideGroupForCard(card) {
       if (isMajorCard(card)) {
         return "major";
