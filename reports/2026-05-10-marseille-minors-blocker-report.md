@@ -6,6 +6,8 @@
 
 - Ветка: `feature/marseille-minors-blocker-report`
 - Issue: https://github.com/KostGame/Tarot/issues/38
+- PR: https://github.com/KostGame/Tarot/pull/39
+- Commit: `1442a982e6553e535d6d6df1f0019962453abbab`
 - Coverage итоговая: `major-only`
 - Marseille в UI: да, но только старшие арканы
 
