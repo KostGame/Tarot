@@ -12,7 +12,8 @@
 - Commit hash: `1804ae9d1ef89c5c997eab5ba8c25c5ab5090fec`
 - Merge commit hash: нет
 - Follow-up branch: `feature/etteilla-type-i-asset-recheck`
-- Follow-up PR: будет создан после повторной проверки
+- Follow-up PR: https://github.com/KostGame/Tarot/pull/34
+- Follow-up commit hash: `dfb206dbc69ef7b6f703fedb72ae021229a93f48`
 
 ## Результат
 
@@ -76,9 +77,10 @@ Etteilla Type I не подключена в UI.
 
 - `git diff --check` - passed.
 - `npm run check` - passed.
-- `npm test` - passed.
-- `npm run build` - passed.
+- `npm test` - passed after rerun outside sandbox; the first sandboxed run hit Vite `EPERM` while writing `.vite-temp`.
+- `npm run build` - passed after rerun outside sandbox; the first sandboxed run hit Vite `EPERM` while writing `.vite-temp`.
 - GitHub Actions / commit statuses for PR #33 commit `1804ae9d1ef89c5c997eab5ba8c25c5ab5090fec` - not found during the previous blocker PR review.
+- GitHub Actions / commit statuses for PR #34 commit `dfb206dbc69ef7b6f703fedb72ae021229a93f48` - not found; `statusCheckRollup` is empty.
 - Recheck commands: `curl` source page probe, `curl` direct image URL probe, Node `fetch` probe.
 
 ## Recommendation
