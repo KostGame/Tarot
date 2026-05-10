@@ -30,6 +30,7 @@
 - Покрытие: 22/22 старших арканов.
 - Режим состава в UI: автоматически используется `Старшие`, младшие не вытягиваются для этой колоды.
 - Маппинг: старшие арканы маппятся по названию; `VIII LA JUSTICE` кладется в app Justice, а `XI LA FORCE` в app Strength, чтобы совпасть с текущими id приложения.
+- Minor mapping contract: Bâtons/Coupes/Épées/Deniers map to Wands/Cups/Swords/Pentacles, but safe 56-card minor assets were not found in the Commons category, so the deck stays major-only.
 - Лицензия: файлы на Commons отмечены как `CC BY-SA 4.0`; при дальнейшем использовании нужна атрибуция и соблюдение условий share-alike.
 - Примечание: это историческая колода Tarot de Marseille на базе Nicolas Conver 1760, а не native Rider-Waite-Smith mapping.
 - Решение: колода подключена в UI, но остается экспериментальной и major-only.

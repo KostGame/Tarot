@@ -54,6 +54,8 @@ The safe pack therefore normalizes the file names to the app ids:
 
 ## Minor mapping note
 
+The minor mapping contract is documented for future use, but this PR does not bundle minors and the current safe pack remains `major-only`.
+
 If a future full pack is ever prepared, the suit mapping stays aligned with the app model:
 
 - Bâtons -> Wands / Жезлы
@@ -63,15 +65,23 @@ If a future full pack is ever prepared, the suit mapping stays aligned with the 
 
 This PR does not bundle minors.
 
+## Blocker note
+
+The current Commons category does not provide a safe 56-card minor pack with stable filenames. It exposes the 22 majors plus only a couple of ace files, which is not enough for a safe full 78/78 Marseille pack.
+
+Because of that, `marseille-historical` stays connected as `major-only` until a separately verified minor pack exists.
+
 ## Validation checklist
 
 - [x] 22 source cards
+- [x] Minor mapping contract documented
 - [x] 22 target app major cards
 - [x] Missing major cards: 0
 - [x] Duplicate major cards: 0
 - [x] Major mapped by title: 22
 - [x] Justice / Strength checked
 - [x] Safe mode: majors only
+- [ ] 56 minor cards
 
 ## Recommendation
 
