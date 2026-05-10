@@ -6,10 +6,10 @@
 
 - Ветка: `feature/tarot-de-marseille-mapping`
 - Issue: https://github.com/KostGame/Tarot/issues/28
-- PR: пока не создан
-- PR смержен: нет
-- Commit hash: будет добавлен после commit
-- Merge commit hash: нет
+- PR: https://github.com/KostGame/Tarot/pull/29
+- PR смержен: да
+- Commit hash: `8a1a09282a2daba5342032fc4035cd15ceeb5fb4`
+- Merge commit hash: `f1127d1bed818eca55c5089dba63b9cb4108f713`
 - Источник: [Wikipedia / Tarot of Marseilles](https://en.wikipedia.org/wiki/Tarot_of_Marseilles)
 
 ## Задача
