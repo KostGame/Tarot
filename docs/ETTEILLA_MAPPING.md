@@ -80,5 +80,5 @@ This is not a native Rider-Waite-Smith mapping. It is an experimental historical
 
 Keep `etteilla-type-i` as a historical experimental deck in documentation only for now.
 Do not connect the deck in the UI until a manually verified asset pack exists.
-Automated validation against the source image host returned `error code: 1016`, so the safe pack assembly step is currently blocked.
+Automated validation against the source remains blocked: local requests could not resolve `etteilla.org`, direct `eti.la` image URLs returned Cloudflare `530 / error code: 1016`, and Node `fetch` failed for both hosts.
 When assets are ready, keep `rws-classic` as fallback for missing or unmapped cards.
