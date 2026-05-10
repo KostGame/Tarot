@@ -83,7 +83,7 @@
 - Status: candidate only, not connected to UI.
 - Intended local path if approved later: `assets/cards-experimental/etteilla-historical/`.
 - Coverage note: the Commons category contains 107 files for the Grand Etteilla / Etteilla I tradition, including historical variants and scans, not a clean 78-card Rider-Waite-Smith-compatible set.
-- Mapping note: Etteilla differs from Rider-Waite-Smith in structure, ordering, titles, and divinatory system. A direct automatic mapping to the app's current `major-*`, `cups-*`, `swords-*`, `wands-*`, and `pentacles-*` ids is not reliable.
-- Decision for Issue #26: do not download or commit images and do not expose `etteilla-historical` in the deck selector until a manual mapping table is reviewed.
+- Mapping note: after the research update, only the 22 major arcana are clearly numbered and named in a way that is easy to inspect. The remaining Commons entries are mixed historical scans and do not provide a safe automatic 78-card asset pack with stable suit/rank filenames.
+- Decision for Issue #26: keep `etteilla-historical` out of the deck selector until a manual asset pack is prepared and reviewed.
 - UI order if later approved: place immediately after `rws-classic` and `rws-dark-classic`, before other experimental decks.
 - Fallback plan if later approved: keep `rws-classic` fallback for missing or unmapped cards.
