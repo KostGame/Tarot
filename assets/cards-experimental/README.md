@@ -9,6 +9,10 @@ Structure:
 - `major-pixel-zune/` - major-only pixel deck from ZUNE, normalized to canonical major arcana ids.
 - `veil-of-fate/` - major-and-court deck from Dajeki: major arcana and court cards only, normalized to canonical card ids.
 
+Candidate decks not stored here yet:
+
+- `etteilla-historical/` - candidate path for a historical Etteilla deck. Not connected to UI and no images are committed because the Etteilla I / Grand Etteilla structure differs from the app's Rider-Waite-Smith-based 78-card model. See `docs/ASSET_CANDIDATES.md`.
+
 Usage rules:
 
 - These assets are experimental and should be treated separately from `assets/cards/`.
