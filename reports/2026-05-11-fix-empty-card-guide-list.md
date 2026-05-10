@@ -5,7 +5,7 @@
 ## Статус
 
 - Ветка: `feature/issue-63-normalize-guide-search`
-- Commit: будет уточнен после финального commit
+- Commit: `23eb5b42e11fbdea1a2108bb28908021af9b3a6a`
 - PR: будет создан после push
 - Merge агентом: нет
 
