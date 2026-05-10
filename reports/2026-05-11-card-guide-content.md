@@ -6,7 +6,7 @@
 
 - Ветка: `feature/issue-56-card-guide-content`
 - Implementation commit before report: `9cfce79265415b585239f23849d5e3e9b6f9ce30`
-- Current PR head before this report update: `bc3b3904846c7478fd6dce4e776c6b49c42d6cdd`
+- Current PR head: см. актуальный head в PR
 - PR: https://github.com/KostGame/Tarot/pull/61
 - Merge агентом: нет на момент отчета
 
