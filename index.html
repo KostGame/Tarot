@@ -212,14 +212,17 @@
     .card-deck-icon {
       display: grid;
       place-items: center;
-      width: 32px;
+      min-width: 50px;
       height: 32px;
+      padding: 0 9px;
       flex: 0 0 auto;
       border: 1px solid rgba(234, 212, 158, .16);
-      border-radius: 50%;
+      border-radius: 999px;
       background: rgba(8, 6, 16, .28);
       color: var(--gold);
-      font-size: 1rem;
+      font-size: .72rem;
+      font-weight: 850;
+      line-height: 1;
     }
 
     .card-deck-picker select {
@@ -816,11 +819,16 @@
       border: 1px solid rgba(234, 212, 158, .15);
       border-radius: 22px;
       background: rgba(9, 7, 17, .42);
+      cursor: pointer;
       animation: cardIn .58s cubic-bezier(.18, .9, .24, 1.2) both;
     }
 
+    .card-reading:focus-visible {
+      outline: 3px solid rgba(241, 207, 122, .34);
+      outline-offset: 3px;
+    }
+
     .tarot-card {
-      appearance: none;
       width: 100%;
       aspect-ratio: 5 / 8;
       min-height: 0;
@@ -836,13 +844,7 @@
         linear-gradient(180deg, rgba(255, 255, 255, .08), rgba(255, 255, 255, .02)),
         rgba(8, 6, 16, .72);
       box-shadow: 0 16px 34px rgba(0, 0, 0, .34), inset 0 0 0 5px rgba(12, 9, 20, .38);
-      cursor: pointer;
       transition: transform .45s ease;
-    }
-
-    .tarot-card:focus-visible {
-      outline: 3px solid rgba(241, 207, 122, .34);
-      outline-offset: 3px;
     }
 
     .tarot-card.reversed .card-image {
@@ -1775,7 +1777,7 @@
     <p class="pool-mode-note" id="pool-mode-note" hidden></p>
 
     <label class="card-deck-picker">
-      <span class="card-deck-icon" aria-hidden="true">◐</span>
+      <span class="card-deck-icon">Колода</span>
       <span class="sr-only">Стиль карт</span>
       <select id="card-deck-select" aria-label="Стиль карт"></select>
     </label>
@@ -2374,12 +2376,16 @@
     });
 
     result.addEventListener("click", event => {
-      const cardButton = event.target.closest(".tarot-card");
-      if (!cardButton) {
+      openResultCardFromEvent(event);
+    });
+
+    result.addEventListener("keydown", event => {
+      if (event.key !== "Enter" && event.key !== " ") {
         return;
       }
-      const cardButtons = [...result.querySelectorAll(".tarot-card")];
-      openCardLightbox(cardButtons.map(lightboxCardFromButton), cardButtons.indexOf(cardButton));
+      if (openResultCardFromEvent(event)) {
+        event.preventDefault();
+      }
     });
 
     openGuideButton.addEventListener("click", () => {
@@ -2540,8 +2546,8 @@
       const meaningText = stripHtml(body.match(/<p class="meaning">([\s\S]*?)<\/p>/)?.[1] ?? "");
       const messageText = stripHtml(body.match(/<p class="message">([\s\S]*?)<\/p>/)?.[1] ?? "");
       return `
-        <article class="card-reading" style="animation-delay:${index * 90}ms">
-          <button class="tarot-card ${card.reversed ? "reversed" : ""} ${card.n.length > 9 ? "compact-name" : ""}" type="button" style="--c1:${c1}; --c2:${c2}; --card-glow:${card.glow}" data-card-name="${safeName}" data-card-role="${safeRole}" data-card-index="${index}" data-card-id="${card.id}" data-base-image="${card.image}" data-card-image="${deckImage}" data-card-meaning="${escapeHtml(meaningText)}" data-card-message="${escapeHtml(messageText)}" data-card-reversed="${card.reversed}" aria-label="Рассмотреть карту ${safeName}" title="Нажмите, чтобы рассмотреть карту">
+        <article class="card-reading" style="animation-delay:${index * 90}ms" role="button" tabindex="0" aria-label="Рассмотреть карту ${safeName}" title="Нажмите, чтобы рассмотреть карту" data-card-name="${safeName}" data-card-role="${safeRole}" data-card-index="${index}" data-card-id="${card.id}" data-base-image="${card.image}" data-card-image="${deckImage}" data-card-meaning="${escapeHtml(meaningText)}" data-card-message="${escapeHtml(messageText)}" data-card-reversed="${card.reversed}">
+          <div class="tarot-card ${card.reversed ? "reversed" : ""} ${card.n.length > 9 ? "compact-name" : ""}" style="--c1:${c1}; --c2:${c2}; --card-glow:${card.glow}" aria-hidden="true">
             <img class="card-image" src="${deckImage}" alt="${safeName}" loading="lazy" decoding="async" data-card-id="${card.id}" data-base-image="${card.image}" data-fallback-name="${safeName}" onerror="handleCardImageError(this);">
             <div class="card-fallback" hidden>
               <div class="roman">${card.r}</div>
@@ -2550,14 +2556,14 @@
               </div>
               <div class="mini-name">${safeName}</div>
             </div>
-          </button>
+          </div>
 			<div class="reading-text">
 			  <p class="role">${role}</p>
 			  ${orientationBadge}
 			  <h3 class="card-title">${displayName}</h3>
 			  ${body}
 			</div>
-			<p class="open-card-hint">Нажмите на карту, чтобы развернуть </p>
+			<p class="open-card-hint">Нажмите, чтобы развернуть на весь экран</p>
         </article>
       `;
     }
@@ -2980,18 +2986,18 @@
     }
 
     function refreshRenderedCardImages() {
-      result.querySelectorAll(".tarot-card").forEach(cardButton => {
-        const image = cardButton.querySelector(".card-image");
+      result.querySelectorAll(".card-reading").forEach(cardReading => {
+        const image = cardReading.querySelector(".card-image");
         const nextImage = cardImageForDeck({
-          id: cardButton.dataset.cardId,
-          image: cardButton.dataset.baseImage,
+          id: cardReading.dataset.cardId,
+          image: cardReading.dataset.baseImage,
         });
-        cardButton.dataset.cardImage = nextImage;
+        cardReading.dataset.cardImage = nextImage;
         if (image) {
           resetCardImageState(image);
           image.src = nextImage;
         }
-        const fallback = cardButton.querySelector(".card-fallback");
+        const fallback = cardReading.querySelector(".card-fallback");
         if (fallback) {
           fallback.hidden = true;
         }
@@ -3026,6 +3032,25 @@
         message: cardButton.dataset.cardMessage,
         reversed: cardButton.dataset.cardReversed === "true",
       };
+    }
+
+    function openResultCardFromEvent(event) {
+      const cardReading = event.target.closest(".card-reading");
+      if (!cardReading || !result.contains(cardReading)) {
+        return false;
+      }
+      if (event.target.closest("button, a, input, textarea, select, label, summary")) {
+        return false;
+      }
+
+      const cardReadings = [...result.querySelectorAll(".card-reading")];
+      const index = cardReadings.indexOf(cardReading);
+      if (index < 0) {
+        return false;
+      }
+
+      openCardLightbox(cardReadings.map(lightboxCardFromButton), index);
+      return true;
     }
 
     function openCardLightbox(cards, index = 0) {
@@ -3405,9 +3430,9 @@
       if (image.dataset.baseImage && image.src && !image.dataset.triedBaseImage) {
         image.dataset.triedBaseImage = "true";
         image.src = image.dataset.baseImage;
-        const cardButton = image.closest(".tarot-card");
-        if (cardButton) {
-          cardButton.dataset.cardImage = image.dataset.baseImage;
+        const cardReading = image.closest(".card-reading");
+        if (cardReading) {
+          cardReading.dataset.cardImage = image.dataset.baseImage;
         }
         return;
       }
