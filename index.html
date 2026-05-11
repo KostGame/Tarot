@@ -3959,7 +3959,7 @@
         title,
         text,
         url: appShareUrl,
-        clipboardText: `${text}\n\n${appShareUrl}`,
+        clipboardText: [text, "Карта дня", appShareUrl].filter(Boolean).join("\n\n"),
       };
     }
 
