@@ -70,7 +70,7 @@ This document is research-only. It does not connect new decks to the UI by itsel
 ## 3) Egyptian Tarot / Falconnier
 
 - Candidate deck id: `egyptian-falconnier`
-- UI label: `Egyptian Tarot / Falconnier · historical · major-only`
+- UI label: `Egyptian Tarot`
 - Source URLs:
   - `https://ru.wikipedia.org/wiki/Египетское_Таро`
   - `http://gallica.bnf.fr/ark:/12148/bpt6k5525090q`
@@ -80,20 +80,18 @@ This document is research-only. It does not connect new decks to the UI by itsel
 - License / reuse:
   - The file page marks the scan as CC0 1.0 / public domain dedication.
   - The source is a Gallica/BnF scan of the 1896 publication.
-  - The deck material is usable for research-oriented reuse, but the exact local pack still needs manual assembly.
+  - The 22-card pack is now assembled locally for UI use; the general `Egyptian-tarot.jpg` file is intentionally excluded.
 - Mapping strategy:
   - Majors only.
   - Do not map minors automatically.
   - The source numbering is `01-22`, so the app mapping needs an explicit historical dictionary rather than a naive numeric offset.
 - Native titles strategy:
-  - Use historical French major names if a curated dictionary is prepared.
-  - Hide native titles for cards that do not have a verified title.
-- Can connect to UI now: `no`
+  - Use historical French major names as a curated dictionary.
+- Can connect to UI now: `yes`
 - Risks:
   - Numbering does not match the app's `0-21` major ids directly.
-  - No safe 78-card pack was found in this research pass.
 - Next action:
-  - Build a verified 22-card major pack before any UI connection.
+  - Keep the pack major-only; do not infer minors from this category.
 
 ## 4) Visconti-Sforza
 

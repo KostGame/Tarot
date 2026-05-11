@@ -2429,6 +2429,61 @@
       };
     }
 
+    function buildEgyptianFalconnierMap(basePath) {
+      const pairs = [
+        ["major-00-fool", "major-00-fool.png"],
+        ["major-01-magician", "major-01-magician.png"],
+        ["major-02-high-priestess", "major-02-high-priestess.png"],
+        ["major-03-empress", "major-03-empress.png"],
+        ["major-04-emperor", "major-04-emperor.png"],
+        ["major-05-hierophant", "major-05-hierophant.png"],
+        ["major-06-lovers", "major-06-lovers.png"],
+        ["major-07-chariot", "major-07-chariot.png"],
+        ["major-08-strength", "major-08-strength.png"],
+        ["major-09-hermit", "major-09-hermit.png"],
+        ["major-10-wheel-of-fortune", "major-10-wheel-of-fortune.png"],
+        ["major-11-justice", "major-11-justice.png"],
+        ["major-12-hanged-man", "major-12-hanged-man.png"],
+        ["major-13-death", "major-13-death.png"],
+        ["major-14-temperance", "major-14-temperance.png"],
+        ["major-15-devil", "major-15-devil.png"],
+        ["major-16-tower", "major-16-tower.png"],
+        ["major-17-star", "major-17-star.png"],
+        ["major-18-moon", "major-18-moon.png"],
+        ["major-19-sun", "major-19-sun.png"],
+        ["major-20-judgement", "major-20-judgement.png"],
+        ["major-21-world", "major-21-world.png"],
+      ];
+      return Object.fromEntries(pairs.map(([cardId, fileName]) => [cardId, `${basePath}/${fileName}`]));
+    }
+
+    function buildEgyptianFalconnierNativeTitles() {
+      return {
+        "major-00-fool": "Le Crocodile",
+        "major-01-magician": "L'initié",
+        "major-02-high-priestess": "Le Sanctuaire",
+        "major-03-empress": "Isis",
+        "major-04-emperor": "Le Pharaon",
+        "major-05-hierophant": "Le Maître des arcanes",
+        "major-06-lovers": "Les Deux routes",
+        "major-07-chariot": "Le Char d'Osiris",
+        "major-08-strength": "La Force",
+        "major-09-hermit": "La Lampe voilée",
+        "major-10-wheel-of-fortune": "La Roue des destinées",
+        "major-11-justice": "La Balance et le glaive",
+        "major-12-hanged-man": "Le Pendu",
+        "major-13-death": "La Mort",
+        "major-14-temperance": "Les Deux urnes",
+        "major-15-devil": "Thyphon",
+        "major-16-tower": "La Tour foudroyée",
+        "major-17-star": "L'Etoile",
+        "major-18-moon": "La Lune",
+        "major-19-sun": "Le Soleil",
+        "major-20-judgement": "Le Livre sacré",
+        "major-21-world": "La couronne des mages",
+      };
+    }
+
     const roles = [
       { title: "Что происходит сейчас", line: card => card.reversed ? `Сейчас карта «${card.n}» в перевернутом положении показывает: тема есть, но проявляется не напрямую. ${reversedMeaning(card)}` : `Сейчас тема карты «${card.n}» подсвечивает: ${card.m}.` },
       { title: "На что обратить внимание", line: card => card.reversed ? `Обратите внимание, где вы торопите себя или ждете мгновенной ясности. ${reversedMessage(card)}` : `Обратите внимание на то, где в вопросе проявляется ${card.m.split(",")[0]}.` },
@@ -2578,6 +2633,21 @@
         licenseNote: "Public domain scan on Commons; back side excluded from the 78-card pack.",
         nativeTitles: buildTarotNouveauNativeTitles(),
         cards: buildFullDeckMap("assets/cards-experimental/tarot-nouveau-grimaud-1898", "jpg"),
+      },
+      {
+        id: "egyptian-falconnier",
+        name: "Egyptian Tarot",
+        label: "Egyptian Tarot",
+        optionLabel: "Egyptian Tarot",
+        description: "Historical Egyptian Tarot / Falconnier major-only pack",
+        cssClass: "deck-egyptian-falconnier",
+        status: "experimental",
+        coverage: "major-only",
+        fallbackDeckId: "rws-classic",
+        sourceUrl: "https://commons.wikimedia.org/wiki/Category:Egyptian_Tarot_(Falconnier)",
+        licenseNote: "Commons file pages for the 22 card images are marked CC0 / public domain dedication. The general Egyptian-tarot.jpg file is intentionally not used.",
+        nativeTitles: buildEgyptianFalconnierNativeTitles(),
+        cards: buildEgyptianFalconnierMap("assets/cards-experimental/egyptian-falconnier"),
       },
       {
         id: "marseille-historical",
