@@ -469,20 +469,59 @@
 
     .guide-filters {
       display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
+      flex-wrap: nowrap;
+      gap: 6px;
+      align-items: center;
+      overflow-x: auto;
+      overscroll-behavior-inline: contain;
+      scrollbar-width: none;
+      position: sticky;
+      top: 10px;
+      z-index: 5;
+      padding: 8px 8px 9px;
+      margin: 0;
+      border: 1px solid rgba(234, 212, 158, .16);
+      border-radius: 18px;
+      background: linear-gradient(180deg, rgba(16, 12, 28, .96), rgba(10, 8, 18, .92));
+      box-shadow: 0 16px 34px rgba(0, 0, 0, .28), inset 0 1px 0 rgba(255, 255, 255, .05);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+
+    .guide-filters::-webkit-scrollbar {
+      display: none;
     }
 
     .guide-filter {
-      min-height: 32px;
+      display: grid;
+      place-items: center;
+      width: 36px;
+      min-width: 36px;
+      height: 36px;
+      padding: 0;
       border: 1px solid rgba(234, 212, 158, .16);
       border-radius: 999px;
-      padding: 0 11px;
       background: rgba(8, 6, 16, .24);
       color: var(--muted);
       font: 800 .74rem/1 inherit;
+      line-height: 0;
       cursor: pointer;
       transition: background .2s ease, color .2s ease, transform .2s ease, opacity .2s ease;
+      flex: 0 0 auto;
+    }
+
+    .guide-filter-icon {
+      display: grid;
+      place-items: center;
+      width: 16px;
+      height: 16px;
+      color: currentColor;
+    }
+
+    .guide-filter-icon svg {
+      width: 16px;
+      height: 16px;
+      display: block;
     }
 
     .guide-filter.active {
@@ -2114,14 +2153,80 @@
       </label>
 
       <div class="guide-filters" id="guide-filters" role="group" aria-label="Фильтр по группе">
-        <button class="guide-filter active" type="button" data-guide-group="all">Все</button>
-        <button class="guide-filter" type="button" data-guide-group="favorites">Избранные</button>
-        <button class="guide-filter" type="button" data-guide-group="major">Старшие</button>
-        <button class="guide-filter" type="button" data-guide-group="cups">Кубки</button>
-        <button class="guide-filter" type="button" data-guide-group="swords">Мечи</button>
-        <button class="guide-filter" type="button" data-guide-group="wands">Жезлы</button>
-        <button class="guide-filter" type="button" data-guide-group="pentacles">Пентакли</button>
-        <button class="guide-filter" type="button" data-guide-group="court">Двор</button>
+        <button class="guide-filter active" type="button" data-guide-group="all" aria-label="Все карты" title="Все карты">
+          <span class="guide-filter-icon" aria-hidden="true">
+            <svg viewBox="0 0 16 16" fill="none">
+              <rect x="1.6" y="1.6" width="4" height="4" rx="1.1" stroke="currentColor" stroke-width="1.2"/>
+              <rect x="10.4" y="1.6" width="4" height="4" rx="1.1" stroke="currentColor" stroke-width="1.2"/>
+              <rect x="1.6" y="10.4" width="4" height="4" rx="1.1" stroke="currentColor" stroke-width="1.2"/>
+              <rect x="10.4" y="10.4" width="4" height="4" rx="1.1" stroke="currentColor" stroke-width="1.2"/>
+            </svg>
+          </span>
+          <span class="sr-only">Все карты</span>
+        </button>
+        <button class="guide-filter" type="button" data-guide-group="favorites" aria-label="Избранные" title="Избранные">
+          <span class="guide-filter-icon" aria-hidden="true">
+            <svg viewBox="0 0 16 16" fill="none">
+              <path d="M8 1.9 9.95 5.9l4.45.65-3.22 3.14.76 4.43L8 12.98 4.06 14.12l.76-4.43L1.6 6.55l4.45-.65L8 1.9Z" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/>
+            </svg>
+          </span>
+          <span class="sr-only">Избранные</span>
+        </button>
+        <button class="guide-filter" type="button" data-guide-group="major" aria-label="Старшие" title="Старшие">
+          <span class="guide-filter-icon" aria-hidden="true">
+            <svg viewBox="0 0 16 16" fill="none">
+              <circle cx="8" cy="8" r="6.2" stroke="currentColor" stroke-width="1.2"/>
+              <path d="M8 4.2v7.6M6.6 5.8h2.8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+            </svg>
+          </span>
+          <span class="sr-only">Старшие</span>
+        </button>
+        <button class="guide-filter" type="button" data-guide-group="cups" aria-label="Кубки" title="Кубки">
+          <span class="guide-filter-icon" aria-hidden="true">
+            <svg viewBox="0 0 16 16" fill="none">
+              <path d="M4.1 3.7h7.8c0 2.1-.8 3.4-2.2 4.1v1.1h1.5c.2 0 .4.2.4.4v.6H6.2v-.6c0-.2.2-.4.4-.4h1.5V7.8c-1.4-.7-2.2-2-2.2-4.1Z" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/>
+              <path d="M5.1 13h5.8" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/>
+            </svg>
+          </span>
+          <span class="sr-only">Кубки</span>
+        </button>
+        <button class="guide-filter" type="button" data-guide-group="swords" aria-label="Мечи" title="Мечи">
+          <span class="guide-filter-icon" aria-hidden="true">
+            <svg viewBox="0 0 16 16" fill="none">
+              <path d="M11.8 2.4 9.9 4.3 8.8 3.2 6.3 5.7l1.1 1.1-3.8 4.9 1.7 1.7 4.9-3.8 1.1 1.1 2.5-2.5-1.1-1.1 1.9-1.9-1.8-1.8ZM5.7 10.3l.9.9" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M3.5 12.5 2 14" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/>
+            </svg>
+          </span>
+          <span class="sr-only">Мечи</span>
+        </button>
+        <button class="guide-filter" type="button" data-guide-group="wands" aria-label="Жезлы" title="Жезлы">
+          <span class="guide-filter-icon" aria-hidden="true">
+            <svg viewBox="0 0 16 16" fill="none">
+              <path d="M4 12 12 4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+              <path d="M12.9 2.7v2.6M11.6 4h2.6M5.2 10.8l2-2" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/>
+              <path d="M2.8 13.2 4.1 12" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/>
+            </svg>
+          </span>
+          <span class="sr-only">Жезлы</span>
+        </button>
+        <button class="guide-filter" type="button" data-guide-group="pentacles" aria-label="Пентакли" title="Пентакли">
+          <span class="guide-filter-icon" aria-hidden="true">
+            <svg viewBox="0 0 16 16" fill="none">
+              <circle cx="8" cy="8" r="5.6" stroke="currentColor" stroke-width="1.2"/>
+              <path d="M8 4.5 9.2 6.9l2.7.4-2 1.9.5 2.7L8 10.6 5.6 11.9l.5-2.7-2-1.9 2.7-.4L8 4.5Z" stroke="currentColor" stroke-width="1" stroke-linejoin="round"/>
+            </svg>
+          </span>
+          <span class="sr-only">Пентакли</span>
+        </button>
+        <button class="guide-filter" type="button" data-guide-group="court" aria-label="Двор" title="Двор">
+          <span class="guide-filter-icon" aria-hidden="true">
+            <svg viewBox="0 0 16 16" fill="none">
+              <path d="M3.5 11.7h9l-.7-3.6-1.9-1.1-1.4 1.3L6.2 7 4.3 8.1l-.8 3.6Z" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/>
+              <path d="M5 5.5 8 2.9l3 2.6" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+          <span class="sr-only">Двор</span>
+        </button>
       </div>
 
       <p class="guide-counter" id="guide-counter"></p>
