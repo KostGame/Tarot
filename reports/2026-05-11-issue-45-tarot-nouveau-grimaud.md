@@ -4,7 +4,8 @@
 - Commits:
   - `789d2cc` (`Add Tarot Nouveau full deck`)
   - `df458b0` (`Fix Tarot Nouveau native titles`)
-- PR: pending
+- PR: https://github.com/KostGame/Tarot/pull/71
+- PR state: `OPEN`, mergeable: `MERGEABLE`
 
 ## Что сделано
 
