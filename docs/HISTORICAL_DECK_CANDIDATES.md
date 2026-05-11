@@ -1,4 +1,4 @@
-# Historical Deck Candidates
+﻿# Historical Deck Candidates
 
 Date: `2026-05-11`
 
@@ -15,7 +15,7 @@ This document is research-only. It does not connect new decks to the UI by itsel
 
 - Candidate deck id: `tarot-nouveau-grimaud-1898`
 - UI label: `Tarot Nouveau`
-- Detailed label: `Tarot Nouveau · Grimaud 1898`
+- Detailed label: `Tarot Nouveau В· Grimaud 1898`
 - Source URL: `https://commons.wikimedia.org/wiki/Category:Tarot_nouveau_-_Grimaud_-_1898`
 - Expected coverage: `78/78`
 - Assets found: `78` card files after excluding the back side
@@ -40,39 +40,37 @@ This document is research-only. It does not connect new decks to the UI by itsel
 
 ## 2) Jean Dodal Tarot
 
-- Candidate deck id: `jean-dodal-historical`
-- UI label: `Jean Dodal · historical · major-only`
+- Candidate deck id: `jean-dodal-marseille`
+- UI label: `Jean Dodal Tarot`
+- Detailed label: `Jean Dodal Tarot · Marseille 1701`
 - Source URLs:
-  - `https://ru.wikipedia.org/wiki/Таро_Жана_Додаля`
   - `http://www.tarot-history.com/Jean-Dodal/`
-- Commons category URL: `https://commons.wikimedia.org/wiki/Category:Tarot_de_Marseille_-_Jean_Dodal`
-- Expected coverage: `major-only`
-- Assets found: `29` files in the Commons category
+  - `https://commons.wikimedia.org/wiki/Category:Tarot_de_Marseille_-_Jean_Dodal`
+- Expected coverage: `22/22` major arcana only
+- Assets found: `22` local card files in `assets/cards-experimental/jean-dodal-marseille/`
 - License / reuse:
-  - The Commons file page describes the scans as faithful photographic reproductions of public-domain art.
-  - The file page also points to the source page on tarot-history.com.
-  - Reuse should still be checked file by file before a pack is assembled.
+  - The Commons scans are public-domain reproductions.
+  - The Commons file pages and tarot-history.com credit should still be checked if the set is reused elsewhere.
 - Mapping strategy:
-  - Use title-based matching for the 22 majors.
+  - Use title-based matching for the majors.
   - Do not infer a full minor pack from this category.
-  - The category contains a few minor samples, a reverse image, and other extra scans, but not a full 78-card set.
+  - The connected pack is majors only.
 - Native titles strategy:
-  - Show French trump titles for majors if a manual dictionary is curated.
-  - Hide native titles for minors because the pack is incomplete.
-- Can connect to UI now: `no`
+  - Show French trump titles for the majors as a secondary line in the UI.
+  - Keep the translated app title as the primary one.
+- Can connect to UI now: `yes`
 - Risks:
-  - Incomplete minors.
-  - Mixed extra scans in the Commons category.
-  - Still needs a reviewed local major pack.
+  - Minors remain intentionally out of scope.
+  - The pack is historical and educational, not a native RWS reading layer.
 - Next action:
-  - If this deck is used later, build a clean 22-card major pack first.
+  - Keep the local 22-card pack as the safe historical major-only set.
 
 ## 3) Egyptian Tarot / Falconnier
 
 - Candidate deck id: `egyptian-falconnier`
-- UI label: `Egyptian Tarot / Falconnier · historical · major-only`
+- UI label: `Egyptian Tarot / Falconnier В· historical В· major-only`
 - Source URLs:
-  - `https://ru.wikipedia.org/wiki/Египетское_Таро`
+  - `https://ru.wikipedia.org/wiki/Р•РіРёРїРµС‚СЃРєРѕРµ_РўР°СЂРѕ`
   - `http://gallica.bnf.fr/ark:/12148/bpt6k5525090q`
 - Commons category URL: `https://commons.wikimedia.org/wiki/Category:Egyptian_Tarot_(Falconnier)`
 - Expected coverage: `major-only`
@@ -98,9 +96,9 @@ This document is research-only. It does not connect new decks to the UI by itsel
 ## 4) Visconti-Sforza
 
 - Candidate deck id: `visconti-sforza-pierpont-morgan-bergamo`
-- UI label: `Visconti-Sforza · historical · partial / blocker`
+- UI label: `Visconti-Sforza В· historical В· partial / blocker`
 - Source URLs:
-  - `https://ru.wikipedia.org/wiki/Таро_Висконти_—_Сфорцы`
+  - `https://ru.wikipedia.org/wiki/РўР°СЂРѕ_Р’РёСЃРєРѕРЅС‚Рё_вЂ”_РЎС„РѕСЂС†С‹`
   - `https://commons.wikimedia.org/wiki/Category:Visconti-Sforza_tarot_deck`
   - `https://commons.wikimedia.org/wiki/Category:Pierpont_Morgan-Bergamo_Visconti-Sforza_Tarot`
   - `https://commons.wikimedia.org/wiki/Category:Cary-Yale_Visconti_Tarot`

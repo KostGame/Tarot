@@ -37,6 +37,19 @@ Only sets that were safely downloaded and mapped unambiguously to the current mo
 - Native titles strategy: show French native labels as a secondary line in the UI, while keeping the translated app title as the primary one.
 - Notes: this is a French gaming tarot deck from 1898; the app's meanings remain an educational layer on top of the deck imagery.
 
+### `jean-dodal-marseille`
+
+- Status: connected in UI as a historical major-only deck.
+- UI label: `Jean Dodal Tarot`
+- Detailed label for docs: `Jean Dodal Tarot · Marseille 1701`
+- Source URL: `https://commons.wikimedia.org/wiki/Category:Tarot_de_Marseille_-_Jean_Dodal`
+- Local files: `assets/cards-experimental/jean-dodal-marseille/`
+- Coverage: `22/22` major arcana only.
+- License / reuse: public domain scans on Commons; check the individual file pages and the tarot-history.com credit before reuse outside this project.
+- Mapping strategy: title-based matching for the majors; app `Strength` uses the source scan titled `La Force`, and app `Justice` uses the source scan titled `La Justice`.
+- Native titles strategy: show French native labels as a secondary line in the UI, while keeping the translated app title as the primary one.
+- Notes: this is a Marseille 1701 major-only educational layer; minors are intentionally not connected because no safe 56-card pack was assembled.
+
 ### `marseille-historical`
 
 - Status: connected in UI as a historical major-only deck.
