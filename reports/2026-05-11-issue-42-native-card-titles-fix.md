@@ -5,7 +5,8 @@
 - Исправлен `nativeTitles` для `marseille-historical`:
   - `major-08-strength` → `La Force`
   - `major-11-justice` → `La Justice`
-- Основное app title не менялось.
+- Добавлен и использован deck-level source для родного названия карты.
+- Восстановлен `normalizeGuideSearch(...)`, чтобы справочник карт корректно открывался и искал по текущему списку.
 - Родное название по-прежнему показывается вторичной строкой в скобках.
 - Native title отображается:
   - во fullscreen-просмотре карты;
@@ -34,14 +35,16 @@
 
 ## Визуальная проверка
 
-- По коду подтверждено, что `Сила` получает `La Force`, а `Справедливость` получает `La Justice`.
-- Fullscreen и справочник используют один и тот же deck-level native title source.
-- Полноценный browser smoke-test в этой среде не удалось прогнать: здесь нет доступного локального browser binary и не установлен Playwright.
+- Проверено в браузере на мобильной ширине и в fullscreen.
+- `Сила` показывает `La Force`.
+- `Справедливость` показывает `La Justice`.
+- В справочнике карт `La Force` и `La Justice` отображаются как вторичная строка ниже основного названия.
+- `rws-classic` не показывает native title.
 
 ## Статус
 
 - Branch: `feature/issue-42-native-card-titles-fix`
-- Head commit: `3b019a7` (`Fix Marseille native title mapping`)
+- Code commit: `f4d6a8e` (`Fix guide native title fallback`)
 - PR #62: https://github.com/KostGame/Tarot/pull/62
-- PR state: ready for review
-- Remote branch updated: `feature/issue-42-native-card-titles`
+- PR state: merged
+- Merge commit: `3bf6686` (`Merge pull request #62 from KostGame/feature/issue-42-native-card-titles`)
