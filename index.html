@@ -638,7 +638,6 @@
     .guide-card-details p {
       margin: 7px 0 0;
     }
-
     .guide-empty {
       margin: 2px 0 0;
       color: var(--muted);
@@ -1092,6 +1091,15 @@
       font: 800 1.08rem/1.18 inherit;
     }
 
+    .native-title {
+      display: block;
+      margin: -3px 0 7px;
+      color: rgba(207, 194, 223, .84);
+      font: 700 .78rem/1.2 inherit;
+      font-style: italic;
+      overflow-wrap: anywhere;
+    }
+
     .meaning,
     .message {
       margin: 0;
@@ -1334,6 +1342,16 @@
 	  max-width: 100%;
 	  color: var(--text);
 	  font: 900 clamp(1.55rem, 7vw, 2.25rem)/1.02 inherit;
+	  text-align: center;
+	  overflow-wrap: anywhere;
+	}
+
+	.lightbox-native-title {
+	  margin: -2px 0 0;
+	  color: rgba(207, 194, 223, .9);
+	  font-size: clamp(.82rem, 3.8vw, 1rem);
+	  font-weight: 750;
+	  font-style: italic;
 	  text-align: center;
 	  overflow-wrap: anywhere;
 	}
@@ -1699,6 +1717,7 @@
       .role,
       .orientation,
       .card-title,
+      .native-title,
       .meaning {
         grid-column: 2;
       }
@@ -2010,6 +2029,7 @@
       </div>
       <div class="lightbox-meta">
         <h2 class="lightbox-title" id="card-lightbox-title"></h2>
+        <p class="lightbox-native-title" id="card-lightbox-native-title" hidden></p>
         <p class="lightbox-orientation" id="card-lightbox-orientation" hidden>Перевернутая</p>
       </div>
       <div class="lightbox-description" id="card-lightbox-description" hidden>
@@ -2267,6 +2287,7 @@
     const cardLightboxFallback = document.querySelector("#card-lightbox-fallback");
     const cardLightboxFallbackName = document.querySelector("#card-lightbox-fallback-name");
     const cardLightboxTitle = document.querySelector("#card-lightbox-title");
+    const cardLightboxNativeTitle = document.querySelector("#card-lightbox-native-title");
     const cardLightboxOrientation = document.querySelector("#card-lightbox-orientation");
     const cardLightboxDescription = document.querySelector("#card-lightbox-description");
     const cardLightboxMeaning = document.querySelector("#card-lightbox-meaning");
@@ -2364,6 +2385,30 @@
         fallbackDeckId: "rws-classic",
         sourceUrl: "https://commons.wikimedia.org/wiki/Category:Tarot_de_Marseille_-_Nicolas_Conver_1760",
         licenseNote: "CC BY-SA 4.0 на страницах файлов Commons; проверьте атрибуцию при дальнейшем использовании",
+        nativeTitles: {
+          "major-00-fool": "Le Mat / Le Fou",
+          "major-01-magician": "Le Bateleur",
+          "major-02-high-priestess": "La Papesse",
+          "major-03-empress": "L'Impératrice",
+          "major-04-emperor": "L'Empereur",
+          "major-05-hierophant": "Le Pape",
+          "major-06-lovers": "L'Amoureux",
+          "major-07-chariot": "Le Chariot",
+          "major-08-strength": "La Force",
+          "major-09-hermit": "L'Hermite",
+          "major-10-wheel-of-fortune": "La Roue de Fortune",
+          "major-11-justice": "La Justice",
+          "major-12-hanged-man": "Le Pendu",
+          "major-13-death": "L'Arcane sans nom / La Mort",
+          "major-14-temperance": "Tempérance",
+          "major-15-devil": "Le Diable",
+          "major-16-tower": "La Maison Dieu",
+          "major-17-star": "L'Étoile",
+          "major-18-moon": "La Lune",
+          "major-19-sun": "Le Soleil",
+          "major-20-judgement": "Le Jugement",
+          "major-21-world": "Le Monde",
+        },
         cards: buildMajorDeckMap("assets/cards-experimental/marseille-historical", "jpg"),
       },
       {
@@ -2715,6 +2760,7 @@
 			  <p class="role">${role}</p>
 			  ${orientationBadge}
 			  <h3 class="card-title">${displayName}</h3>
+			  ${renderNativeTitle(card, "card-native-title")}
 			  ${body}
 			</div>
 			<p class="open-card-hint">Нажмите, чтобы развернуть на весь экран</p>
@@ -2728,6 +2774,19 @@
 
     function cardMessage(card) {
       return card.reversed ? reversedMessage(card) : card.d;
+    }
+
+    function nativeTitleForCard(card) {
+      return selectedCardDeck.nativeTitles?.[card.id] ?? "";
+    }
+
+    function renderNativeTitle(card, className = "") {
+      const nativeTitle = nativeTitleForCard(card);
+      if (!nativeTitle) {
+        return "";
+      }
+      const classes = ["native-title", className].filter(Boolean).join(" ");
+      return `<p class="${classes}">(${escapeHtml(nativeTitle)})</p>`;
     }
 
     function readUseReversedCards() {
@@ -2900,7 +2959,7 @@
       const content = guideContentById.get(card.id) || {};
       return {
         name: content.name || card.n,
-        nativeName: content.nativeName || "",
+        nativeName: content.nativeName || nativeTitleForCard(card) || "",
         group: content.group || guideGroupForCard(card),
         keywords: content.keywords || card.m,
         short: content.short || card.d,
@@ -3014,7 +3073,7 @@
     function renderGuideCard(card, focused = false) {
       const content = getGuideContent(card);
       const safeName = escapeHtml(content.name);
-      const safeNativeName = escapeHtml(content.nativeName);
+      const safeNativeName = escapeHtml(content.nativeName || nativeTitleForCard(card));
       const safeMeaning = escapeHtml(content.keywords);
       const safeShort = escapeHtml(content.short);
       const detailsHtml = renderGuideExtendedHtml(content);
@@ -3054,7 +3113,7 @@
             <span class="guide-card-heading">
               <span>
                 <span class="guide-card-name">${safeName}</span>
-                ${safeNativeName ? `<span class="guide-card-native">${safeNativeName}</span>` : ""}
+                ${safeNativeName ? `<span class="guide-card-native">(${safeNativeName})</span>` : ""}
               </span>
               <button class="guide-favorite ${isFavorite ? "active" : ""}" type="button" data-guide-favorite="${card.id}" aria-pressed="${isFavorite}" aria-label="${isFavorite ? "Убрать из избранного" : "Добавить в избранное"} ${safeName}" title="${isFavorite ? "Убрать из избранного" : "Добавить в избранное"}">★</button>
             </span>
@@ -3368,6 +3427,9 @@
       imagePreviewCard.alt = card.name;
       imagePreviewCard.classList.toggle("reversed", card.reversed);
       cardLightboxTitle.textContent = card.name;
+      const nativeTitle = nativeTitleForCard(card);
+      cardLightboxNativeTitle.textContent = nativeTitle ? `(${nativeTitle})` : "";
+      cardLightboxNativeTitle.hidden = !nativeTitle;
       cardLightboxOrientation.hidden = !card.reversed;
       cardLightboxMeaning.textContent = card.meaning || "";
       if (card.messageHtml) {
