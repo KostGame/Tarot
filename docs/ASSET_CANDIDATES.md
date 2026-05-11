@@ -58,6 +58,19 @@ Only sets that were safely downloaded and mapped unambiguously to the current mo
 - Coverage: `22/22` major arcana only.
 - Notes: majors are mapped by title; minors are intentionally not connected because a safe full minor pack was not found.
 
+### `egyptian-falconnier`
+
+- Status: connected in UI as a historical major-only deck.
+- UI label: `Egyptian Tarot`
+- Detailed label for docs: `Egyptian Tarot · Falconnier`
+- Source URL: `https://commons.wikimedia.org/wiki/Category:Egyptian_Tarot_(Falconnier)`
+- Local files: `assets/cards-experimental/egyptian-falconnier/`
+- Coverage: `22/22` major arcana only.
+- License / reuse: Commons file pages for the 22 PNG card images are marked CC0 / public domain dedication; the general `Egyptian-tarot.jpg` file is intentionally not used.
+- Mapping strategy: explicit historical correspondence, not a simple numeric offset.
+- Native titles strategy: show the French source titles as a secondary line in the UI for all 22 majors.
+- Notes: this is an experimental historical major-only pack; safe mode automatically narrows to `majors`.
+
 ### `pixel-tarot`
 
 - Status: connected as an experimental full deck.
