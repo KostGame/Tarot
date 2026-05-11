@@ -2777,7 +2777,8 @@
     }
 
     function nativeTitleForCard(card) {
-      return selectedCardDeck.nativeTitles?.[card.id] ?? "";
+      const cardId = card?.id || card?.cardId || "";
+      return selectedCardDeck.nativeTitles?.[cardId] ?? "";
     }
 
     function renderNativeTitle(card, className = "") {
@@ -2959,7 +2960,7 @@
       const content = guideContentById.get(card.id) || {};
       return {
         name: content.name || card.n,
-        nativeName: content.nativeName || nativeTitleForCard(card) || "",
+        nativeName: nativeTitleForCard(card) || content.nativeName || "",
         group: content.group || guideGroupForCard(card),
         keywords: content.keywords || card.m,
         short: content.short || card.d,
@@ -3019,6 +3020,10 @@
         content.keywords,
         content.short,
       ].join(" ").toLowerCase().includes(searchValue);
+    }
+
+    function normalizeGuideSearch(value) {
+      return String(value ?? "").trim().toLowerCase();
     }
 
     function guideCardFromData(card) {
