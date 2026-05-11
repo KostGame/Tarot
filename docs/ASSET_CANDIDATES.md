@@ -1,130 +1,102 @@
 # Asset Candidates
 
-Дата фиксации списка: `2026-05-09`.
+Date of the list: `2026-05-11`.
 
-Этот документ фиксирует экспериментальные и альтернативные наборы карт для `KostGame/Tarot`. В UI подключены только те наборы, которые удалось автоматически скачать и однозначно привязать к текущей 78-карточной модели или к ее безопасному fallback-сценарию.
+This document records experimental and alternative card decks for `KostGame/Tarot`.
+Only sets that were safely downloaded and mapped unambiguously to the current model are connected in the UI.
 
-## Подключено в UI
+## Connected in UI
 
 ### `rws-classic`
 
-- Статус: базовая стабильная колода.
-- Источник: Wikimedia Commons, Rider-Waite-Smith tarot deck (TaionWC).
-- Локальные файлы: `assets/cards/`
-- Покрытие: 78/78 карт.
-- Примечание: основной fallback для всех экспериментальных наборов.
+- Status: stable base deck.
+- Source: Wikimedia Commons, Rider-Waite-Smith tarot deck (TaionWC).
+- Local files: `assets/cards/`
+- Coverage: `78/78`
+- Notes: primary fallback for all experimental decks.
 
 ### `rws-dark-classic`
 
-- Статус: базовая темная тема.
-- Источник: те же локальные изображения `rws-classic`.
-- Локальные файлы: `assets/cards/`
-- Покрытие: 78/78 карт.
-- Примечание: отдельные ассеты не требуются, используется CSS-обработка.
+- Status: stable theme variant of the same deck.
+- Source: the same local `rws-classic` images.
+- Local files: `assets/cards/`
+- Coverage: `78/78`
+- Notes: uses CSS dark treatment only.
+
+### `tarot-nouveau-grimaud-1898`
+
+- Status: connected in UI as a full historical deck.
+- UI label: `Tarot Nouveau`
+- Detailed label for docs: `Tarot Nouveau · Grimaud 1898`
+- Source URL: `https://commons.wikimedia.org/wiki/Category:Tarot_nouveau_-_Grimaud_-_1898`
+- Local files: `assets/cards-experimental/tarot-nouveau-grimaud-1898/`
+- Coverage: `78/78`
+- Back side: excluded from the pack
+- License / reuse: public domain scan on Commons; recheck individual Commons file pages if the pack is reused outside this project.
+- Mapping strategy: normalize the French suit structure to the app's `wands / cups / swords / pentacles` model and map trumps as `Excuse` + `Atout 1..21`.
+- Native titles strategy: show French native labels as a secondary line in the UI, while keeping the translated app title as the primary one.
+- Notes: this is a French gaming tarot deck from 1898; the app's meanings remain an educational layer on top of the deck imagery.
 
 ### `marseille-historical`
 
-- Статус: подключено в UI как историческая экспериментальная колода major-only.
-- Источник: [Commons category / Tarot de Marseille - Nicolas Conver 1760](https://commons.wikimedia.org/wiki/Category:Tarot_de_Marseille_-_Nicolas_Conver_1760)
-- Локальные файлы: `assets/cards-experimental/marseille-historical/`
-- Покрытие: 22/22 старших арканов.
-- Режим состава в UI: автоматически используется `Старшие`, младшие не вытягиваются для этой колоды.
-- Маппинг: старшие арканы маппятся по названию; `VIII LA JUSTICE` кладется в app Justice, а `XI LA FORCE` в app Strength, чтобы совпасть с текущими id приложения.
-- Minor mapping contract: Bâtons/Coupes/Épées/Deniers map to Wands/Cups/Swords/Pentacles, but safe 56-card minor assets were not found in the Commons category, so the deck stays major-only.
-- Лицензия: файлы на Commons отмечены как `CC BY-SA 4.0`; при дальнейшем использовании нужна атрибуция и соблюдение условий share-alike.
-- Примечание: это историческая колода Tarot de Marseille на базе Nicolas Conver 1760, а не native Rider-Waite-Smith mapping.
-- Решение: колода подключена в UI, но остается экспериментальной и major-only.
+- Status: connected in UI as a historical major-only deck.
+- Source: Wikimedia Commons, Tarot de Marseille - Nicolas Conver 1760.
+- Local files: `assets/cards-experimental/marseille-historical/`
+- Coverage: `22/22` major arcana only.
+- Notes: majors are mapped by title; minors are intentionally not connected because a safe full minor pack was not found.
 
 ### `pixel-tarot`
 
-- Статус: подключено как экспериментальный полный набор.
-- Источник: [Papitas319 / Tarot pixel assets](https://papitas319.itch.io/tarot-pixel-assets)
-- Локальные файлы: `assets/cards-experimental/pixel-tarot/`
-- Покрытие: 78/78 карт.
-- Формат подключения: прямой маппинг на все `major-*`, `cups-*`, `swords-*`, `wands-*`, `pentacles-*`.
-- Fallback: не нужен для штатного сценария, но общий fallback на `rws-classic` сохранен.
-- Лицензия: требует ручной проверки пользователем по странице/архиву источника.
+- Status: connected as an experimental full deck.
+- Source: `https://papitas319.itch.io/tarot-pixel-assets`
+- Local files: `assets/cards-experimental/pixel-tarot/`
+- Coverage: `78/78`
 
 ### `veil-of-fate`
 
-- Статус: подключено как экспериментальный набор `старшие + двор`.
-- Источник: [Dajeki / Veil of Fate](https://dajeki.itch.io/veil-of-fate-mystic-tarot-icons)
-- Локальные файлы: `assets/cards-experimental/veil-of-fate/`
-- Покрытие: 38 локальных файлов.
-- Что есть локально: 22 старших аркана и 16 фигурных карт.
-- Режим состава в UI: автоматически используется `Старшие + двор`, поэтому номерные младшие арканы не вытягиваются для этой колоды.
-- Маппинг стихий: `air -> swords`, `water -> cups`, `fire -> wands`, `earth -> pentacles`.
-- Лицензия: на странице заявлен `CC0`, но набор отмечен как AI-assisted и требует ручной проверки пользователем.
+- Status: connected as an experimental `major + court` deck.
+- Source: `https://dajeki.itch.io/veil-of-fate-mystic-tarot-icons`
+- Local files: `assets/cards-experimental/veil-of-fate/`
+- Coverage: `38` local files.
 
 ### `major-pixel-jcanabal`
 
-- Статус: подключено как экспериментальный набор только для старших арканов.
-- Источник: [jcanabal / Major Arcana Pixel Art Free](https://jcanabal.itch.io/major-arcana-pixel-art-free)
-- Локальные файлы: `assets/cards-experimental/major-pixel-jcanabal/`
-- Покрытие: 22 локальных файла.
-- Формат подключения: старшие арканы берутся из набора, младшие автоматически добираются из `rws-classic`.
-- Лицензия: требует ручной проверки пользователем по странице/архиву источника.
+- Status: connected as an experimental major-only deck.
+- Source: `https://jcanabal.itch.io/major-arcana-pixel-art-free`
+- Local files: `assets/cards-experimental/major-pixel-jcanabal/`
+- Coverage: `22` local files.
 
 ### `major-pixel-zune`
 
-- Статус: подключено как экспериментальный набор только для старших арканов.
-- Источник: [ZUNE / Major Arcana Tarot Cards in Pixel](https://starsinabox.itch.io/majorarcana)
-- Локальные файлы: `assets/cards-experimental/major-pixel-zune/`
-- Покрытие: 22 локальных файла.
-- Формат подключения: старшие арканы берутся из набора, младшие автоматически добираются из `rws-classic`.
-- Особенность: numbering в исходнике не полностью совпадает с классической RWS-нумерацией (`Justice`/`Strength`), поэтому использован маппинг по именам папок, а не только по номеру.
-- Лицензия: в `_readme.txt` автор просит атрибуцию и запрещает redistrib/resale/AI usage; нужен ручной обзор пользователем перед дальнейшим расширением использования.
+- Status: connected as an experimental major-only deck.
+- Source: `https://starsinabox.itch.io/majorarcana`
+- Local files: `assets/cards-experimental/major-pixel-zune/`
+- Coverage: `22` local files.
 
-## Оставлено только в документации
+## Documentation-only candidates
 
-### False Dichotomy Tarot
+### `False Dichotomy Tarot`
 
-- Источник: [ChaoteCruithne/FalseDichotomyTarot](https://github.com/ChaoteCruithne/FalseDichotomyTarot)
-- Статус: не подключено в UI.
-- Причина: автоматический маппинг к текущей модели приложения неочевиден, состав и соответствие карт требуют отдельной ручной проверки.
+- Source: `https://github.com/ChaoteCruithne/FalseDichotomyTarot`
+- Status: not connected in UI.
+- Reason: automatic mapping to the current app model is still unclear and requires a separate manual review.
 
-## Правила дальнейшего подключения
-
-1. Не использовать внешние изображения в runtime.
-2. Подключать в UI только наборы с понятным составом и проверяемым маппингом.
-3. Для `major-court` и `major-only` наборов автоматически сужать состав карт до доступного покрытия.
-4. Для каждого нового набора фиксировать источник, дату добавления и лицензионные замечания.
-5. Перед merge проверять мобильную ширину около `390px`, fullscreen-просмотр, отсутствие горизонтального скролла и поведение fallback.
 ### `etteilla-historical`
 
-- Source: [Wikimedia Commons / Etteilla I tarot deck](https://commons.wikimedia.org/wiki/Category:Etteilla_I_tarot_deck).
+- Source: `https://commons.wikimedia.org/wiki/Category:Etteilla_I_tarot_deck`
 - Status: candidate only, not connected to UI.
-- Intended local path if approved later: `assets/cards-experimental/etteilla-historical/`.
-- Coverage note: the Commons category contains 107 files for the Grand Etteilla / Etteilla I tradition, including historical variants and scans, not a clean 78-card Rider-Waite-Smith-compatible set.
-- Mapping note: after the research update, only the 22 major arcana are clearly numbered and named in a way that is easy to inspect. The remaining Commons entries are mixed historical scans and do not provide a safe automatic 78-card asset pack with stable suit/rank filenames.
-- Decision for Issue #26: keep `etteilla-historical` out of the deck selector until a manual asset pack is prepared and reviewed.
-- UI order if later approved: place immediately after `rws-classic` and `rws-dark-classic`, before other experimental decks.
-- Fallback plan if later approved: keep `rws-classic` fallback for missing or unmapped cards.
+- Reason: the Commons set is still not a safe automatic 78-card pack with stable suit/rank filenames.
 
 ### `etteilla-type-i`
 
-- Source: [Original Etteilla Tarot - Le Jeu de Toth](https://etteilla.org/en/deck/10/original-etteilla-tarot-le-jeu-de-toth).
+- Source: `https://etteilla.org/en/deck/10/original-etteilla-tarot-le-jeu-de-toth`
 - Status: historical experimental deck, documentation only.
-- Intended local path if approved later: `assets/cards-experimental/etteilla-type-i/`.
-- Coverage note: Original Etteilla Type I is a full `78/78` deck.
-- Mapping note: majors and minors are documented in `docs/ETTEILLA_MAPPING.md`; this is an experimental historical correspondence layer, not a native RWS mapping.
-- License / reuse note: the Etteilla Foundation allows reuse for informational, academic, and research-oriented websites under CC BY-NC 4.0 for public-domain decks. The project fits that non-commercial profile.
-- Blocker note for Issue #32: repeated automated asset retrieval checks failed. Local `curl` could not resolve `etteilla.org`; direct `eti.la` image URLs returned Cloudflare `530 / error code: 1016`; Node `fetch` failed for both hosts. A related `ancient.cards` page is reachable but exposes screenshots, not a structured 78-card asset pack.
-- Decision for this task: keep `etteilla-type-i` out of the UI until a manual asset pack can be downloaded and verified card by card.
-- Fallback plan if later approved: keep `rws-classic` fallback for missing or unmapped cards.
+- Reason: the mapping plan exists, but the pack is not part of this task and remains documented separately.
 
-## Historical deck candidates
+## Rules for further connection
 
-See [HISTORICAL_DECK_CANDIDATES.md](./HISTORICAL_DECK_CANDIDATES.md) for the full research notes.
-
-- `tarot-nouveau-grimaud-1898` - the strongest full-deck candidate. Commons shows 79 files, including a back side.
-- `jean-dodal-historical` - major-only candidate. Commons shows 29 files, but the category is not a full 78-card pack.
-- `egyptian-falconnier` - major-only candidate. Commons shows 23 files, with a clean historical major correspondence but no full minor set.
-- `visconti-sforza-pierpont-morgan-bergamo` - blocker / partial candidate. The Visconti-Sforza family is split across several collections and is not a safe full pack yet.
-
-Native title policy for these historical candidates:
-
-- keep the translated card name as the main title;
-- show the native title only as a secondary line in parentheses;
-- tie the native title to the selected visual deck;
-- hide the native title completely if it is not curated and verified.
+1. Do not use external images at runtime.
+2. Connect only packs with a clear, reviewable mapping.
+3. For `major-court` and `major-only` decks, automatically narrow the pool to the available coverage.
+4. For every new deck, record source, added date, and license notes.
+5. Before merge, check mobile width around `390px`, fullscreen behavior, horizontal scrolling, and fallback handling.

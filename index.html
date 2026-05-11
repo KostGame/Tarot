@@ -2348,6 +2348,65 @@
       return map;
     }
 
+    function buildTarotNouveauNativeTitles() {
+      const titles = {
+        "major-00-fool": "Excuse",
+      };
+      [
+        ["major-01-magician", "Atout 1"],
+        ["major-02-high-priestess", "Atout 2"],
+        ["major-03-empress", "Atout 3"],
+        ["major-04-emperor", "Atout 4"],
+        ["major-05-hierophant", "Atout 5"],
+        ["major-06-lovers", "Atout 6"],
+        ["major-07-chariot", "Atout 7"],
+        ["major-08-strength", "Atout 8"],
+        ["major-09-hermit", "Atout 9"],
+        ["major-10-wheel-of-fortune", "Atout 10"],
+        ["major-11-justice", "Atout 11"],
+        ["major-12-hanged-man", "Atout 12"],
+        ["major-13-death", "Atout 13"],
+        ["major-14-temperance", "Atout 14"],
+        ["major-15-devil", "Atout 15"],
+        ["major-16-tower", "Atout 16"],
+        ["major-17-star", "Atout 17"],
+        ["major-18-moon", "Atout 18"],
+        ["major-19-sun", "Atout 19"],
+        ["major-20-judgement", "Atout 20"],
+        ["major-21-world", "Atout 21"],
+      ].forEach(([cardId, title]) => {
+        titles[cardId] = title;
+      });
+      const suitNames = {
+        swords: "Pique",
+        cups: "Cœur",
+        wands: "Trèfle",
+        pentacles: "Carreau",
+      };
+      const rankNames = {
+        "01-ace": "As",
+        "02-two": "2",
+        "03-three": "3",
+        "04-four": "4",
+        "05-five": "5",
+        "06-six": "6",
+        "07-seven": "7",
+        "08-eight": "8",
+        "09-nine": "9",
+        "10-ten": "10",
+        "11-page": "Valet",
+        "12-knight": "Cavalier",
+        "13-queen": "Dame",
+        "14-king": "Roi",
+      };
+      Object.entries(suitNames).forEach(([suit, suitTitle]) => {
+        Object.entries(rankNames).forEach(([rankId, rankTitle]) => {
+          titles[`${suit}-${rankId}`] = `${rankTitle} de ${suitTitle}`;
+        });
+      });
+      return titles;
+    }
+
     function buildVeilOfFateMap(basePath) {
       return {
         ...buildMajorDeckMap(basePath),
@@ -2504,6 +2563,21 @@
         coverage: "full",
         fallbackDeckId: "rws-classic",
         sourceUrl: "https://commons.wikimedia.org/wiki/Category:Rider-Waite-Smith_tarot_deck_(TaionWC)",
+      },
+      {
+        id: "tarot-nouveau-grimaud-1898",
+        name: "Tarot Nouveau",
+        label: "Tarot Nouveau",
+        optionLabel: "Tarot Nouveau",
+        description: "Французская игровая колода 1898 года; учебный слой поверх полного набора 78 карт",
+        cssClass: "deck-tarot-nouveau-grimaud-1898",
+        status: "experimental",
+        coverage: "full",
+        fallbackDeckId: "rws-classic",
+        sourceUrl: "https://commons.wikimedia.org/wiki/Category:Tarot_nouveau_-_Grimaud_-_1898",
+        licenseNote: "Public domain scan on Commons; back side excluded from the 78-card pack.",
+        nativeTitles: buildTarotNouveauNativeTitles(),
+        cards: buildFullDeckMap("assets/cards-experimental/tarot-nouveau-grimaud-1898", "jpg"),
       },
       {
         id: "marseille-historical",
