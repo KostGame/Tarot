@@ -384,6 +384,7 @@
       gap: 10px;
       width: min(100%, 520px);
       margin: 10px auto 0;
+      padding-bottom: 96px;
     }
 
     .guide-screen[hidden] {
@@ -504,6 +505,14 @@
       text-align: center;
     }
 
+    .guide-hint {
+      margin: -2px 0 0;
+      color: rgba(207, 194, 223, .8);
+      font-size: .74rem;
+      line-height: 1.32;
+      text-align: center;
+    }
+
     .guide-grid {
       display: grid;
       grid-template-columns: minmax(0, 1fr);
@@ -590,18 +599,30 @@
     .guide-favorite {
       display: grid;
       place-items: center;
-      width: 32px;
-      height: 32px;
-      border: 1px solid rgba(234, 212, 158, .18);
-      border-radius: 50%;
-      background: rgba(8, 6, 16, .32);
-      color: rgba(241, 207, 122, .62);
-      font: 900 1rem/1 inherit;
+      width: 28px;
+      height: 28px;
+      border: 0;
+      border-radius: 0;
+      padding: 0;
+      background: transparent;
+      color: rgba(241, 207, 122, .54);
+      font: 900 1.2rem/1 inherit;
       cursor: pointer;
+      justify-self: end;
+      transition: color .18s ease, transform .18s ease, opacity .18s ease;
+    }
+
+    .guide-favorite:hover {
+      color: rgba(241, 207, 122, .82);
+      transform: scale(1.04);
+    }
+
+    .guide-favorite:focus-visible {
+      outline: 2px solid rgba(241, 207, 122, .78);
+      outline-offset: 3px;
     }
 
     .guide-favorite.active {
-      background: rgba(241, 207, 122, .12);
       color: var(--gold);
     }
 
@@ -628,15 +649,60 @@
     }
 
     .guide-card-details summary {
-      width: fit-content;
+      display: grid;
+      gap: 4px;
+      width: 100%;
+      padding: 0;
       color: var(--gold);
-      font-weight: 850;
+      font-weight: 700;
       cursor: pointer;
-      list-style-position: inside;
+      list-style: none;
+    }
+
+    .guide-card-details summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .guide-card-details-label {
+      color: rgba(207, 194, 223, .8);
+      font-size: .68rem;
+      font-weight: 800;
+      letter-spacing: .04em;
+      text-transform: uppercase;
     }
 
     .guide-card-details p {
       margin: 7px 0 0;
+    }
+
+    .guide-scroll-top {
+      position: fixed;
+      right: max(14px, env(safe-area-inset-right));
+      bottom: max(84px, calc(env(safe-area-inset-bottom) + 74px));
+      z-index: 12;
+      display: grid;
+      place-items: center;
+      width: 46px;
+      height: 46px;
+      border: 1px solid rgba(234, 212, 158, .2);
+      border-radius: 50%;
+      background: rgba(18, 13, 29, .92);
+      color: var(--gold);
+      box-shadow: 0 14px 28px rgba(0, 0, 0, .32);
+      cursor: pointer;
+      transition: opacity .2s ease, transform .2s ease, background .2s ease;
+    }
+
+    .guide-scroll-top:hover {
+      background: rgba(34, 24, 48, .96);
+    }
+
+    .guide-scroll-top:active {
+      transform: scale(.98);
+    }
+
+    .guide-scroll-top[hidden] {
+      display: none;
     }
     .guide-empty {
       margin: 2px 0 0;
@@ -1363,7 +1429,63 @@
 	  font-weight: 800;
 	  text-align: center;
 	}
-	
+
+    .card-lightbox.guide-mode .lightbox-content {
+      width: min(calc(100% - 16px), 460px);
+      gap: 6px;
+    }
+
+    .card-lightbox.guide-mode .lightbox-card-stage {
+      gap: 8px;
+    }
+
+    .card-lightbox.guide-mode .lightbox-card-frame {
+      width: clamp(128px, 39vw, 184px);
+    }
+
+    .card-lightbox.guide-mode .lightbox-description {
+      max-width: none;
+      max-height: min(40svh, 380px);
+      padding: 0 8px;
+      align-items: stretch;
+      justify-items: stretch;
+      text-align: left;
+    }
+
+    .card-lightbox.guide-mode #card-lightbox-meaning {
+      text-align: left;
+      font-size: .9rem;
+      line-height: 1.32;
+    }
+
+    .card-lightbox.guide-mode #card-lightbox-message {
+      margin-top: 10px;
+      padding-top: 10px;
+      font-size: .9rem;
+      line-height: 1.32;
+      text-align: left;
+    }
+
+    .card-lightbox.guide-mode .guide-lightbox-section {
+      margin: 10px 0 0;
+    }
+
+    .card-lightbox.guide-mode .lightbox-title {
+      font-size: clamp(1.4rem, 6.4vw, 2rem);
+    }
+
+    .card-lightbox.guide-mode .lightbox-native-title {
+      font-size: clamp(.78rem, 3.4vw, .96rem);
+    }
+
+    .card-lightbox.guide-mode .lightbox-counter {
+      font-size: .72rem;
+    }
+
+    .card-lightbox.guide-mode .lightbox-actions {
+      margin-top: 0;
+    }
+
     .lightbox-card-fallback {
       display: grid;
       place-items: center;
@@ -2003,8 +2125,15 @@
       </div>
 
       <p class="guide-counter" id="guide-counter"></p>
+      <p class="guide-hint">Клик по карте открывает полный просмотр.</p>
       <div class="guide-grid" id="guide-grid"></div>
       <p class="guide-empty" id="guide-empty" hidden>Ничего не найдено. Попробуйте другой поиск или фильтр.</p>
+      <button class="guide-scroll-top" id="guide-scroll-top" type="button" aria-label="Наверх" title="Наверх" hidden>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M12 19V5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+          <path d="m6.5 10.5 5.5-5.5 5.5 5.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
     </section>
   </main>
 
@@ -2314,6 +2443,7 @@
     const guideGrid = document.querySelector("#guide-grid");
     const guideFilters = document.querySelector("#guide-filters");
     const guideFilterButtons = [...guideFilters.querySelectorAll(".guide-filter")];
+    const guideScrollTopButton = document.querySelector("#guide-scroll-top");
     const cardLightboxGuide = document.querySelector("#card-lightbox-guide");
     const dailyCounter = document.querySelector("#daily-counter");
     const dailyCounterTotalValue = document.querySelector("#daily-counter-total-value");
@@ -2340,6 +2470,7 @@
     let currentLightboxIndex = 0;
     let lightboxTouchStart = null;
     let shareInProgress = false;
+    let currentLightboxGuideMode = false;
     let guideSearchValue = "";
     let guideGroup = "all";
     let guideFocusCardId = "";
@@ -2598,7 +2729,9 @@
       if (!guideCard) {
         return;
       }
-      openCardLightbox([lightboxCardFromButton(guideCard)]);
+      const filteredCards = getFilteredGuideCards();
+      const index = filteredCards.findIndex(card => card.id === guideCard.dataset.cardId);
+      openCardLightbox(filteredCards.map(guideCardFromData), Math.max(index, 0), { guideMode: true });
     });
 
     guideGrid.addEventListener("keydown", event => {
@@ -2613,7 +2746,9 @@
         return;
       }
       event.preventDefault();
-      openCardLightbox([lightboxCardFromButton(guideCard)]);
+      const filteredCards = getFilteredGuideCards();
+      const index = filteredCards.findIndex(card => card.id === guideCard.dataset.cardId);
+      openCardLightbox(filteredCards.map(guideCardFromData), Math.max(index, 0), { guideMode: true });
     });
 
     cardLightboxGuide.addEventListener("click", () => {
@@ -2623,7 +2758,7 @@
       openGuideView({
         name: currentLightboxCard.name,
         cardId: currentLightboxCard.cardId || "",
-      });
+      }, { preserveState: currentLightboxGuideMode });
     });
 
     cardLightbox.addEventListener("click", event => {
@@ -2636,12 +2771,15 @@
     cardLightboxZoom.addEventListener("click", openImagePreview);
     cardLightboxPrev.addEventListener("click", () => showLightboxCard(currentLightboxIndex - 1));
     cardLightboxNext.addEventListener("click", () => showLightboxCard(currentLightboxIndex + 1));
+    guideScrollTopButton.addEventListener("click", scrollGuideToTop);
 
     imagePreview.addEventListener("click", event => {
       if (event.target.closest("[data-image-preview-close]")) {
         closeImagePreview();
       }
     });
+
+    window.addEventListener("scroll", updateGuideScrollTopButton, { passive: true });
 
     cardLightbox.addEventListener("touchstart", event => {
       if (event.touches.length !== 1 || cardLightbox.hidden) {
@@ -2971,6 +3109,21 @@
       return String(value || "").trim().toLowerCase();
     }
 
+    function getFilteredGuideCards() {
+      const pool = getGuideCards();
+      guideSearchValue = normalizeGuideSearch(guideSearchInput.value);
+      return pool.filter(card => guideCardMatchesGroup(card, guideGroup) && guideCardMatchesSearch(card, guideSearchValue));
+    }
+
+    function updateGuideScrollTopButton() {
+      const show = !guideScreen.hidden && window.scrollY > 220;
+      guideScrollTopButton.hidden = !show;
+    }
+
+    function scrollGuideToTop() {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
     function guideGroupForCard(card) {
       if (isMajorCard(card)) {
         return "major";
@@ -3118,8 +3271,7 @@
               <button class="guide-favorite ${isFavorite ? "active" : ""}" type="button" data-guide-favorite="${card.id}" aria-pressed="${isFavorite}" aria-label="${isFavorite ? "Убрать из избранного" : "Добавить в избранное"} ${safeName}" title="${isFavorite ? "Убрать из избранного" : "Добавить в избранное"}">★</button>
             </span>
             <span class="guide-card-meanings">${safeMeaning}</span>
-            <span class="guide-card-short">${safeShort}</span>
-            ${detailsHtml ? `<details class="guide-card-details"><summary>Развернуть описание</summary>${detailsHtml}</details>` : ""}
+            ${detailsHtml ? `<details class="guide-card-details"><summary><span class="guide-card-short">${safeShort}</span><span class="guide-card-details-label">Развернуть описание</span></summary>${detailsHtml}</details>` : `<span class="guide-card-short">${safeShort}</span>`}
           </span>
         </article>
       `;
@@ -3141,8 +3293,7 @@
       if (guideGroup !== "all" && guideGroup !== "favorites" && !availableGroups.has(guideGroup)) {
         guideGroup = "all";
       }
-      guideSearchValue = normalizeGuideSearch(guideSearchInput.value);
-      const filtered = pool.filter(card => guideCardMatchesGroup(card, guideGroup) && guideCardMatchesSearch(card, guideSearchValue));
+      const filtered = getFilteredGuideCards();
       const contentNote = guideContentStatus === "loaded" ? "" : " · базовые тексты";
       guideCounter.textContent = `Показано ${filtered.length} из ${pool.length}${contentNote}`;
       guideEmpty.hidden = filtered.length > 0;
@@ -3151,6 +3302,7 @@
         : "Ничего не найдено. Попробуйте другой поиск или фильтр.";
       guideGrid.innerHTML = filtered.map(card => renderGuideCard(card, card.id === focusCardId)).join("");
       updateGuideFilterButtons(availableGroups);
+      updateGuideScrollTopButton();
 
       if (!filtered.length) {
         return;
@@ -3171,15 +3323,16 @@
       guideScreen.hidden = true;
       mainScreen.hidden = false;
       guideFocusCardId = "";
+      updateGuideScrollTopButton();
       requestAnimationFrame(() => openGuideButton?.focus({ preventScroll: true }));
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
-    function openGuideView(card = null) {
+    function openGuideView(card = null, { preserveState = false } = {}) {
       closeImagePreview();
       closeCardLightbox();
       guideFocusCardId = card?.cardId || card?.id || "";
-      if (card?.name) {
+      if (!preserveState && card?.name) {
         guideGroup = "all";
         const isAvailable = guideFocusCardId ? getGuideCards().some(item => item.id === guideFocusCardId) : false;
         guideSearchInput.value = isAvailable ? card.name : "";
@@ -3191,6 +3344,7 @@
       guideScreen.hidden = false;
       mainScreen.hidden = true;
       renderGuideView({ focusCardId: guideFocusCardId });
+      updateGuideScrollTopButton();
       window.scrollTo({ top: 0, behavior: "smooth" });
       requestAnimationFrame(() => guideSearchInput.focus({ preventScroll: true }));
     }
@@ -3396,13 +3550,15 @@
       return true;
     }
 
-    function openCardLightbox(cards, index = 0) {
+    function openCardLightbox(cards, index = 0, { guideMode = false } = {}) {
       const nextCards = Array.isArray(cards) ? cards : [cards];
       currentLightboxCards = nextCards.filter(card => card?.name && card?.image);
       if (!currentLightboxCards.length) {
         return;
       }
+      currentLightboxGuideMode = guideMode;
       cardLightbox.hidden = false;
+      cardLightbox.classList.toggle("guide-mode", currentLightboxGuideMode);
       document.body.classList.add("lightbox-open");
       showLightboxCard(Math.max(0, Math.min(index, currentLightboxCards.length - 1)));
     }
@@ -3438,6 +3594,7 @@
         cardLightboxMessage.textContent = card.message || "";
       }
       cardLightboxDescription.hidden = !card.meaning && !card.message && !card.messageHtml;
+      cardLightbox.classList.toggle("guide-mode", currentLightboxGuideMode);
       updateLightboxNavigation();
       const lightboxContent = cardLightbox.querySelector(".lightbox-content");
       if (lightboxContent) {
@@ -3495,6 +3652,7 @@
       cardLightboxDescription.hidden = true;
       cardLightboxMeaning.textContent = "";
       cardLightboxMessage.textContent = "";
+      cardLightbox.classList.remove("guide-mode");
       cardLightboxStage.classList.add("no-nav");
       cardLightboxPrev.hidden = true;
       cardLightboxNext.hidden = true;
@@ -3502,6 +3660,7 @@
       cardLightboxCounter.textContent = "";
       cardLightboxPrev.disabled = false;
       cardLightboxNext.disabled = false;
+      currentLightboxGuideMode = false;
       document.body.classList.remove("lightbox-open");
     }
 
