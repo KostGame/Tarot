@@ -112,3 +112,19 @@
 - Blocker note for Issue #32: repeated automated asset retrieval checks failed. Local `curl` could not resolve `etteilla.org`; direct `eti.la` image URLs returned Cloudflare `530 / error code: 1016`; Node `fetch` failed for both hosts. A related `ancient.cards` page is reachable but exposes screenshots, not a structured 78-card asset pack.
 - Decision for this task: keep `etteilla-type-i` out of the UI until a manual asset pack can be downloaded and verified card by card.
 - Fallback plan if later approved: keep `rws-classic` fallback for missing or unmapped cards.
+
+## Historical deck candidates
+
+See [HISTORICAL_DECK_CANDIDATES.md](./HISTORICAL_DECK_CANDIDATES.md) for the full research notes.
+
+- `tarot-nouveau-grimaud-1898` - the strongest full-deck candidate. Commons shows 79 files, including a back side.
+- `jean-dodal-historical` - major-only candidate. Commons shows 29 files, but the category is not a full 78-card pack.
+- `egyptian-falconnier` - major-only candidate. Commons shows 23 files, with a clean historical major correspondence but no full minor set.
+- `visconti-sforza-pierpont-morgan-bergamo` - blocker / partial candidate. The Visconti-Sforza family is split across several collections and is not a safe full pack yet.
+
+Native title policy for these historical candidates:
+
+- keep the translated card name as the main title;
+- show the native title only as a secondary line in parentheses;
+- tie the native title to the selected visual deck;
+- hide the native title completely if it is not curated and verified.
