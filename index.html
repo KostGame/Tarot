@@ -127,6 +127,44 @@
       overflow-wrap: anywhere;
     }
 
+    .deck-chip {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      max-width: min(100%, 320px);
+      margin: 0 auto 10px;
+      padding: 10px 14px;
+      border: 1px solid rgba(234, 212, 158, .18);
+      border-radius: 999px;
+      background: rgba(8, 6, 16, .34);
+      color: var(--text);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, .05);
+      font: 800 .84rem/1 inherit;
+      cursor: pointer;
+      transition: background .2s ease, transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+    }
+
+    .deck-chip:hover {
+      background: rgba(241, 207, 122, .08);
+      border-color: rgba(241, 207, 122, .32);
+    }
+
+    .deck-chip:active {
+      transform: scale(.98);
+    }
+
+    .deck-chip-label {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .deck-chip svg {
+      flex: 0 0 auto;
+      color: var(--gold);
+    }
+
     .sr-only {
       position: absolute;
       width: 1px;
@@ -300,19 +338,17 @@
     }
 
     .settings {
-      width: 100%;
-      margin: 0;
-      border: 0;
-      border-radius: 0;
-      background: transparent;
-      box-shadow: none;
-      flex: 1 1 auto;
+      width: min(100%, 520px);
+      margin: 12px auto 0;
+      border: 1px solid rgba(234, 212, 158, .16);
+      border-radius: 18px;
+      background: rgba(8, 6, 16, .24);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, .05);
     }
 
     .settings:not([open]) {
       width: 44px;
       flex: 0 0 44px;
-      border-color: transparent;
       border-radius: 999px;
       background: transparent;
       box-shadow: none;
@@ -334,6 +370,11 @@
       cursor: pointer;
       list-style: none;
       transition: background .2s ease, transform .2s ease, filter .2s ease;
+    }
+
+    .settings[open] summary {
+      margin-top: 2px;
+      margin-bottom: 6px;
     }
 
     .settings summary:hover,
@@ -368,6 +409,43 @@
       color: var(--gold);
       cursor: pointer;
       transition: background .2s ease, transform .2s ease, filter .2s ease, opacity .2s ease;
+    }
+
+    .settings-body {
+      padding: 0 12px 12px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .settings-body .card-deck-picker,
+    .settings-body .deck-tabs,
+    .settings-body .pool-mode-note,
+    .settings-body .daily-counter {
+      width: 100%;
+      margin-left: 0;
+      margin-right: 0;
+    }
+
+    .settings-body .card-deck-picker {
+      justify-content: flex-start;
+      margin: 0;
+    }
+
+    .settings-body .card-deck-picker select {
+      flex: 1 1 auto;
+      width: auto;
+      min-width: 0;
+    }
+
+    .settings-body .deck-tabs {
+      margin-bottom: 0;
+    }
+
+    .settings-actions {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding-top: 2px;
     }
 
     .guide-toggle:focus-visible,
@@ -2049,23 +2127,17 @@
       <p class="lead">Выберите простой расклад, сделайте вдох и позвольте карте подсветить мысль, с которой можно бережно пройти день.</p>
     </header>
 
+    <button class="deck-chip" id="deck-chip" type="button" aria-label="Выбрать колоду" title="Выбрать колоду">
+      <span class="deck-chip-label" id="deck-chip-label"></span>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="m7 10 5 5 5-5" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+
     <nav class="mode-tabs" aria-label="Выбор режима">
       <button class="tab active" type="button" data-mode="day">Карта дня</button>
       <button class="tab" type="button" data-mode="question">Совет по вопросу</button>
     </nav>
-
-    <nav class="deck-tabs" aria-label="Выбор колоды">
-      <button class="deck-tab active" type="button" data-pool-mode="all">Все</button>
-      <button class="deck-tab" type="button" data-pool-mode="major-court">Старшие + двор</button>
-      <button class="deck-tab" type="button" data-pool-mode="majors">Старшие</button>
-    </nav>
-    <p class="pool-mode-note" id="pool-mode-note" hidden></p>
-
-    <label class="card-deck-picker">
-      <span class="card-deck-icon">Колода</span>
-      <span class="sr-only">Стиль карт</span>
-      <select id="card-deck-select" aria-label="Стиль карт"></select>
-    </label>
 
     <section class="panel">
       <div class="mode active" id="mode-day">
@@ -2095,34 +2167,50 @@
 
     <section class="result" id="result" aria-live="polite"></section>
 
-    <div class="bottom-quick-actions">
-      <details class="settings">
-        <summary aria-label="Настройки" title="Настройки">⚙</summary>
-        <div class="settings-body">
-          <div class="setting-row">
-            <div>
-              <p class="setting-title">Перевернутые карты</p>
-              <p class="setting-description">Если включить, карта может выпасть прямой или перевернутой. Это усложняет трактовку и подходит для более опытного чтения.</p>
-            </div>
-            <label class="switch">
-              <input type="checkbox" id="use-reversed-cards" aria-label="Перевернутые карты">
-              <span class="switch-ui" aria-hidden="true"></span>
-            </label>
+    <details class="settings" id="main-settings">
+      <summary aria-label="Настройки" title="Настройки">⚙</summary>
+      <div class="settings-body">
+        <label class="card-deck-picker">
+          <span class="card-deck-icon">Колода</span>
+          <span class="sr-only">Стиль карт</span>
+          <select id="card-deck-select" aria-label="Стиль карт"></select>
+        </label>
+
+        <nav class="deck-tabs" aria-label="Выбор состава карт">
+          <button class="deck-tab active" type="button" data-pool-mode="all">Все</button>
+          <button class="deck-tab" type="button" data-pool-mode="major-court">Старшие + двор</button>
+          <button class="deck-tab" type="button" data-pool-mode="majors">Старшие</button>
+        </nav>
+        <p class="pool-mode-note" id="pool-mode-note" hidden></p>
+
+        <div class="setting-row">
+          <div>
+            <p class="setting-title">Перевернутые карты</p>
+            <p class="setting-description">Если включить, карта может выпасть прямой или перевернутой. Это усложняет трактовку и подходит для более опытного чтения.</p>
           </div>
+          <label class="switch">
+            <input type="checkbox" id="use-reversed-cards" aria-label="Перевернутые карты">
+            <span class="switch-ui" aria-hidden="true"></span>
+          </label>
         </div>
-      </details>
-      <button class="guide-toggle" id="open-guide" type="button" aria-label="Справочник карт" title="Справочник карт">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <circle cx="12" cy="12" r="8.2" stroke="currentColor" stroke-width="1.8"/>
-          <path d="M12 10.2v5.4" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/>
-          <path d="M12 7.9h.01" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
-        </svg>
-      </button>
-    </div>
-    <div class="daily-counter" id="daily-counter" aria-live="polite" hidden>
-      <p class="daily-counter-total">Сегодня выбрали карт: <strong id="daily-counter-total-value">—</strong></p>
-      <p class="daily-counter-breakdown">Карта дня: <strong id="daily-counter-day-value">—</strong> · Совет: <strong id="daily-counter-advice-value">—</strong></p>
-    </div>
+
+        <div class="settings-actions">
+          <button class="guide-toggle" id="open-guide" type="button" aria-label="Справочник карт" title="Справочник карт">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <circle cx="12" cy="12" r="8.2" stroke="currentColor" stroke-width="1.8"/>
+              <path d="M12 10.2v5.4" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/>
+              <path d="M12 7.9h.01" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+            </svg>
+          </button>
+        </div>
+
+        <div class="daily-counter" id="daily-counter" aria-live="polite" hidden>
+          <p class="daily-counter-total">Сегодня выбрали карт: <strong id="daily-counter-total-value">—</strong></p>
+          <p class="daily-counter-breakdown">Карта дня: <strong id="daily-counter-day-value">—</strong> · Совет: <strong id="daily-counter-advice-value">—</strong></p>
+        </div>
+      </div>
+    </details>
+
     </div>
 
     <section class="guide-screen" id="guide-screen" aria-labelledby="guide-title" hidden>
@@ -2826,6 +2914,9 @@
     const cardLightboxCounter = document.querySelector("#card-lightbox-counter");
     const imagePreview = document.querySelector("#image-preview");
     const imagePreviewCard = document.querySelector("#image-preview-card");
+    const deckChip = document.querySelector("#deck-chip");
+    const deckChipLabel = document.querySelector("#deck-chip-label");
+    const mainSettings = document.querySelector("#main-settings");
     const cardDeckSelect = document.querySelector("#card-deck-select");
     const guideCardDeckSelect = document.querySelector("#guide-card-deck-select");
     const poolModeNote = document.querySelector("#pool-mode-note");
@@ -3127,6 +3218,20 @@
       applyPoolMode();
       rerenderCurrentReading({ redrawIfInvalid: adjusted });
       renderGuideView({ focusCardId: guideFocusCardId });
+    });
+
+    deckChip.addEventListener("click", () => {
+      mainSettings.open = true;
+      mainSettings.scrollIntoView({ block: "start", behavior: "smooth" });
+      if (typeof cardDeckSelect.showPicker === "function") {
+        try {
+          cardDeckSelect.showPicker();
+          return;
+        } catch {
+          // Fall through to focus.
+        }
+      }
+      requestAnimationFrame(() => cardDeckSelect.focus({ preventScroll: true }));
     });
 
     useReversedToggle.addEventListener("change", () => {
@@ -3474,6 +3579,7 @@
       document.body.classList.add(selectedCardDeck.cssClass);
       cardDeckSelect.value = selectedCardDeck.id;
       guideCardDeckSelect.value = selectedCardDeck.id;
+      updateDeckChipLabel();
     }
 
     function applyPoolMode() {
@@ -4230,6 +4336,18 @@
       const deckName = deck?.label || deck?.name || "";
       const year = shareDeckYear(deck);
       return [deckName, year].filter(Boolean).join(" · ");
+    }
+
+    function updateDeckChipLabel() {
+      const label = shareDeckLabel(selectedCardDeck);
+      if (deckChipLabel) {
+        deckChipLabel.textContent = label;
+      }
+      if (deckChip) {
+        const ariaLabel = label ? `Выбрать колоду: ${label}` : "Выбрать колоду";
+        deckChip.setAttribute("aria-label", ariaLabel);
+        deckChip.setAttribute("title", ariaLabel);
+      }
     }
 
     async function tryClipboardShare(text) {
