@@ -6,6 +6,7 @@
 - Downloaded and normalized a local 78-card pack from Wikimedia Commons.
 - Excluded the back side image from the connected pack.
 - Added native titles for all 78 cards.
+- Fixed the `Strength` / `Justice` app-id alignment so the on-disk filenames match `major-08-strength.jpg` and `major-11-justice.jpg`.
 - Updated the historical candidate documentation.
 - Added a deck-specific mapping doc and a pack README.
 
@@ -26,6 +27,7 @@
 - Broken links: `0`
 - File signature check: JPEG signatures verified on all 78 files
 - Size check: all files were at least `500x847` and at most `500x887`
+- App-id alignment fix verified after renaming the files to `major-08-strength.jpg` and `major-11-justice.jpg`
 - Runtime hotlink: none for the connected deck
 
 ## Checks
@@ -33,6 +35,7 @@
 - `git diff --check`
 - Inline JS syntax check via `node` + `new Function(...)`
 - Asset signature / dimension validation on all local files
+- Verified that `major-08-justice.jpg` and `major-11-strength.jpg` are no longer present in the pack directory
 - `npm run check` was not run because this repository does not contain a `package.json`
 - `npm test` was not run because this repository does not contain a `package.json`
 - `npm run build` was not run because this repository does not contain a `package.json`
@@ -46,7 +49,7 @@
 
 - Issue created: [#81 Add Tarocco Piemontese / Solesio 1865 deck](https://github.com/KostGame/Tarot/issues/81)
 - PR: [#82 Add Tarocco Piemontese / Solesio 1865 deck](https://github.com/KostGame/Tarot/pull/82)
-- Head commit: `2a7cf44` (`Add Tarocco Piemontese full deck`)
+- Head commit: `5feaf6c` (`Align Tarocco Piemontese app ids`)
 
 ## Follow-up
 
