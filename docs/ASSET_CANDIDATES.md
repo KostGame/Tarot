@@ -1,6 +1,6 @@
 # Asset Candidates
 
-Date of the list: `2026-05-11`.
+Date of the list: `2026-05-14`.
 
 This document records experimental and alternative card decks for `KostGame/Tarot`.
 Only sets that were safely downloaded and mapped unambiguously to the current model are connected in the UI.
@@ -118,6 +118,18 @@ Only sets that were safely downloaded and mapped unambiguously to the current mo
 - Source: `https://etteilla.org/en/deck/10/original-etteilla-tarot-le-jeu-de-toth`
 - Status: historical experimental deck, documentation only.
 - Reason: the mapping plan exists, but the pack is not part of this task and remains documented separately.
+
+## Research-only public-domain / CC candidates
+
+See [docs/FREE_TAROT_DECK_CANDIDATES.md](./FREE_TAROT_DECK_CANDIDATES.md) for the full research pass.
+
+Short version:
+
+- `Tarocco Piemontese / Solesio 1865` is the strongest safe full-deck candidate found in this pass.
+- `Sola Busca` is the highest-value historical research target, but still needs a curated 78-card pack.
+- `Viéville tarot` is a strong major/full-deck research candidate with a clean Commons category.
+- `Tarot de Besançon` is a plausible major-only candidate.
+- `Industrie und Glück` is not compatible with the current app model and should stay rejected for now.
 
 ## Rules for further connection
 
