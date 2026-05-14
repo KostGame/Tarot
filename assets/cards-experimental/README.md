@@ -11,6 +11,7 @@ Structure:
 - `marseille-historical/` - historical Tarot de Marseille major-only deck from Nicolas Conver 1760, normalized to app major ids and connected in UI as `major-only`. See `docs/MARSEILLE_MAPPING.md`.
 - `jean-dodal-marseille/` - historical Jean Dodal major-only deck, title-based mapped to app major ids and connected in UI as `major-only`. See `docs/JEAN_DODAL_MAPPING.md`.
 - `tarot-nouveau-grimaud-1898/` - historical Tarot Nouveau full deck, normalized to canonical card ids and connected in UI as `full`.
+- `tarocco-piemontese-solesio-1865/` - historical Tarocco Piemontese full deck, title-based mapped to canonical card ids and connected in UI as `full`. See `docs/TAROCCO_PIEMONTESE_MAPPING.md`.
 - `egyptian-falconnier/` - historical Egyptian Tarot / Falconnier major-only deck, normalized to app major ids and connected in UI as `major-only`. See `docs/EGYPTIAN_FALCONNIER_MAPPING.md`.
 
 Candidate decks not stored here yet:

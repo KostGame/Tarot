@@ -2512,6 +2512,61 @@
       return titles;
     }
 
+    function buildTaroccoPiemonteseNativeTitles() {
+      const titles = {
+        "major-00-fool": "Il Matto",
+        "major-01-magician": "Il Bagatto",
+        "major-02-high-priestess": "La Papessa",
+        "major-03-empress": "L'Imperatrice",
+        "major-04-emperor": "L'Imperatore",
+        "major-05-hierophant": "Il Papa",
+        "major-06-lovers": "Gli Amanti",
+        "major-07-chariot": "Il Carro",
+        "major-08-justice": "La Giustizia",
+        "major-09-hermit": "L'Eremita",
+        "major-10-wheel-of-fortune": "Rota di Fortuna",
+        "major-11-strength": "La Forza",
+        "major-12-hanged-man": "L'Appeso",
+        "major-13-death": "La Morte",
+        "major-14-temperance": "La Temperenza",
+        "major-15-devil": "Il Diavolo",
+        "major-16-tower": "La Torre",
+        "major-17-star": "Le Stelle",
+        "major-18-moon": "La Luna",
+        "major-19-sun": "Il Sole",
+        "major-20-judgement": "L'Angelo",
+        "major-21-world": "Il Mondo",
+      };
+      const suitNames = {
+        swords: "Spade",
+        cups: "Coppe",
+        pentacles: "Denari",
+        wands: "Bastoni",
+      };
+      const rankNames = {
+        "01-ace": "Asso",
+        "02-two": "2",
+        "03-three": "3",
+        "04-four": "4",
+        "05-five": "5",
+        "06-six": "6",
+        "07-seven": "7",
+        "08-eight": "8",
+        "09-nine": "9",
+        "10-ten": "10",
+        "11-page": "Fante",
+        "12-knight": "Cavallo",
+        "13-queen": "Donna",
+        "14-king": "Re",
+      };
+      Object.entries(suitNames).forEach(([suit, suitTitle]) => {
+        Object.entries(rankNames).forEach(([rankId, rankTitle]) => {
+          titles[`${suit}-${rankId}`] = `${rankTitle} di ${suitTitle}`;
+        });
+      });
+      return titles;
+    }
+
     function buildJeanDodalNativeTitles() {
       return {
         "major-00-fool": "Le Mat",
@@ -2792,6 +2847,21 @@
         licenseNote: "Public domain scan on Commons; back side excluded from the 78-card pack.",
         nativeTitles: buildTarotNouveauNativeTitles(),
         cards: buildFullDeckMap("assets/cards-experimental/tarot-nouveau-grimaud-1898", "jpg"),
+      },
+      {
+        id: "tarocco-piemontese-solesio-1865",
+        name: "Tarocco Piemontese",
+        label: "Tarocco Piemontese",
+        optionLabel: "Tarocco Piemontese",
+        description: "Историческая итальянская игровая колода 1865 года; учебный слой поверх полного набора 78 карт",
+        cssClass: "deck-tarocco-piemontese-solesio-1865",
+        status: "experimental",
+        coverage: "full",
+        fallbackDeckId: "rws-classic",
+        sourceUrl: "https://commons.wikimedia.org/wiki/Category:Piedmontese_tarot_deck_-_Solesio_-_1865",
+        licenseNote: "Public domain scans on Commons; back side excluded from the 78-card pack.",
+        nativeTitles: buildTaroccoPiemonteseNativeTitles(),
+        cards: buildFullDeckMap("assets/cards-experimental/tarocco-piemontese-solesio-1865", "jpg"),
       },
       {
         id: "jean-dodal-marseille",

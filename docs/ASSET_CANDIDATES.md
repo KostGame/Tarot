@@ -37,6 +37,20 @@ Only sets that were safely downloaded and mapped unambiguously to the current mo
 - Native titles strategy: show French native labels as a secondary line in the UI, while keeping the translated app title as the primary one.
 - Notes: this is a French gaming tarot deck from 1898; the app's meanings remain an educational layer on top of the deck imagery.
 
+### `tarocco-piemontese-solesio-1865`
+
+- Status: connected in UI as a full historical deck.
+- UI label: `Tarocco Piemontese`
+- Detailed label for docs: `Tarocco Piemontese · Solesio 1865`
+- Source URL: `https://commons.wikimedia.org/wiki/Category:Piedmontese_tarot_deck_-_Solesio_-_1865`
+- Local files: `assets/cards-experimental/tarocco-piemontese-solesio-1865/`
+- Coverage: `78/78`
+- Back side: excluded from the pack
+- License / reuse: Commons file pages for the card scans mark the images as public domain. Recheck the individual Commons file pages if the assets are reused outside this project.
+- Mapping strategy: title-based trumps plus direct suit/rank mapping to canonical app card ids.
+- Native titles strategy: show Italian native titles as a secondary line in the UI, while keeping the translated app title as the primary one.
+- Notes: this is a historical Italian gaming tarot deck; the app's meanings remain an educational layer on top of the imagery.
+
 ### `jean-dodal-marseille`
 
 - Status: connected in UI as a historical major-only deck.
@@ -126,6 +140,7 @@ See [docs/FREE_TAROT_DECK_CANDIDATES.md](./FREE_TAROT_DECK_CANDIDATES.md) for th
 Short version:
 
 - `Tarocco Piemontese / Solesio 1865` is the strongest safe full-deck candidate found in this pass.
+- `Tarocco Piemontese / Solesio 1865` is now connected in the UI.
 - `Sola Busca` is the highest-value historical research target, but still needs a curated 78-card pack.
 - `Viéville tarot` is a strong major/full-deck research candidate with a clean Commons category.
 - `Tarot de Besançon` is a plausible major-only candidate.
