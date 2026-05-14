@@ -28,10 +28,10 @@ Date: `2026-05-14`
 - `major-05-hierophant` -> `major-05-hierophant.jpg` -> `Il Papa`
 - `major-06-lovers` -> `major-06-lovers.jpg` -> `Gli Amanti`
 - `major-07-chariot` -> `major-07-chariot.jpg` -> `Il Carro`
-- `major-08-justice` -> `major-08-justice.jpg` -> `La Giustizia`
+- `major-08-strength` -> `major-08-strength.jpg` -> `La Forza`
 - `major-09-hermit` -> `major-09-hermit.jpg` -> `L'Eremita`
 - `major-10-wheel-of-fortune` -> `major-10-wheel-of-fortune.jpg` -> `Rota di Fortuna`
-- `major-11-strength` -> `major-11-strength.jpg` -> `La Forza`
+- `major-11-justice` -> `major-11-justice.jpg` -> `La Giustizia`
 - `major-12-hanged-man` -> `major-12-hanged-man.jpg` -> `L'Appeso`
 - `major-13-death` -> `major-13-death.jpg` -> `La Morte`
 - `major-14-temperance` -> `major-14-temperance.jpg` -> `La Temperenza`
@@ -73,6 +73,7 @@ Ranks:
 - [x] No duplicate target cards
 - [x] No missing source cards in the connected pack
 - [x] Major mapping is title-based
+- [x] App ids use the canonical RWS order for `Strength` / `Justice`
 - [x] Minor mapping is suit/rank-based
 - [x] Back side is excluded from the connected pack
 
@@ -81,4 +82,3 @@ Ranks:
 - Connected in the deck selector as `Tarocco Piemontese`
 - Safe pool mode stays on `full`
 - Fullscreen, guide, and share canvas continue to use the existing app flow
-

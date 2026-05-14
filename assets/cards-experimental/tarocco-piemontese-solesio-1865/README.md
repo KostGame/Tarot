@@ -25,4 +25,5 @@ This directory contains the local 78-card pack used for the `tarocco-piemontese-
 - The pack is a historical Italian gaming tarot deck.
 - The app meanings remain an educational layer on top of the imagery.
 - The files are normalized to the app's canonical card ids so the UI can resolve them locally without runtime hotlinks.
-
+- `major-08-strength.jpg` stores source card `11` (`La Forza`).
+- `major-11-justice.jpg` stores source card `8` (`La Giustizia`).
