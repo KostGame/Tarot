@@ -45,7 +45,8 @@
 ## Issue / PR status
 
 - Issue created: [#81 Add Tarocco Piemontese / Solesio 1865 deck](https://github.com/KostGame/Tarot/issues/81)
-- PR: pending
+- PR: [#82 Add Tarocco Piemontese / Solesio 1865 deck](https://github.com/KostGame/Tarot/pull/82)
+- Head commit: `2a7cf44` (`Add Tarocco Piemontese full deck`)
 
 ## Follow-up
 
