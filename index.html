@@ -4138,6 +4138,17 @@
       };
     }
 
+    function shareDeckYear(deck) {
+      const match = deck?.description?.match(/\b(16|17|18|19|20)\d{2}\b/);
+      return match?.[0] ?? "";
+    }
+
+    function shareDeckLabel(deck) {
+      const deckName = deck?.label || deck?.name || "";
+      const year = shareDeckYear(deck);
+      return [deckName, year].filter(Boolean).join(" · ");
+    }
+
     async function tryClipboardShare(text) {
       if (!navigator.clipboard?.writeText) {
         return false;
@@ -4222,19 +4233,19 @@
       drawShareGlow(ctx, 80, 980, 320, "rgba(241,207,122,.12)");
       drawShareStars(ctx, width, height);
 
-        roundRect(ctx, width * .05, height * .035, width * .90, height * .93, 52);
+      roundRect(ctx, width * .05, height * .035, width * .90, height * .93, 52);
       ctx.fillStyle = "rgba(31,23,49,.78)";
       ctx.fill();
       ctx.strokeStyle = "rgba(241,207,122,.28)";
       ctx.lineWidth = 3;
       ctx.stroke();
 
-        ctx.fillStyle = gold;
-        ctx.font = "800 74px system-ui, -apple-system, Segoe UI, sans-serif";
-        ctx.textAlign = "center";
-        ctx.fillText(card.role || "Карта дня", width / 2, height * .095);
+      ctx.fillStyle = gold;
+      ctx.font = "800 74px system-ui, -apple-system, Segoe UI, sans-serif";
+      ctx.textAlign = "center";
+      ctx.fillText(card.role || "Карта дня", width / 2, height * .095);
 
-        const cardBox = fitRect(cardImage.width, cardImage.height, width * .22, height * .13, width * .56, height * .47);
+      const cardBox = fitRect(cardImage.width, cardImage.height, width * .22, height * .13, width * .56, height * .47);
       ctx.save();
       ctx.shadowColor = "rgba(0,0,0,.5)";
       ctx.shadowBlur = 38;
@@ -4251,32 +4262,38 @@
       }
       ctx.restore();
 
-      const orientation = card.reversed ? ", перевернутая" : "";
+      const nativeTitle = nativeTitleForCard(card);
+      const reversedSuffix = card.reversed ? ", перевернутая" : "";
+      const titleText = nativeTitle ? `${card.name} (${nativeTitle})${reversedSuffix}` : `${card.name}${reversedSuffix}`;
       ctx.fillStyle = cream;
-        ctx.font = "800 84px system-ui, -apple-system, Segoe UI, sans-serif";
-        ctx.textAlign = "center";
-		const titleY = cardBox.y + cardBox.h + 92;
-		const titleBottomY = wrapCanvasText(ctx, `${card.name}${orientation}`, width / 2, titleY, width * .88, 84, 2);
+      ctx.font = "800 84px system-ui, -apple-system, Segoe UI, sans-serif";
+      ctx.textAlign = "center";
+      const titleY = cardBox.y + cardBox.h + 92;
+      const titleBottomY = wrapCanvasText(ctx, titleText, width / 2, titleY, width * .88, 84, 2);
 
-		ctx.fillStyle = gold;
-		ctx.font = "700 42px system-ui, -apple-system, Segoe UI, sans-serif";
-		const meaningY = titleBottomY + 82;
-		const meaningBottomY = wrapCanvasText(ctx, card.meaning, width / 2, meaningY, width * .88, 52, 3);
+      ctx.fillStyle = gold;
+      ctx.font = "700 42px system-ui, -apple-system, Segoe UI, sans-serif";
+      const meaningY = titleBottomY + (nativeTitle ? 72 : 82);
+      const meaningBottomY = wrapCanvasText(ctx, card.meaning, width / 2, meaningY, width * .88, 52, 3);
 
-		ctx.strokeStyle = "rgba(241,207,122,.28)";
-		ctx.lineWidth = 2;
-		ctx.beginPath();
-		const dividerY = meaningBottomY + 34;
-		ctx.moveTo(width * .20, dividerY);
-		ctx.lineTo(width * .80, dividerY);
-		ctx.stroke();
+      ctx.strokeStyle = "rgba(241,207,122,.28)";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      const dividerY = meaningBottomY + 34;
+      ctx.moveTo(width * .20, dividerY);
+      ctx.lineTo(width * .80, dividerY);
+      ctx.stroke();
 
-		ctx.fillStyle = muted;
-		ctx.font = "400 48px system-ui, -apple-system, Segoe UI, sans-serif";
-		wrapCanvasText(ctx, card.message, width / 2, dividerY + 56, width * .88, 54, 4);
+      ctx.fillStyle = muted;
+      ctx.font = "400 48px system-ui, -apple-system, Segoe UI, sans-serif";
+      wrapCanvasText(ctx, card.message, width / 2, dividerY + 56, width * .88, 54, 4);
 
       ctx.fillStyle = gold;
       ctx.font = "700 34px system-ui, -apple-system, Segoe UI, sans-serif";
+      const deckLine = shareDeckLabel(selectedCardDeck);
+      if (deckLine) {
+        ctx.fillText(deckLine, width / 2, 1732);
+      }
       ctx.fillText("Карта дня · kostgame.github.io/Tarot", width / 2, 1790);
     }
 
