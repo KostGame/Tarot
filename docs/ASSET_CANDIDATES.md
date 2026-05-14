@@ -51,6 +51,20 @@ Only sets that were safely downloaded and mapped unambiguously to the current mo
 - Native titles strategy: show Italian native titles as a secondary line in the UI, while keeping the translated app title as the primary one.
 - Notes: this is a historical Italian gaming tarot deck; the app's meanings remain an educational layer on top of the imagery.
 
+### `sola-busca`
+
+- Status: connected in UI as a full historical deck.
+- UI label: `Sola Busca`
+- Detailed label for docs: `Sola Busca · Italian Renaissance pack`
+- Source URL: `https://commons.wikimedia.org/wiki/Category:Sola-Busca_tarot_deck`
+- Local files: `assets/cards-experimental/sola-busca/`
+- Coverage: `78/78`
+- Back side: excluded from the pack
+- License / reuse: public domain scans on Commons; extra non-core files from the category were excluded from the curated pack.
+- Mapping strategy: title-based trumps plus direct suit/rank mapping to canonical app card ids.
+- Native titles strategy: show the Sola Busca printed names as a secondary line in the UI, while keeping the translated app title as the primary one.
+- Notes: this is a historical Italian gaming tarot deck; the app's meanings remain an educational layer on top of the imagery.
+
 ### `jean-dodal-marseille`
 
 - Status: connected in UI as a historical major-only deck.
@@ -141,7 +155,7 @@ Short version:
 
 - `Tarocco Piemontese / Solesio 1865` is the strongest safe full-deck candidate found in this pass.
 - `Tarocco Piemontese / Solesio 1865` is now connected in the UI.
-- `Sola Busca` is the highest-value historical research target, but still needs a curated 78-card pack.
+- `Sola Busca` is now connected in the UI as a full 78-card deck.
 - `Viéville tarot` is a strong major/full-deck research candidate with a clean Commons category.
 - `Tarot de Besançon` is a plausible major-only candidate.
 - `Industrie und Glück` is not compatible with the current app model and should stay rejected for now.

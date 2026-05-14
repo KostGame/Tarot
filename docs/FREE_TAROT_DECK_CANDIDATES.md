@@ -14,7 +14,7 @@ This document is research-only. It does not download assets and it does not conn
 ## Short answer
 
 - Best safe full-deck candidate found in this pass: `Tarocco Piemontese / Solesio 1865` (now connected in the UI).
-- Highest-value historical research target: `Sola Busca`.
+- Highest-value historical research target: `Sola Busca` (now connected in the UI as a full deck).
 - Best major-only research candidate with a clean Commons category: `Viéville tarot`.
 - Reject for the current app model: `Industrie und Glück` / historical tarock packs, because they are 54-card tarock variants rather than standard 78-card tarot packs.
 
@@ -29,20 +29,21 @@ This document is research-only. It does not download assets and it does not conn
   - [Representative file page: Sola Busca tarot card 00.jpg](https://commons.wikimedia.org/wiki/File:Sola_Busca_tarot_card_00.jpg)
   - [Representative file page: Sola Busca tarot card 20.jpg](https://commons.wikimedia.org/wiki/File:Sola_Busca_tarot_card_20.jpg)
   - [Deck reference at WaiteSmith](https://waitesmith.org/index.php/decks/the-sola-busca-deck/)
-- Asset source candidate: Wikimedia Commons category with `83` files; the core cards appear to be present, with extra non-core images also mixed in.
+- Asset source candidate: Wikimedia Commons category with `83` files; the core cards are present and were curated into a safe local `78/78` pack.
 - License / reuse: Commons file pages identify the scan as a faithful photographic reproduction of a public-domain work of art; file pages also carry PD / PDM style status.
 - Mapping strategy:
   - Suits should map cleanly to the app's suit model.
   - Trumps need a deck-specific historical dictionary, not a blind numeric offset.
-  - The file set should be curated into a clean 78-card pack before UI use.
+  - The file set is now curated into a clean 78-card pack for UI use.
 - Native titles strategy:
   - Use historical Sola Busca titles as a secondary line, if a reliable title table is assembled.
   - Do not guess titles from the card number alone.
 - Risks:
-  - The Commons category includes extra images and historical variants.
+  - The Commons category still includes extra images and historical variants.
   - Native title mapping is more bespoke than Marseille-style decks.
-  - A safe pack still needs manual curation.
-- Recommendation: `research more`
+  - Extra category files still need to be excluded from any future repackaging.
+- Recommendation: `connected`
+- Current status: connected in UI as a full deck
 
 ### 2) Tarocco Piemontese / Solesio 1865
 
