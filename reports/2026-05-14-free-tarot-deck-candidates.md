@@ -27,9 +27,9 @@
 ## Status
 
 - Branch: `feature/research-free-tarot-candidates`
-- Head: pending commit
-- PR: not created yet
-- Issue comment: pending, because the target issue number was not specified in the task text
+- Head: `b82053a` (`Document free tarot deck candidates`)
+- PR: [#80 Document free tarot deck candidates](https://github.com/KostGame/Tarot/pull/80)
+- Issue comment: [issuecomment-4449850340](https://github.com/KostGame/Tarot/issues/44#issuecomment-4449850340)
 
 ## Follow-up proposal
 
