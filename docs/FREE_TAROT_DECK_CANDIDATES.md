@@ -13,7 +13,7 @@ This document is research-only. It does not download assets and it does not conn
 
 ## Short answer
 
-- Best safe full-deck candidate found in this pass: `Tarocco Piemontese / Solesio 1865`.
+- Best safe full-deck candidate found in this pass: `Tarocco Piemontese / Solesio 1865` (now connected in the UI).
 - Highest-value historical research target: `Sola Busca`.
 - Best major-only research candidate with a clean Commons category: `Viéville tarot`.
 - Reject for the current app model: `Industrie und Glück` / historical tarock packs, because they are 54-card tarock variants rather than standard 78-card tarot packs.
@@ -65,7 +65,8 @@ This document is research-only. It does not download assets and it does not conn
 - Risks:
   - The back side must be excluded from the connected pack.
   - Title normalization still needs a small deck-specific table.
-- Recommendation: `connect`
+- Recommendation: `connected`
+- Current status: already connected in the UI as a full deck
 
 ### 3) Jacques Viéville Tarot
 
@@ -212,7 +213,7 @@ This document is research-only. It does not download assets and it does not conn
 
 ## Suggested next step
 
-If we want the safest immediate full-deck implementation, `Tarocco Piemontese / Solesio 1865` is the best first connection target.
+If we want the safest immediate full-deck implementation, `Tarocco Piemontese / Solesio 1865` is the best current full-deck choice and is already connected in the UI.
 
 If we want the most historically distinctive and research-heavy deck, `Sola Busca` is the best next research target, but it needs a curated 78-card pack and a bespoke title table before connection.
 
