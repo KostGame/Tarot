@@ -1427,6 +1427,7 @@
 	  overflow: hidden;
 	  cursor: zoom-in;
 	  padding: 0;
+	  touch-action: none;
 	}
 
     .lightbox-card-image {
@@ -1719,39 +1720,114 @@
     .image-preview-content {
       position: relative;
       z-index: 1;
-      display: grid;
-      place-items: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
       width: min(100%, 620px);
       height: min(100%, calc(100svh - 28px));
+      padding-top: 52px;
     }
 
     .image-preview-close {
       position: absolute;
       top: 8px;
       right: 8px;
+      display: grid;
+      place-items: center;
       width: 42px;
       height: 42px;
-      border: 1px solid rgba(234, 212, 158, .24);
+      border: 0;
       border-radius: 50%;
-      background: rgba(255, 255, 255, .1);
-      color: var(--text);
-      font: 800 1.25rem/1 inherit;
+      background: transparent;
+      color: rgba(255, 255, 255, .9);
+      font: 700 1.95rem/1 inherit;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, .45), 0 0 10px rgba(0, 0, 0, .25);
       cursor: pointer;
       z-index: 2;
+    }
+
+    .image-preview-nav-button {
+      position: absolute;
+      top: 50%;
+      z-index: 2;
+      width: 56px;
+      height: 56px;
+      border: 1px solid rgba(255, 255, 255, .08);
+      border-radius: 50%;
+      background: rgba(255, 255, 255, .09);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      color: rgba(255, 250, 245, .84);
+      font: 800 2rem/1 inherit;
+      cursor: pointer;
+      transform: translateY(-50%);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, .18);
+    }
+
+    .image-preview-nav-prev {
+      left: 8px;
+    }
+
+    .image-preview-nav-next {
+      right: 8px;
     }
 
     .image-preview-card {
       display: block;
       max-width: min(92vw, 560px);
-      max-height: calc(100svh - 44px);
+      max-height: calc(100svh - 184px);
       object-fit: contain;
       border-radius: 18px;
       box-shadow: 0 24px 72px rgba(0, 0, 0, .68);
       cursor: zoom-out;
+      touch-action: none;
+    }
+
+    .image-preview-card:active {
+      cursor: grabbing;
     }
 
     .image-preview-card.reversed {
       transform: rotate(180deg);
+    }
+
+    .image-preview-footer {
+      width: min(100%, 520px);
+      padding: 12px 14px 13px;
+      border: 1px solid rgba(241, 207, 122, .16);
+      border-radius: 18px;
+      background: rgba(8, 6, 16, .58);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, .26);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      text-align: center;
+    }
+
+    .image-preview-title {
+      margin: 0;
+      color: var(--text);
+      font: 900 clamp(1.06rem, 4.2vw, 1.4rem)/1.12 inherit;
+      overflow-wrap: anywhere;
+    }
+
+    .image-preview-native-title {
+      margin: 4px 0 0;
+      color: var(--gold);
+      font-size: .92rem;
+      font-style: italic;
+      font-weight: 750;
+      line-height: 1.25;
+      overflow-wrap: anywhere;
+    }
+
+    .image-preview-meta {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: .8rem;
+      line-height: 1.3;
+      overflow-wrap: anywhere;
     }
 
     .lightbox-share:focus-visible,
@@ -2023,6 +2099,64 @@
 	  font-size: .94rem;
 	  line-height: 1.23;
 	 }
+
+      .image-preview {
+        padding: 10px;
+      }
+
+      .image-preview-content {
+        width: min(100%, 520px);
+        height: min(100%, calc(100svh - 20px));
+        gap: 10px;
+        padding-top: 46px;
+      }
+
+      .image-preview-close {
+        top: 6px;
+        right: 6px;
+        width: 38px;
+        height: 38px;
+        font-size: 1.6rem;
+      }
+
+      .image-preview-nav-button {
+        width: 48px;
+        height: 48px;
+        font-size: 1.65rem;
+      }
+
+      .image-preview-nav-prev {
+        left: 6px;
+      }
+
+      .image-preview-nav-next {
+        right: 6px;
+      }
+
+      .image-preview-card {
+        max-width: min(90vw, 500px);
+        max-height: calc(100svh - 168px);
+      }
+
+      .image-preview-footer {
+        width: min(100%, 500px);
+        padding: 10px 12px 11px;
+        border-radius: 16px;
+      }
+
+      .image-preview-title {
+        font-size: clamp(1rem, 4.8vw, 1.26rem);
+      }
+
+      .image-preview-native-title {
+        margin-top: 3px;
+        font-size: .86rem;
+      }
+
+      .image-preview-meta {
+        margin-top: 4px;
+        font-size: .76rem;
+      }
 	  
 	  
     }
@@ -2375,7 +2509,14 @@
     <button class="image-preview-backdrop" type="button" data-image-preview-close aria-label="Закрыть изображение"></button>
     <div class="image-preview-content">
       <button class="image-preview-close" type="button" data-image-preview-close aria-label="Закрыть изображение">×</button>
+      <button class="image-preview-nav-button image-preview-nav-prev" id="image-preview-prev" type="button" aria-label="Предыдущая карта" hidden>‹</button>
       <img class="image-preview-card" id="image-preview-card" alt="" data-image-preview-close onerror="handleCardImageError(this);">
+      <button class="image-preview-nav-button image-preview-nav-next" id="image-preview-next" type="button" aria-label="Следующая карта" hidden>›</button>
+      <div class="image-preview-footer">
+        <p class="image-preview-title" id="image-preview-title"></p>
+        <p class="image-preview-native-title" id="image-preview-native-title" hidden></p>
+        <p class="image-preview-meta" id="image-preview-meta"></p>
+      </div>
     </div>
   </div>
   <script>
@@ -2913,7 +3054,12 @@
     const cardLightboxNext = document.querySelector("#card-lightbox-next");
     const cardLightboxCounter = document.querySelector("#card-lightbox-counter");
     const imagePreview = document.querySelector("#image-preview");
+    const imagePreviewTitle = document.querySelector("#image-preview-title");
+    const imagePreviewNativeTitle = document.querySelector("#image-preview-native-title");
+    const imagePreviewMeta = document.querySelector("#image-preview-meta");
     const imagePreviewCard = document.querySelector("#image-preview-card");
+    const imagePreviewPrev = document.querySelector("#image-preview-prev");
+    const imagePreviewNext = document.querySelector("#image-preview-next");
     const deckChip = document.querySelector("#deck-chip");
     const deckChipLabel = document.querySelector("#deck-chip-label");
     const mainSettings = document.querySelector("#main-settings");
@@ -2956,7 +3102,6 @@
     let currentLightboxCard = null;
     let currentLightboxCards = [];
     let currentLightboxIndex = 0;
-    let lightboxTouchStart = null;
     let shareInProgress = false;
     let currentLightboxGuideMode = false;
     let guideSearchValue = "";
@@ -3353,6 +3498,8 @@
     cardLightboxZoom.addEventListener("click", openImagePreview);
     cardLightboxPrev.addEventListener("click", () => showLightboxCard(currentLightboxIndex - 1));
     cardLightboxNext.addEventListener("click", () => showLightboxCard(currentLightboxIndex + 1));
+    imagePreviewPrev.addEventListener("click", () => showLightboxCard(currentLightboxIndex - 1));
+    imagePreviewNext.addEventListener("click", () => showLightboxCard(currentLightboxIndex + 1));
     guideScrollTopButton.addEventListener("click", scrollGuideToTop);
 
     imagePreview.addEventListener("click", event => {
@@ -3363,37 +3510,17 @@
 
     window.addEventListener("scroll", updateGuideScrollTopButton, { passive: true });
 
-    cardLightbox.addEventListener("touchstart", event => {
-      if (event.touches.length !== 1 || cardLightbox.hidden) {
-        return;
-      }
-      const touch = event.touches[0];
-      lightboxTouchStart = {
-        x: touch.clientX,
-        y: touch.clientY,
-      };
-    }, { passive: true });
+    attachSwipeGestures(cardLightboxZoom, {
+      onPrevious: () => showLightboxCard(currentLightboxIndex - 1),
+      onNext: () => showLightboxCard(currentLightboxIndex + 1),
+      onClose: closeCardLightbox,
+    });
 
-    cardLightbox.addEventListener("touchend", event => {
-      if (!lightboxTouchStart || cardLightbox.hidden) {
-        return;
-      }
-      const touch = event.changedTouches[0];
-      const dx = touch.clientX - lightboxTouchStart.x;
-      const dy = touch.clientY - lightboxTouchStart.y;
-      lightboxTouchStart = null;
-
-      if (Math.abs(dx) < 54 || Math.abs(dx) < Math.abs(dy) * 1.35) {
-        return;
-      }
-
-      if (dx < 0) {
-        showLightboxCard(currentLightboxIndex + 1);
-        return;
-      }
-
-      showLightboxCard(currentLightboxIndex - 1);
-    }, { passive: true });
+    attachSwipeGestures(imagePreviewCard, {
+      onPrevious: () => showLightboxCard(currentLightboxIndex - 1),
+      onNext: () => showLightboxCard(currentLightboxIndex + 1),
+      onClose: closeImagePreview,
+    });
 
     document.addEventListener("keydown", event => {
       if (!guideScreen.hidden && cardLightbox.hidden && event.key === "Escape") {
@@ -3409,9 +3536,6 @@
           return;
         }
         closeCardLightbox();
-        return;
-      }
-      if (!imagePreview.hidden) {
         return;
       }
       if (event.key === "ArrowLeft") {
@@ -4167,6 +4291,7 @@
       imagePreviewCard.src = card.image;
       imagePreviewCard.alt = card.name;
       imagePreviewCard.classList.toggle("reversed", card.reversed);
+      syncImagePreviewCard(card);
       cardLightboxTitle.textContent = card.name;
       const nativeTitle = nativeTitleForCard(card);
       cardLightboxNativeTitle.textContent = nativeTitle ? `(${nativeTitle})` : "";
@@ -4202,10 +4327,129 @@
       cardLightboxCounter.textContent = `${currentLightboxIndex + 1} / ${currentLightboxCards.length}`;
     }
 
+    function updateImagePreviewNavigation() {
+      const hasNavigation = currentLightboxCards.length > 1;
+      imagePreviewPrev.hidden = !hasNavigation;
+      imagePreviewNext.hidden = !hasNavigation;
+      if (!hasNavigation) {
+        imagePreviewPrev.disabled = false;
+        imagePreviewNext.disabled = false;
+        return;
+      }
+      imagePreviewPrev.disabled = currentLightboxIndex === 0;
+      imagePreviewNext.disabled = currentLightboxIndex === currentLightboxCards.length - 1;
+    }
+
+    function syncImagePreviewCard(card) {
+      if (!card) {
+        imagePreviewTitle.textContent = "";
+        imagePreviewNativeTitle.textContent = "";
+        imagePreviewNativeTitle.hidden = true;
+        imagePreviewMeta.textContent = "";
+        return;
+      }
+      imagePreviewTitle.textContent = card.name || "";
+      const nativeTitle = nativeTitleForCard(card);
+      const showNativeTitle = nativeTitle && nativeTitle !== card.name;
+      imagePreviewNativeTitle.textContent = showNativeTitle ? `(${nativeTitle})` : "";
+      imagePreviewNativeTitle.hidden = !showNativeTitle;
+      imagePreviewMeta.textContent = shareDeckLabel(selectedCardDeck);
+    }
+
+    function attachSwipeGestures(target, { onPrevious, onNext, onClose } = {}) {
+      if (!target) {
+        return;
+      }
+
+      const threshold = 54;
+      const lockThreshold = 12;
+      const verticalRatio = 1.25;
+      let gesture = null;
+      let suppressClick = false;
+
+      target.style.touchAction = "none";
+
+      target.addEventListener("click", event => {
+        if (!suppressClick) {
+          return;
+        }
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        suppressClick = false;
+      }, true);
+
+      target.addEventListener("pointerdown", event => {
+        if (event.pointerType === "mouse" && event.button !== 0) {
+          return;
+        }
+        suppressClick = false;
+        gesture = {
+          pointerId: event.pointerId,
+          startX: event.clientX,
+          startY: event.clientY,
+          lockedAxis: null,
+        };
+        try {
+          target.setPointerCapture(event.pointerId);
+        } catch {
+          // ignore capture failures
+        }
+      }, { passive: true });
+
+      target.addEventListener("pointermove", event => {
+        if (!gesture || event.pointerId !== gesture.pointerId) {
+          return;
+        }
+        const dx = event.clientX - gesture.startX;
+        const dy = event.clientY - gesture.startY;
+        if (!gesture.lockedAxis && Math.max(Math.abs(dx), Math.abs(dy)) > lockThreshold) {
+          gesture.lockedAxis = Math.abs(dx) > Math.abs(dy) ? "x" : "y";
+        }
+      }, { passive: true });
+
+      const finishGesture = event => {
+        if (!gesture || event.pointerId !== gesture.pointerId) {
+          return;
+        }
+        const dx = event.clientX - gesture.startX;
+        const dy = event.clientY - gesture.startY;
+        const lockedAxis = gesture.lockedAxis || (Math.abs(dx) > Math.abs(dy) ? "x" : "y");
+        gesture = null;
+
+        if (lockedAxis === "x" && Math.abs(dx) >= threshold && Math.abs(dx) > Math.abs(dy) * verticalRatio) {
+          suppressClick = true;
+          window.setTimeout(() => {
+            suppressClick = false;
+          }, 0);
+          if (dx < 0) {
+            onNext?.();
+          } else {
+            onPrevious?.();
+          }
+          return;
+        }
+
+        if (lockedAxis === "y" && dy >= threshold && Math.abs(dy) > Math.abs(dx) * verticalRatio) {
+          suppressClick = true;
+          window.setTimeout(() => {
+            suppressClick = false;
+          }, 0);
+          onClose?.();
+        }
+      };
+
+      target.addEventListener("pointerup", finishGesture, { passive: true });
+      target.addEventListener("pointercancel", () => {
+        gesture = null;
+      }, { passive: true });
+    }
+
     function openImagePreview() {
       if (!currentLightboxCard?.image) {
         return;
       }
+      syncImagePreviewCard(currentLightboxCard);
+      updateImagePreviewNavigation();
       imagePreviewCard.src = currentLightboxCard.image;
       imagePreviewCard.alt = currentLightboxCard.name || "";
       imagePreviewCard.classList.toggle("reversed", currentLightboxCard.reversed);
@@ -4216,6 +4460,12 @@
       imagePreview.hidden = true;
       imagePreviewCard.removeAttribute("src");
       imagePreviewCard.classList.remove("reversed");
+      imagePreviewTitle.textContent = "";
+      imagePreviewNativeTitle.textContent = "";
+      imagePreviewNativeTitle.hidden = true;
+      imagePreviewMeta.textContent = "";
+      imagePreviewPrev.hidden = true;
+      imagePreviewNext.hidden = true;
     }
 
     function closeCardLightbox() {
@@ -4224,7 +4474,6 @@
       currentLightboxCard = null;
       currentLightboxCards = [];
       currentLightboxIndex = 0;
-      lightboxTouchStart = null;
       cardLightboxImage.removeAttribute("src");
       delete cardLightboxImage.dataset.baseImage;
       delete cardLightboxImage.dataset.cardId;
