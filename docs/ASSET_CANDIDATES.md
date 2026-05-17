@@ -1,6 +1,6 @@
 # Asset Candidates
 
-Date of the list: `2026-05-14`.
+Date of the list: `2026-05-18`.
 
 This document records experimental and alternative card decks for `KostGame/Tarot`.
 Only sets that were safely downloaded and mapped unambiguously to the current model are connected in the UI.
@@ -85,6 +85,19 @@ Only sets that were safely downloaded and mapped unambiguously to the current mo
 - Local files: `assets/cards-experimental/marseille-historical/`
 - Coverage: `22/22` major arcana only.
 - Notes: majors are mapped by title; minors are intentionally not connected because a safe full minor pack was not found.
+
+### `oswald-wirth-tarot`
+
+- Status: connected in UI as a historical major-only deck.
+- UI label: `Oswald Wirth`
+- Detailed label for docs: `Oswald Wirth · 1889`
+- Source URL: `https://commons.wikimedia.org/wiki/Category:Oswald_Wirth_tarot_deck`
+- Local files: `assets/cards-experimental/oswald-wirth-tarot/`
+- Coverage: `22/22` major arcana only.
+- License / reuse: Commons file pages for the 22 numbered scans describe the images as public domain. Recheck the individual Commons file pages if the assets are reused outside this project.
+- Mapping strategy: title-based matching for the majors; the pack uses canonical app ids for filenames, with `La Justice` shown on app `major-11-justice` and `La Force` shown on app `major-08-strength`.
+- Native titles strategy: show French native labels as a secondary line in the UI, while keeping the translated app title as the primary one.
+- Notes: this is a historical major-only educational layer; minors are intentionally not connected because only the 22 majors were curated into a safe local pack.
 
 ### `egyptian-falconnier`
 
