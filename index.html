@@ -2891,6 +2891,33 @@
       };
     }
 
+    function buildOswaldWirthNativeTitles() {
+      return {
+        "major-00-fool": "Le Fou",
+        "major-01-magician": "Le Bateleur",
+        "major-02-high-priestess": "La Papesse",
+        "major-03-empress": "L'Impératrice",
+        "major-04-emperor": "L'Empereur",
+        "major-05-hierophant": "Le Pape",
+        "major-06-lovers": "L'Amoureux",
+        "major-07-chariot": "Le Chariot",
+        "major-08-strength": "La Force",
+        "major-09-hermit": "L'Ermite",
+        "major-10-wheel-of-fortune": "La Roue de Fortune",
+        "major-11-justice": "La Justice",
+        "major-12-hanged-man": "Le Pendu",
+        "major-13-death": "La Mort",
+        "major-14-temperance": "La Tempérance",
+        "major-15-devil": "Le Diable",
+        "major-16-tower": "Le Feu du Ciel",
+        "major-17-star": "Les Étoiles",
+        "major-18-moon": "La Lune",
+        "major-19-sun": "Le Soleil",
+        "major-20-judgement": "Le Jugement",
+        "major-21-world": "Le Monde",
+      };
+    }
+
     function buildJeanDodalMajorDeckMap() {
       return {
         "major-00-fool": "assets/cards-experimental/jean-dodal-marseille/major-00-fool.jpg",
@@ -3249,6 +3276,21 @@
           "major-21-world": "Le Monde",
         },
         cards: buildMajorDeckMap("assets/cards-experimental/marseille-historical", "jpg"),
+      },
+      {
+        id: "oswald-wirth-tarot",
+        name: "Oswald Wirth Tarot",
+        label: "Oswald Wirth",
+        optionLabel: "Oswald Wirth",
+        description: "Oswald Wirth 1889, historical major-only pack with a title-based mapping layer",
+        cssClass: "deck-oswald-wirth-tarot",
+        status: "experimental",
+        coverage: "major-only",
+        fallbackDeckId: "rws-classic",
+        sourceUrl: "https://commons.wikimedia.org/wiki/Category:Oswald_Wirth_tarot_deck",
+        licenseNote: "Commons file pages for the 22 numbered scans describe the images as public domain. Recheck the individual Commons file pages if the assets are reused outside this project.",
+        nativeTitles: buildOswaldWirthNativeTitles(),
+        cards: buildMajorDeckMap("assets/cards-experimental/oswald-wirth-tarot", "jpg"),
       },
       {
         id: "pixel-tarot",

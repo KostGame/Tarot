@@ -1,6 +1,6 @@
 # Free Tarot Deck Candidates
 
-Date: `2026-05-14`
+Date: `2026-05-18`
 
 This document is research-only. It does not download assets and it does not connect new decks to the UI.
 
@@ -15,6 +15,7 @@ This document is research-only. It does not download assets and it does not conn
 
 - Best safe full-deck candidate found in this pass: `Tarocco Piemontese / Solesio 1865` (now connected in the UI).
 - Highest-value historical research target: `Sola Busca` (now connected in the UI as a full deck).
+- Connected historical major-only deck from this pass: `Oswald Wirth Tarot` (22/22).
 - Best major-only research candidate with a clean Commons category: `Viéville tarot`.
 - Reject for the current app model: `Industrie und Glück` / historical tarock packs, because they are 54-card tarock variants rather than standard 78-card tarot packs.
 
@@ -135,20 +136,23 @@ This document is research-only. It does not download assets and it does not conn
 - Expected coverage: `major-only 22/22`
 - Source URLs:
   - [Commons category](https://commons.wikimedia.org/wiki/Category:Oswald_Wirth_tarot_deck)
-  - [Representative file page: Le Bateleur](https://commons.wikimedia.org/wiki/File:01_Le_Bateleur,_Oswald_Wirth_Tarot_Deck_1889.jpg)
-  - [Representative file page: La Papesse](https://commons.wikimedia.org/wiki/File:02_La_Papesse,_Oswald_Wirth_Tarot_Deck_1889.jpg)
-- Asset source candidate: Commons category with `29` files; the usable deck itself is the 22 majors, while the category also contains duplicates / alternative scans.
-- License / reuse: Commons file pages identify the core images as public domain.
+  - [Representative file page: Le Fou](https://commons.wikimedia.org/wiki/File:00_Le_Fou,_Oswald_Wirth_Tarot_Deck_1889_BnF.jpg)
+  - [Representative file page: La Justice](https://commons.wikimedia.org/wiki/File:08_La_Justice,_Oswald_Wirth_Tarot_Deck_1889_BnF.jpg)
+  - [Representative file page: La Force](https://commons.wikimedia.org/wiki/File:11_La_Force,_Oswald_Wirth_Tarot_Deck_1889_BnF.jpg)
+- Asset source candidate: Commons category with `29` files; the connected pack uses the 22 numbered BnF scans and excludes the duplicate/alternate files.
+- License / reuse: Commons file pages for the 22 numbered scans describe the images as public domain.
 - Mapping strategy:
   - Major-only title-based mapping.
-  - No minor pack should be inferred from this category.
+  - Use canonical app ids for filenames.
+  - `La Justice` is shown on app `major-11-justice`.
+  - `La Force` is shown on app `major-08-strength`.
 - Native titles strategy:
   - Show French major titles as the secondary line.
   - Keep the translated app title as the primary title.
 - Risks:
-  - The category includes duplicate / alternate image versions.
-  - A clean 22-card pack still needs manual selection.
-- Recommendation: `research more`
+  - The category includes duplicate / alternate image versions, but they were filtered out of the pack.
+- Recommendation: `connected`
+- Current status: connected in UI as a historical major-only deck
 
 ### 7) Tarot de Besançon / Renault
 
