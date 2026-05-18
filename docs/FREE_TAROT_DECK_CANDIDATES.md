@@ -1,4 +1,4 @@
-# Free Tarot Deck Candidates
+﻿# Free Tarot Deck Candidates
 
 Date: `2026-05-18`
 
@@ -228,3 +228,16 @@ If we want the most historically distinctive and research-heavy deck, `Sola Busc
 - Wikimedia Commons category and file pages listed above.
 - Gallica / BnF scan references embedded in the Commons file pages.
 - Historical deck pages referenced by the Commons scan sets.
+
+
+## Connected deck
+
+### `Adler Cego`
+
+- Source: [Cego Animal Tarot - All Trumps](https://commons.wikimedia.org/wiki/File:Cego_Animal_Tarot_-_All_Trumps.jpg)
+- Coverage: `22/22`
+- Status: connected in UI as a major-only historical animal tarot pack
+- License / reuse: Commons file page marks the source as `CC BY-SA 4.0`
+- Mapping: title-based mapping to the app's 22 major ids
+- Native titles: `Sküs`, then `1` through `21`
+- Recommendation: connect

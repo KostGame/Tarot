@@ -2652,6 +2652,33 @@
       return map;
     }
 
+    function buildAdlerCegoNativeTitles() {
+      return {
+        "major-00-fool": "Sküs",
+        "major-01-magician": "1",
+        "major-02-high-priestess": "2",
+        "major-03-empress": "3",
+        "major-04-emperor": "4",
+        "major-05-hierophant": "5",
+        "major-06-lovers": "6",
+        "major-07-chariot": "7",
+        "major-08-strength": "8",
+        "major-09-hermit": "9",
+        "major-10-wheel-of-fortune": "10",
+        "major-11-justice": "11",
+        "major-12-hanged-man": "12",
+        "major-13-death": "13",
+        "major-14-temperance": "14",
+        "major-15-devil": "15",
+        "major-16-tower": "16",
+        "major-17-star": "17",
+        "major-18-moon": "18",
+        "major-19-sun": "19",
+        "major-20-judgement": "20",
+        "major-21-world": "21",
+      };
+    }
+
     function buildFullDeckMap(basePath, extension = "png") {
       const map = buildMajorDeckMap(basePath, extension);
       [
@@ -3353,6 +3380,21 @@
         licenseNote: "Local SVG renders of Unicode playing card characters; no external image assets or runtime hotlinks.",
         nativeTitles: buildUnicodePlayingCardsNativeTitles(),
         cards: buildMajorCourtDeckMap("assets/cards-experimental/unicode-playing-cards", "svg"),
+      },
+      {
+        id: "adler-cego",
+        name: "Adler Cego Tarot",
+        label: "Adler Cego",
+        optionLabel: "Adler Cego",
+        description: "Cego Animal Tarot, full major-only pack with 22 trumps from a public Commons sheet",
+        cssClass: "deck-adler-cego",
+        status: "experimental",
+        coverage: "major-only",
+        fallbackDeckId: "rws-classic",
+        sourceUrl: "https://commons.wikimedia.org/wiki/File:Cego_Animal_Tarot_-_All_Trumps.jpg",
+        licenseNote: "CC BY-SA 4.0 on Commons file page; verify attribution and share-alike terms when redistributing",
+        nativeTitles: buildAdlerCegoNativeTitles(),
+        cards: buildMajorDeckMap("assets/cards-experimental/adler-cego", "jpg"),
       },
       {
         id: "pixel-tarot",
