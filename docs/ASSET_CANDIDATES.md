@@ -1,4 +1,4 @@
-# Asset Candidates
+﻿# Asset Candidates
 
 Date of the list: `2026-05-18`.
 
@@ -193,3 +193,15 @@ Short version:
 3. For `major-court` and `major-only` decks, automatically narrow the pool to the available coverage.
 4. For every new deck, record source, added date, and license notes.
 5. Before merge, check mobile width around `390px`, fullscreen behavior, horizontal scrolling, and fallback handling.
+
+
+### `adler-cego`
+
+- Status: connected in UI as a historical experimental major-only deck.
+- Source: [Cego Animal Tarot - All Trumps](https://commons.wikimedia.org/wiki/File:Cego_Animal_Tarot_-_All_Trumps.jpg)
+- Local files: `assets/cards-experimental/adler-cego/`
+- Coverage: 22/22 majors.
+- Mapping: title-based mapping to the app's current major ids.
+- Native titles: `Sküs`, then source numbers `1..21`.
+- License: the Commons file page marks the sheet as `CC BY-SA 4.0`; verify attribution and share-alike terms on reuse.
+- Decision: safe to connect as a major-only pack from a structured Commons sheet.
