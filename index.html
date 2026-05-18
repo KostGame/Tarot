@@ -2682,6 +2682,26 @@
       return map;
     }
 
+    function buildMajorCourtDeckMap(basePath, extension = "png") {
+      const map = buildMajorDeckMap(basePath, extension);
+      [
+        "cups",
+        "swords",
+        "wands",
+        "pentacles",
+      ].forEach(suit => {
+        [
+          "11-page",
+          "12-knight",
+          "13-queen",
+          "14-king",
+        ].forEach(rank => {
+          map[`${suit}-${rank}`] = `${basePath}/${suit}-${rank}.${extension}`;
+        });
+      });
+      return map;
+    }
+
     function buildTarotNouveauNativeTitles() {
       const titles = {
         "major-00-fool": "Excuse",
@@ -2736,6 +2756,51 @@
       Object.entries(suitNames).forEach(([suit, suitTitle]) => {
         Object.entries(rankNames).forEach(([rankId, rankTitle]) => {
           titles[`${suit}-${rankId}`] = `${rankTitle} de ${suitTitle}`;
+        });
+      });
+      return titles;
+    }
+
+    function buildUnicodePlayingCardsNativeTitles() {
+      const titles = {
+        "major-00-fool": "PLAYING CARD FOOL",
+        "major-01-magician": "PLAYING CARD TRUMP-1",
+        "major-02-high-priestess": "PLAYING CARD TRUMP-2",
+        "major-03-empress": "PLAYING CARD TRUMP-3",
+        "major-04-emperor": "PLAYING CARD TRUMP-4",
+        "major-05-hierophant": "PLAYING CARD TRUMP-5",
+        "major-06-lovers": "PLAYING CARD TRUMP-6",
+        "major-07-chariot": "PLAYING CARD TRUMP-7",
+        "major-08-strength": "PLAYING CARD TRUMP-8",
+        "major-09-hermit": "PLAYING CARD TRUMP-9",
+        "major-10-wheel-of-fortune": "PLAYING CARD TRUMP-10",
+        "major-11-justice": "PLAYING CARD TRUMP-11",
+        "major-12-hanged-man": "PLAYING CARD TRUMP-12",
+        "major-13-death": "PLAYING CARD TRUMP-13",
+        "major-14-temperance": "PLAYING CARD TRUMP-14",
+        "major-15-devil": "PLAYING CARD TRUMP-15",
+        "major-16-tower": "PLAYING CARD TRUMP-16",
+        "major-17-star": "PLAYING CARD TRUMP-17",
+        "major-18-moon": "PLAYING CARD TRUMP-18",
+        "major-19-sun": "PLAYING CARD TRUMP-19",
+        "major-20-judgement": "PLAYING CARD TRUMP-20",
+        "major-21-world": "PLAYING CARD TRUMP-21",
+      };
+      const suitNames = {
+        swords: "SPADES",
+        cups: "HEARTS",
+        pentacles: "DIAMONDS",
+        wands: "CLUBS",
+      };
+      const rankNames = {
+        "11-page": "JACK",
+        "12-knight": "KNIGHT",
+        "13-queen": "QUEEN",
+        "14-king": "KING",
+      };
+      Object.entries(suitNames).forEach(([suit, suitTitle]) => {
+        Object.entries(rankNames).forEach(([rankId, rankTitle]) => {
+          titles[`${suit}-${rankId}`] = `PLAYING CARD ${rankTitle} OF ${suitTitle}`;
         });
       });
       return titles;
@@ -2946,25 +3011,7 @@
     }
 
     function buildVeilOfFateMap(basePath) {
-      return {
-        ...buildMajorDeckMap(basePath),
-        "cups-11-page": `${basePath}/cups-11-page.png`,
-        "cups-12-knight": `${basePath}/cups-12-knight.png`,
-        "cups-13-queen": `${basePath}/cups-13-queen.png`,
-        "cups-14-king": `${basePath}/cups-14-king.png`,
-        "swords-11-page": `${basePath}/swords-11-page.png`,
-        "swords-12-knight": `${basePath}/swords-12-knight.png`,
-        "swords-13-queen": `${basePath}/swords-13-queen.png`,
-        "swords-14-king": `${basePath}/swords-14-king.png`,
-        "wands-11-page": `${basePath}/wands-11-page.png`,
-        "wands-12-knight": `${basePath}/wands-12-knight.png`,
-        "wands-13-queen": `${basePath}/wands-13-queen.png`,
-        "wands-14-king": `${basePath}/wands-14-king.png`,
-        "pentacles-11-page": `${basePath}/pentacles-11-page.png`,
-        "pentacles-12-knight": `${basePath}/pentacles-12-knight.png`,
-        "pentacles-13-queen": `${basePath}/pentacles-13-queen.png`,
-        "pentacles-14-king": `${basePath}/pentacles-14-king.png`,
-      };
+      return buildMajorCourtDeckMap(basePath, "png");
     }
 
     function buildEgyptianFalconnierMap(basePath) {
@@ -3291,6 +3338,21 @@
         licenseNote: "Commons file pages for the 22 numbered scans describe the images as public domain. Recheck the individual Commons file pages if the assets are reused outside this project.",
         nativeTitles: buildOswaldWirthNativeTitles(),
         cards: buildMajorDeckMap("assets/cards-experimental/oswald-wirth-tarot", "jpg"),
+      },
+      {
+        id: "unicode-playing-cards",
+        name: "Unicode Playing Cards",
+        label: "Unicode",
+        optionLabel: "Unicode",
+        description: "Unicode playing card glyphs rendered as tarot-sized SVG cards; major arcana and court cards only",
+        cssClass: "deck-unicode-playing-cards",
+        status: "experimental",
+        coverage: "major-court",
+        fallbackDeckId: "rws-classic",
+        sourceUrl: "https://en.wikipedia.org/wiki/Playing_Cards_(Unicode_block)",
+        licenseNote: "Local SVG renders of Unicode playing card characters; no external image assets or runtime hotlinks.",
+        nativeTitles: buildUnicodePlayingCardsNativeTitles(),
+        cards: buildMajorCourtDeckMap("assets/cards-experimental/unicode-playing-cards", "svg"),
       },
       {
         id: "pixel-tarot",

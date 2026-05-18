@@ -3,7 +3,7 @@
 Date of the list: `2026-05-18`.
 
 This document records experimental and alternative card decks for `KostGame/Tarot`.
-Only sets that were safely downloaded and mapped unambiguously to the current model are connected in the UI.
+Only sets that were safely downloaded or locally rendered and mapped unambiguously to the current model are connected in the UI.
 
 ## Connected in UI
 
@@ -98,6 +98,19 @@ Only sets that were safely downloaded and mapped unambiguously to the current mo
 - Mapping strategy: title-based matching for the majors; the pack uses canonical app ids for filenames, with `La Justice` shown on app `major-11-justice` and `La Force` shown on app `major-08-strength`.
 - Native titles strategy: show French native labels as a secondary line in the UI, while keeping the translated app title as the primary one.
 - Notes: this is a historical major-only educational layer; minors are intentionally not connected because only the 22 majors were curated into a safe local pack.
+
+### `unicode-playing-cards`
+
+- Status: connected in UI as a symbolic major-and-court deck.
+- UI label: `Unicode`
+- Detailed label for docs: `Unicode Playing Cards`
+- Source URL: `https://en.wikipedia.org/wiki/Playing_Cards_(Unicode_block)`
+- Local files: `assets/cards-experimental/unicode-playing-cards/`
+- Coverage: `38/38` major arcana + court cards only.
+- License / reuse: locally rendered SVG assets built from Unicode card characters; no external image files or runtime hotlinks are used.
+- Mapping strategy: canonical app ids for the 22 trumps plus the four court ranks in each suit.
+- Native titles strategy: show the Unicode card names as a secondary line in the UI, while keeping the translated app title as the primary one.
+- Notes: this is a symbolic educational layer derived from the Unicode Playing Cards block, not a historical scan pack.
 
 ### `egyptian-falconnier`
 

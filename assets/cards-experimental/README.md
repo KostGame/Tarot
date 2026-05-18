@@ -14,6 +14,7 @@ Structure:
 - `tarocco-piemontese-solesio-1865/` - historical Tarocco Piemontese full deck, title-based mapped to canonical card ids and connected in UI as `full`. See `docs/TAROCCO_PIEMONTESE_MAPPING.md`.
 - `sola-busca/` - historical Sola Busca full deck, title-based mapped to canonical card ids and connected in UI as `full`.
 - `egyptian-falconnier/` - historical Egyptian Tarot / Falconnier major-only deck, normalized to app major ids and connected in UI as `major-only`. See `docs/EGYPTIAN_FALCONNIER_MAPPING.md`.
+- `unicode-playing-cards/` - locally rendered Unicode playing card glyph deck, connected in UI as `major-court`. See `docs/UNICODE_PLAYING_CARDS_MAPPING.md`.
 
 Candidate decks not stored here yet:
 

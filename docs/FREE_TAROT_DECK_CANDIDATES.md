@@ -16,6 +16,7 @@ This document is research-only. It does not download assets and it does not conn
 - Best safe full-deck candidate found in this pass: `Tarocco Piemontese / Solesio 1865` (now connected in the UI).
 - Highest-value historical research target: `Sola Busca` (now connected in the UI as a full deck).
 - Connected historical major-only deck from this pass: `Oswald Wirth Tarot` (22/22).
+- Connected symbolic major-and-court deck from this pass: `Unicode Playing Cards` (38/38).
 - Best major-only research candidate with a clean Commons category: `Viéville tarot`.
 - Reject for the current app model: `Industrie und Glück` / historical tarock packs, because they are 54-card tarock variants rather than standard 78-card tarot packs.
 
