@@ -159,7 +159,10 @@ Only sets that were safely downloaded or locally rendered and mapped unambiguous
 
 - Source: `https://github.com/ChaoteCruithne/FalseDichotomyTarot`
 - Status: not connected in UI.
-- Reason: automatic mapping to the current app model is still unclear and requires a separate manual review.
+- Coverage check: source repo contains 22 Major Arcana PNG files and 56 Minor Arcana PNG files.
+- License check: source repo README and `LICENSE.md` state Creative Commons Attribution 4.0.
+- Blocker: README/Guide acknowledge `Chaos Times` font by Ablaze, while the DaFont page marks that font as `Free for personal use`. Do not connect or vendor the images until font rights for redistribution inside the card images are confirmed.
+- Mapping note: the deck is structurally nonstandard for minors, with four suits (`Shadow/Self`, `Science/Magick`, `Risk/Reward`, `Past/Future`) and 14 prepositions instead of numbered ranks/court ranks. If the font blocker is resolved, connect only with an explicit mapping dictionary.
 
 ### `etteilla-historical`
 
