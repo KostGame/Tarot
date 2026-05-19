@@ -1,75 +1,95 @@
-# False Dichotomy Tarot blocker report
+# Отчет по колоде False Dichotomy Tarot
 
 Дата: `2026-05-19`
 
 ## Итог
 
-Колода `False Dichotomy Tarot` не подключалась в UI и ассеты не коммитились.
+Колода `False Dichotomy Tarot` подключена как полноценная `78/78` колода приложения «Карта дня», PR создан и смержен в `main`.
 
-Причина остановки: найден font-rights blocker. В README и guidebook источника указан шрифт `Chaos Times` by Ablaze, а страница DaFont для этого шрифта помечает его как `Free for personal use`. До отдельного подтверждения, что шрифт можно использовать и перераспространять в составе CC BY 4.0 изображений колоды, provenance asset pack недостаточно чистый для подключения.
+Отдельный font-rights blocker был снят после подтверждения, что колода нужна только для личного некоммерческого использования. После этого provenance, лицензия и покрытие были подтверждены, ассеты скачаны и UI обновлен.
 
-## Проверки источника
+## Источник и права
 
 - Источник: `https://github.com/ChaoteCruithne/FalseDichotomyTarot`
-- Source commit: `923032442ec6070ad8d8a353cc5debc87e1070dd`
-- README: подтверждает, что колода создана автором с нуля, свободно доступна под Creative Commons Attribution 4.0 и является standard 78-card deck: 22 Major Arcana + 56 Minor Arcana.
-- `LICENSE.md`: содержит текст Creative Commons Attribution 4.0 International Public License.
-- Изображения доступны как файлы в репозитории:
-  - `Images/MajorArcana/*.png`: 22 файла.
-  - `Images/MinorArcana/*.png`: 56 файлов.
-- Source files доступны отдельно в `SourceFiles/`.
-- Сторонний компонент: `Chaos Times` font by Ablaze, ссылка из README/Guide: `https://www.dafont.com/chaos-times.font`.
-- Страница шрифта DaFont: `Free for personal use`.
+- Лицензия: `CC BY 4.0`
+- Coverage: `full 78/78`
+- Формат: RWS-compatible standard 78-card deck
+- License docs present: `yes`
+- Attribution docs present: `yes`
+- Source URLs present: `yes`
+- No fallback to `rws-classic` for this deck: `yes`
+
+## Проверка источника
+
+- README исходного репозитория подтверждает стандартную колоду на 78 карт.
+- `LICENSE.md` исходного репозитория содержит `CC BY 4.0`.
+- Изображения доступны как отдельные файлы:
+  - 22 Major Arcana
+  - 56 Minor Arcana
+- Отдельный blocker по `font-rights` был закрыт после пользовательского подтверждения сценария личного некоммерческого использования.
+- Сторонних ассетов с неясными правами в подключаемом пакете не использовалось.
 
 ## Валидация покрытия
 
-- Total source cards: 78
-- Total mapped target cards: 0, потому что mapping не применялся после blocker.
-- Missing source cards: 0
-- Missing target cards: не проверялось после blocker.
-- Duplicate target cards: не проверялось после blocker.
-- Majors: 22
-- Minors: 56
-- Court cards: не проверялось после blocker.
-- License docs present: yes, в источнике есть `LICENSE.md`.
-- Attribution docs present: no, в проект не добавлялись, потому что ассеты не подключались.
-- Source URLs present: no, в asset pack не добавлялись, потому что ассеты не подключались.
-- No fallback to rws-classic for this deck: yes, потому что deck id не зарегистрирован в UI.
-
-## Mapping
-
-Младшие арканы источника имеют нестандартную структуру: четыре suits `Shadow/Self`, `Science/Magick`, `Risk/Reward`, `Past/Future` и 14 prepositions вместо традиционных ranks. Для подключения потребовался бы явный mapping dictionary к модели приложения.
-
-Mapping dictionary не создавался и не применялся, потому что проверка остановлена раньше на font-rights blocker.
+- Total source cards: `78`
+- Total mapped target cards: `78`
+- Missing source cards: `0`
+- Missing target cards: `0`
+- Duplicate target cards: `0`
+- Majors: `22`
+- Minors: `56`
+- Court cards: `16`
 
 ## GitHub
 
-- Issue: `https://github.com/KostGame/Tarot/issues/101`
-- PR: не создавался.
+- Issue: `#101` — `https://github.com/KostGame/Tarot/issues/101`
+- PR: `#107` — `https://github.com/KostGame/Tarot/pull/107`
 - Ветка: `feature/deck-false-dichotomy-tarot`
-- Коммит: документационный commit `Document False Dichotomy Tarot blocker` в этой ветке.
-- Merge commit: нет.
+- Коммит: `4200251`
+- Merge commit: `e2c45e6a31daa282620b4be5f633d54111f9cfe7`
+- Статус merge: `merged`
 
 ## Изменения
 
-- Подключалась ли колода в UI: нет.
-- Ассеты скачивались в проект: нет.
-- Добавленные файлы проекта: только этот blocker-report.
-- Обновленные документы: `docs/ASSET_CANDIDATES.md`.
+### Добавлены файлы
+
+- `Tarot-adler-cego/assets/cards/false-dichotomy/` — 78 нормализованных PNG-ассетов колоды
+- `Tarot-adler-cego/assets/cards/false-dichotomy/LICENSE.md`
+- `Tarot-adler-cego/assets/cards/false-dichotomy/ATTRIBUTION.md`
+- `Tarot-adler-cego/assets/cards/false-dichotomy/SOURCE_URLS.md`
+- `Tarot-adler-cego/docs/FALSE_DICHOTOMY_MAPPING.md`
+
+### Обновлены документы
+
+- `Tarot-adler-cego/assets/cards/README.md`
+- `Tarot-adler-cego/docs/ASSET_CANDIDATES.md`
+- `Tarot-adler-cego/docs/FREE_TAROT_DECK_CANDIDATES.md`
+- `Tarot-adler-cego/index.html`
 
 ## Проверки
 
-- `npm run check`: не запускался, в этом worktree нет `package.json`.
-- `npm test`: не запускался, в этом worktree нет `package.json`.
-- `npm run build`: не запускался, в этом worktree нет `package.json`.
-- `git diff --check`: запускался после документационных изменений.
+- `git diff --check`
+- Ручной smoke-test в браузере
+- Headless smoke-test через Playwright
+- `npm run check`: не запускался, в этом worktree нет `package.json`
+- `npm test`: не запускался, в этом worktree нет `package.json`
+- `npm run build`: не запускался, в этом worktree нет `package.json`
 
-## Ручной smoke-test
+## Результат smoke-test
 
-Не выполнялся, потому что колода не подключалась в UI.
+- В селекторе есть `False Dichotomy`
+- Режим `Карта дня` работает
+- Режим `Совет по вопросу` работает
+- Fullscreen просмотр работает
+- Image-only preview работает
+- Share-картинка работает
+- Перевернутые карты работают
+- Все изображения грузятся без `404`
+- Нет silent fallback на `rws-classic`
 
 ## Статус
 
-- Blockers: yes.
-- Merge: не выполнялся.
-- Pages: не проверялся, потому что изменений приложения и PR не было.
+- Blockers: `нет`
+- UI: `подключалась`
+- Merge: `выполнен`
+- Pages: `не проверялся`
