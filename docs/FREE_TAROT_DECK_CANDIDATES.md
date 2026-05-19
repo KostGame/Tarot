@@ -18,6 +18,7 @@ This document is research-only. It does not download assets and it does not conn
 - Connected historical major-only deck from this pass: `Oswald Wirth Tarot` (22/22).
 - Connected symbolic major-and-court deck from this pass: `Unicode Playing Cards` (38/38).
 - Best major-only research candidate with a clean Commons category: `Viéville tarot`.
+- `Crowley Thoth Tarot` is currently rejected for the app because Commons only exposes 3 files in the category, not a safe 78-card reusable pack.
 - Reject for the current app model: `Industrie und Glück` / historical tarock packs, because they are 54-card tarock variants rather than standard 78-card tarot packs.
 
 ## Candidate survey
@@ -212,6 +213,20 @@ This document is research-only. It does not download assets and it does not conn
 - Risks:
   - None for this research pass; this is the baseline historical major-only deck already in UI.
 - Recommendation: `already connected`
+
+### 10) Crowley Thoth Tarot
+
+- Deck id candidate: `thoth-tarot`
+- Expected coverage: `blocker / no safe 78-card pack found`
+- Source URLs:
+  - [Commons category](https://commons.wikimedia.org/wiki/Category:Crowley_Thoth_Tarot)
+  - [Representative Commons file page](https://commons.wikimedia.org/wiki/File:Thoth_Tarot_Cards_in_the_Museum_of_Witchcraft_and_Magic.jpg)
+- Asset source candidate: Commons currently surfaces only 3 files in the category, which is not enough to assemble a safe full deck for the current app.
+- License / reuse: treat as unsafe for now; the available files do not form a clearly reusable 78-card pack with file-level clarity sufficient for app connection.
+- Mapping strategy: not applicable until a complete, licensable pack exists.
+- Native titles strategy: not applicable until all 78 source cards are available.
+- Risks: no complete pack, no stable per-card file set, and no safe path to connect the deck in the UI.
+- Recommendation: `reject`
 
 ## Other public-domain / CC candidates spotted during the scan
 

@@ -173,6 +173,16 @@ Only sets that were safely downloaded or locally rendered and mapped unambiguous
 - Status: historical experimental deck, documentation only.
 - Reason: the mapping plan exists, but the pack is not part of this task and remains documented separately.
 
+### `thoth-tarot`
+
+- Source URL: `https://commons.wikimedia.org/wiki/Category:Crowley_Thoth_Tarot`
+- Status: research blocker; not connected in UI.
+- Coverage: no safe `78/78` pack found.
+- License / reuse: the Commons category currently exposes only 3 files (`Crowley Unicursal Hexagram Tarot Card.svg`, `Taro Rose Cross.svg`, `Thoth Tarot Cards in the Museum of Witchcraft and Magic.jpg`); this is not a curated reusable tarot deck pack.
+- Mapping strategy: not applicable until a complete, licensable pack is assembled.
+- Native titles strategy: not applicable until source cards exist for the full deck.
+- Notes: do not connect this deck in UI yet. A future follow-up would need a real `78/78` asset pack with clear file-level reuse terms.
+
 ## Research-only public-domain / CC candidates
 
 See [docs/FREE_TAROT_DECK_CANDIDATES.md](./FREE_TAROT_DECK_CANDIDATES.md) for the full research pass.
