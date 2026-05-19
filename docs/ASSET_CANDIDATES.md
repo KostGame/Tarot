@@ -65,6 +65,19 @@ Only sets that were safely downloaded or locally rendered and mapped unambiguous
 - Native titles strategy: show the Sola Busca printed names as a secondary line in the UI, while keeping the translated app title as the primary one.
 - Notes: this is a historical Italian gaming tarot deck; the app's meanings remain an educational layer on top of the imagery.
 
+### `false-dichotomy`
+
+- Status: connected in UI as a full custom deck.
+- UI label: `False Dichotomy`
+- Detailed label for docs: `False Dichotomy Tarot`
+- Source URL: `https://github.com/ChaoteCruithne/FalseDichotomyTarot`
+- Local files: `assets/cards/false-dichotomy/`
+- Coverage: `78/78`
+- License / reuse: source repository README and LICENSE state CC BY 4.0; local pack is normalized to canonical app ids.
+- Mapping strategy: source-order majors plus the four suit / 14-preposition minor groups map to canonical app card ids.
+- Native titles strategy: show the source theme pairs as a secondary line in the UI, while keeping the translated app title as the primary one.
+- Notes: this is a modern custom full deck; the app's meanings remain the educational layer on top of the imagery.
+
 ### `jean-dodal-marseille`
 
 - Status: connected in UI as a historical major-only deck.
@@ -154,15 +167,6 @@ Only sets that were safely downloaded or locally rendered and mapped unambiguous
 - Coverage: `22` local files.
 
 ## Documentation-only candidates
-
-### `False Dichotomy Tarot`
-
-- Source: `https://github.com/ChaoteCruithne/FalseDichotomyTarot`
-- Status: not connected in UI.
-- Coverage check: source repo contains 22 Major Arcana PNG files and 56 Minor Arcana PNG files.
-- License check: source repo README and `LICENSE.md` state Creative Commons Attribution 4.0.
-- Blocker: README/Guide acknowledge `Chaos Times` font by Ablaze, while the DaFont page marks that font as `Free for personal use`. Do not connect or vendor the images until font rights for redistribution inside the card images are confirmed.
-- Mapping note: the deck is structurally nonstandard for minors, with four suits (`Shadow/Self`, `Science/Magick`, `Risk/Reward`, `Past/Future`) and 14 prepositions instead of numbered ranks/court ranks. If the font blocker is resolved, connect only with an explicit mapping dictionary.
 
 ### `etteilla-historical`
 

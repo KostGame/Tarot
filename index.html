@@ -2901,6 +2901,61 @@
       return titles;
     }
 
+    function buildFalseDichotomyNativeTitles() {
+      const titles = {
+        "major-00-fool": "Action / Intention",
+        "major-01-magician": "Creator / Created",
+        "major-02-high-priestess": "Death / Rebirth",
+        "major-03-empress": "Desire / Addiction",
+        "major-04-emperor": "Feast / Famine",
+        "major-05-hierophant": "Forest / Trees",
+        "major-06-lovers": "Incense / Perfume",
+        "major-07-chariot": "Martyr / Zealot",
+        "major-08-strength": "Mission / Obsession",
+        "major-09-hermit": "Omen / Evidence",
+        "major-10-wheel-of-fortune": "Pain / Pleasure",
+        "major-11-justice": "Patron / Supplicant",
+        "major-12-hanged-man": "Predator / Prey",
+        "major-13-death": "Rule / Exception",
+        "major-14-temperance": "Soma / Panacea",
+        "major-15-devil": "Speaking / Listening",
+        "major-16-tower": "Swarm / Gestalt",
+        "major-17-star": "Taboo / Tradition",
+        "major-18-moon": "Truth / Honesty",
+        "major-19-sun": "Unity / Proximity",
+        "major-20-judgement": "Watcher / Seer",
+        "major-21-world": "Wilderness / Metropolis",
+      };
+      const suitNames = {
+        pentacles: "Past / Future",
+        wands: "Risk / Reward",
+        swords: "Science / Magick",
+        cups: "Self / Shadow",
+      };
+      const rankNames = {
+        "01-ace": "Against",
+        "02-two": "Amidst",
+        "03-three": "Beyond",
+        "04-four": "Despite",
+        "05-five": "For",
+        "06-six": "From",
+        "07-seven": "Like",
+        "08-eight": "Of",
+        "09-nine": "Since",
+        "10-ten": "Through",
+        "11-page": "Towards",
+        "12-knight": "Until",
+        "13-queen": "Upon",
+        "14-king": "Without",
+      };
+      Object.entries(suitNames).forEach(([suit, suitTitle]) => {
+        Object.entries(rankNames).forEach(([rankId, rankTitle]) => {
+          titles[`${suit}-${rankId}`] = `${rankTitle} / ${suitTitle}`;
+        });
+      });
+      return titles;
+    }
+
     function buildTaroccoPiemonteseNativeTitles() {
       const titles = {
         "major-00-fool": "Il Matto",
@@ -3282,6 +3337,21 @@
         licenseNote: "Public domain scans on Commons; extra non-core files were excluded from the curated 78-card pack.",
         nativeTitles: buildSolaBuscaNativeTitles(),
         cards: buildFullDeckMap("assets/cards-experimental/sola-busca", "jpg"),
+      },
+      {
+        id: "false-dichotomy",
+        name: "False Dichotomy",
+        label: "False Dichotomy",
+        optionLabel: "False Dichotomy",
+        description: "Custom full 78-card deck with source-order mapping and canonical app ids",
+        cssClass: "deck-false-dichotomy",
+        status: "experimental",
+        coverage: "full",
+        fallbackDeckId: "rws-classic",
+        sourceUrl: "https://github.com/ChaoteCruithne/FalseDichotomyTarot",
+        licenseNote: "CC BY 4.0 in the source repository; local pack is normalized to canonical card ids.",
+        nativeTitles: buildFalseDichotomyNativeTitles(),
+        cards: buildFullDeckMap("assets/cards/false-dichotomy"),
       },
       {
         id: "jean-dodal-marseille",
