@@ -1,6 +1,6 @@
 ﻿# Free Tarot Deck Candidates
 
-Date: `2026-05-18`
+Date: `2026-05-19`
 
 This document is research-only. It does not download assets and it does not connect new decks to the UI.
 
@@ -17,6 +17,7 @@ This document is research-only. It does not download assets and it does not conn
 - Highest-value historical research target: `Sola Busca` (now connected in the UI as a full deck).
 - Connected historical major-only deck from this pass: `Oswald Wirth Tarot` (22/22).
 - Connected symbolic major-and-court deck from this pass: `Unicode Playing Cards` (38/38).
+- Connected symbolic full-deck from this pass: `ASCII Tarot` (78/78).
 - Best major-only research candidate with a clean Commons category: `Viéville tarot`.
 - `Crowley Thoth Tarot` is currently rejected for the app because Commons only exposes 3 files in the category, not a safe 78-card reusable pack.
 - Reject for the current app model: `Industrie und Glück` / historical tarock packs, because they are 54-card tarock variants rather than standard 78-card tarot packs.
@@ -256,3 +257,9 @@ If we want the most historically distinctive and research-heavy deck, `Sola Busc
 - Mapping: title-based mapping to the app's 22 major ids
 - Native titles: `Sküs`, then `1` through `21`
 - Recommendation: connect
+## Aquatic Tarot update
+
+- `Aquatic Tarot` is now connected in the UI as a full `78/78` deck.
+- Source site reviewed: `https://aquatictarot.de/`
+- License confirmed: `CC BY-NC-SA 3.0`
+- The deck is no longer a future candidate in this repo.

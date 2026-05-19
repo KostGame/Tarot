@@ -1157,6 +1157,29 @@
         rgba(9, 7, 17, .98);
     }
 
+    .deck-aquatic-tarot .card-image,
+    .deck-aquatic-tarot .lightbox-card-image,
+    .deck-aquatic-tarot .image-preview-card {
+      filter: saturate(1.05) contrast(1.03) brightness(1.03);
+    }
+
+    .deck-aquatic-tarot .tarot-card {
+      border-color: rgba(125, 208, 220, .34);
+      background:
+        radial-gradient(circle at 50% 26%, rgba(125, 208, 220, .16), transparent 52%),
+        linear-gradient(180deg, rgba(255, 255, 255, .06), rgba(255, 255, 255, .02)),
+        rgba(5, 18, 26, .94);
+      box-shadow: 0 18px 38px rgba(0, 0, 0, .42), inset 0 0 0 5px rgba(2, 10, 14, .52);
+    }
+
+    .deck-aquatic-tarot .lightbox-content {
+      border-color: rgba(125, 208, 220, .28);
+      background:
+        radial-gradient(circle at 50% 12%, rgba(89, 163, 179, .18), transparent 34rem),
+        linear-gradient(180deg, rgba(255, 255, 255, .06), rgba(255, 255, 255, .02)),
+        rgba(8, 17, 23, .98);
+    }
+
     .deck-pixel-tarot .card-image,
     .deck-pixel-tarot .lightbox-card-image,
     .deck-pixel-tarot .image-preview-card,
@@ -2309,6 +2332,7 @@
           <span class="sr-only">Стиль карт</span>
           <select id="card-deck-select" aria-label="Стиль карт"></select>
         </label>
+        <p class="warning" id="deck-warning" hidden></p>
 
         <nav class="deck-tabs" aria-label="Выбор состава карт">
           <button class="deck-tab active" type="button" data-pool-mode="all">Все</button>
@@ -2833,6 +2857,61 @@
       return titles;
     }
 
+    function buildAsciiTarotNativeTitles() {
+      const titles = {
+        "major-00-fool": "The Fool",
+        "major-01-magician": "The Magician",
+        "major-02-high-priestess": "The High Priestess",
+        "major-03-empress": "The Empress",
+        "major-04-emperor": "The Emperor",
+        "major-05-hierophant": "The Hierophant",
+        "major-06-lovers": "The Lovers",
+        "major-07-chariot": "The Chariot",
+        "major-08-strength": "Strength",
+        "major-09-hermit": "The Hermit",
+        "major-10-wheel-of-fortune": "Wheel of Fortune",
+        "major-11-justice": "Justice",
+        "major-12-hanged-man": "The Hanged Man",
+        "major-13-death": "Death",
+        "major-14-temperance": "Temperance",
+        "major-15-devil": "The Devil",
+        "major-16-tower": "The Tower",
+        "major-17-star": "The Star",
+        "major-18-moon": "The Moon",
+        "major-19-sun": "The Sun",
+        "major-20-judgement": "Judgement",
+        "major-21-world": "The World",
+      };
+      const suitNames = {
+        wands: "Wands",
+        cups: "Cups",
+        swords: "Swords",
+        pentacles: "Pentacles",
+      };
+      const rankNames = {
+        "01-ace": "Ace",
+        "02-two": "Two",
+        "03-three": "Three",
+        "04-four": "Four",
+        "05-five": "Five",
+        "06-six": "Six",
+        "07-seven": "Seven",
+        "08-eight": "Eight",
+        "09-nine": "Nine",
+        "10-ten": "Ten",
+        "11-page": "Page",
+        "12-knight": "Knight",
+        "13-queen": "Queen",
+        "14-king": "King",
+      };
+      Object.entries(suitNames).forEach(([suit, suitTitle]) => {
+        Object.entries(rankNames).forEach(([rankId, rankTitle]) => {
+          titles[`${suit}-${rankId}`] = `${rankTitle} of ${suitTitle}`;
+        });
+      });
+      return titles;
+    }
+
     function buildSolaBuscaNativeTitles() {
       const titles = {
         "major-00-fool": "Mato",
@@ -3165,6 +3244,7 @@
     const deckChipLabel = document.querySelector("#deck-chip-label");
     const mainSettings = document.querySelector("#main-settings");
     const cardDeckSelect = document.querySelector("#card-deck-select");
+    const deckWarning = document.querySelector("#deck-warning");
     const guideCardDeckSelect = document.querySelector("#guide-card-deck-select");
     const poolModeNote = document.querySelector("#pool-mode-note");
     const useReversedToggle = document.querySelector("#use-reversed-cards");
@@ -3237,6 +3317,19 @@
         coverage: "full",
         fallbackDeckId: "rws-classic",
         sourceUrl: "https://commons.wikimedia.org/wiki/Category:Rider-Waite-Smith_tarot_deck_(TaionWC)",
+      },
+      {
+        id: "aquatic-tarot",
+        name: "Aquatic Tarot",
+        label: "Aquatic Tarot",
+        optionLabel: "Aquatic Tarot",
+        description: "акварельная · свободная NC-SA · все карты",
+        cssClass: "deck-aquatic-tarot",
+        status: "experimental",
+        coverage: "full",
+        sourceUrl: "https://aquatictarot.de/",
+        licenseNote: "Aquatic Tarot используется по CC BY-NC-SA 3.0. Коммерческое использование этой колоды не разрешено без отдельного разрешения правообладателя. Если проект станет коммерческим, эту колоду нужно удалить или получить отдельное разрешение.",
+        cards: buildFullDeckMap("assets/cards/aquatic-tarot", "jpg"),
       },
       {
         id: "tarot-nouveau-grimaud-1898",
@@ -3380,6 +3473,21 @@
         licenseNote: "Local SVG renders of Unicode playing card characters; no external image assets or runtime hotlinks.",
         nativeTitles: buildUnicodePlayingCardsNativeTitles(),
         cards: buildMajorCourtDeckMap("assets/cards-experimental/unicode-playing-cards", "svg"),
+      },
+      {
+        id: "ascii-tarot",
+        name: "ASCII Tarot",
+        label: "ASCII Tarot",
+        optionLabel: "ASCII Tarot",
+        description: "моноширинная · MIT · все карты",
+        cssClass: "deck-ascii-tarot",
+        status: "experimental",
+        coverage: "full",
+        fallbackDeckId: "rws-classic",
+        sourceUrl: "https://github.com/lawreka/ascii-tarot",
+        licenseNote: "MIT-licensed source deck rendered locally as SVG text cards; no external hotlinks.",
+        nativeTitles: buildAsciiTarotNativeTitles(),
+        cards: buildFullDeckMap("assets/cards-experimental/ascii-tarot", "svg"),
       },
       {
         id: "adler-cego",
@@ -3850,6 +3958,7 @@
       cardDeckSelect.value = selectedCardDeck.id;
       guideCardDeckSelect.value = selectedCardDeck.id;
       updateDeckChipLabel();
+      updateDeckWarning();
     }
 
     function applyPoolMode() {
@@ -4743,6 +4852,15 @@
         deckChip.setAttribute("aria-label", ariaLabel);
         deckChip.setAttribute("title", ariaLabel);
       }
+    }
+
+    function updateDeckWarning() {
+      if (!deckWarning) {
+        return;
+      }
+      const warningText = selectedCardDeck.licenseNote || "";
+      deckWarning.textContent = warningText;
+      deckWarning.hidden = !warningText;
     }
 
     async function tryClipboardShare(text) {

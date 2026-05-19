@@ -1,6 +1,6 @@
 ﻿# Asset Candidates
 
-Date of the list: `2026-05-18`.
+Date of the list: `2026-05-19`.
 
 This document records experimental and alternative card decks for `KostGame/Tarot`.
 Only sets that were safely downloaded or locally rendered and mapped unambiguously to the current model are connected in the UI.
@@ -112,6 +112,20 @@ Only sets that were safely downloaded or locally rendered and mapped unambiguous
 - Native titles strategy: show the Unicode card names as a secondary line in the UI, while keeping the translated app title as the primary one.
 - Notes: this is a symbolic educational layer derived from the Unicode Playing Cards block, not a historical scan pack.
 
+### `ascii-tarot`
+
+- Status: connected in UI as a full experimental text deck.
+- UI label: `ASCII Tarot`
+- Detailed label for docs: `ASCII Tarot · monochrome text deck`
+- Source URL: `https://github.com/lawreka/ascii-tarot`
+- Reference manifest: `https://raw.githubusercontent.com/arcanaland/reference-decks/main/ascii-tarot/deck.toml`
+- Local files: `assets/cards-experimental/ascii-tarot/`
+- Coverage: `78/78`
+- License / reuse: MIT-licensed upstream ASCII deck; the local SVG pack is generated deterministically from that source and does not use external runtime hotlinks.
+- Mapping strategy: standard RWS-compatible canonical ids for the 22 trumps and the four suits with Ace/Page/Knight/Queen/King ranks.
+- Native titles strategy: show standard English RWS names as the secondary line in the UI.
+- Notes: this pack is distinct from `Unicode`, `Pixel Mono`, and `Pixel Zune`; those decks remain unchanged and this deck uses a separate full 78-card text source.
+
 ### `egyptian-falconnier`
 
 - Status: connected in UI as a historical major-only deck.
@@ -215,3 +229,15 @@ Short version:
 - Native titles: `Sküs`, then source numbers `1..21`.
 - License: the Commons file page marks the sheet as `CC BY-SA 4.0`; verify attribution and share-alike terms on reuse.
 - Decision: safe to connect as a major-only pack from a structured Commons sheet.
+### `aquatic-tarot`
+
+- Status: connected in UI as a full 78/78 deck.
+- UI label: `Aquatic Tarot`
+- Source URL: `https://aquatictarot.de/`
+- Reference manifest: `https://raw.githubusercontent.com/arcanaland/reference-decks/main/aquatic-tarot/deck.toml`
+- Local files: `assets/cards/aquatic-tarot/`
+- Coverage: `78/78`
+- License / reuse: `CC BY-NC-SA 3.0`; non-commercial use only, attribution required, share-alike applies to derivatives.
+- Mapping strategy: standard RWS-compatible canonical ids for the 22 trumps and the four suits with Ace/Page/Knight/Queen/King ranks.
+- Native titles strategy: keep the app's translated titles as the primary line and do not add a separate native-title layer.
+- Notes: the official site exposes a Creative Commons license block on the page; the local pack uses card images from the official Aquatic Tarot site and normalizes them into the app's standard 78-card model.

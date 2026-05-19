@@ -15,6 +15,7 @@ Structure:
 - `sola-busca/` - historical Sola Busca full deck, title-based mapped to canonical card ids and connected in UI as `full`.
 - `egyptian-falconnier/` - historical Egyptian Tarot / Falconnier major-only deck, normalized to app major ids and connected in UI as `major-only`. See `docs/EGYPTIAN_FALCONNIER_MAPPING.md`.
 - `unicode-playing-cards/` - locally rendered Unicode playing card glyph deck, connected in UI as `major-court`. See `docs/UNICODE_PLAYING_CARDS_MAPPING.md`.
+- `ascii-tarot/` - locally rendered ASCII tarot deck, connected in UI as `full` and generated deterministically from the upstream source deck. See `assets/cards-experimental/ascii-tarot/README.md` and `scripts/generate-ascii-tarot-assets.mjs`.
 
 Candidate decks not stored here yet:
 
