@@ -145,11 +145,11 @@ function renderSvgCard(card) {
   const lines = normalizeCardText(card.card);
   const width = 360;
   const height = 620;
-  const fontSize = 20;
-  const charWidth = fontSize * 0.6;
+  const fontSize = 22;
+  const charWidth = fontSize * 0.595;
   const maxLineLength = Math.max(...lines.map(line => line.length));
-  const x = Math.max(12, Math.round((width - (maxLineLength * charWidth)) / 2));
-  const lineHeight = 25;
+  const x = Math.max(2, Math.round((width - (maxLineLength * charWidth)) / 2));
+  const lineHeight = 28;
   const startY = Math.round((height - ((lines.length - 1) * lineHeight)) / 2);
   const title = escapeXml(card.name);
   const desc = escapeXml(`ASCII Tarot card art for ${card.name}.`);
