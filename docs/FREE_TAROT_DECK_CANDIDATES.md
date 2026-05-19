@@ -15,6 +15,7 @@ This document is research-only. It does not download assets and it does not conn
 
 - Best safe full-deck candidate found in this pass: `Tarocco Piemontese / Solesio 1865` (now connected in the UI).
 - Highest-value historical research target: `Sola Busca` (now connected in the UI as a full deck).
+- Separate custom full deck now connected in the UI: `False Dichotomy Tarot`.
 - Connected historical major-only deck from this pass: `Oswald Wirth Tarot` (22/22).
 - Connected symbolic major-and-court deck from this pass: `Unicode Playing Cards` (38/38).
 - Connected symbolic full-deck from this pass: `ASCII Tarot` (78/78).
