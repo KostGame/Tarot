@@ -145,8 +145,11 @@ function renderSvgCard(card) {
   const lines = normalizeCardText(card.card);
   const width = 360;
   const height = 620;
-  const x = 18;
-  const lineHeight = 22;
+  const fontSize = 20;
+  const charWidth = fontSize * 0.6;
+  const maxLineLength = Math.max(...lines.map(line => line.length));
+  const x = Math.max(12, Math.round((width - (maxLineLength * charWidth)) / 2));
+  const lineHeight = 25;
   const startY = Math.round((height - ((lines.length - 1) * lineHeight)) / 2);
   const title = escapeXml(card.name);
   const desc = escapeXml(`ASCII Tarot card art for ${card.name}.`);
@@ -158,7 +161,7 @@ function renderSvgCard(card) {
     `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" preserveAspectRatio="xMidYMid meet" role="img" aria-labelledby="${card.id}-title ${card.id}-desc">\n` +
     `  <title id="${card.id}-title">${title}</title>\n` +
     `  <desc id="${card.id}-desc">${desc}</desc>\n` +
-    `  <text x="${x}" y="${startY}" fill="#f7f0df" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, Liberation Mono, monospace" font-size="16" font-weight="500" xml:space="preserve" style="white-space: pre">${textNodes}</text>\n` +
+    `  <text x="${x}" y="${startY}" fill="#f7f0df" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, Liberation Mono, monospace" font-size="${fontSize}" font-weight="500" xml:space="preserve" style="white-space: pre">${textNodes}</text>\n` +
     `</svg>\n`;
 }
 
