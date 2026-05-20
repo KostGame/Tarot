@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title>Tarot favicon</title>
+  <desc>Dark tarot card with moon and star.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#120c1e"/>
+      <stop offset="1" stop-color="#1c122d"/>
+    </linearGradient>
+    <linearGradient id="card" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#f7f2ea"/>
+      <stop offset="1" stop-color="#efe5d7"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" fill="url(#bg)"/>
+  <rect x="118" y="64" width="276" height="384" rx="36" fill="url(#card)" stroke="#c8a85d" stroke-width="10"/>
+  <rect x="140" y="86" width="232" height="340" rx="24" fill="none" stroke="#d8c7af" stroke-width="4"/>
+  <circle cx="258" cy="164" r="26" fill="#d7b45e"/>
+  <circle cx="270" cy="164" r="24" fill="url(#card)"/>
+  <polygon fill="#d7b45e" points="256,220 266,246 294,246 272,262 280,288 256,272 232,288 240,262 218,246 246,246"/>
+  <rect x="200" y="316" width="112" height="10" rx="5" fill="#d8c7af" opacity=".8"/>
+  <rect x="226" y="336" width="60" height="10" rx="5" fill="#d8c7af" opacity=".55"/>
+</svg>
