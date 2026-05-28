@@ -372,11 +372,14 @@
       border-radius: 50%;
       background: transparent;
       color: var(--gold);
-      font-size: 1.1rem;
-      font-weight: 800;
       cursor: pointer;
       list-style: none;
+      line-height: 0;
       transition: background .2s ease, transform .2s ease, filter .2s ease;
+    }
+
+    .settings summary svg {
+      display: block;
     }
 
     .settings[open] summary {
@@ -2346,7 +2349,12 @@
     <section class="result" id="result" aria-live="polite"></section>
 
     <details class="settings" id="main-settings">
-      <summary aria-label="Настройки" title="Настройки">⚙</summary>
+      <summary aria-label="Настройки" title="Настройки">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <circle cx="12" cy="12" r="3.4" stroke="currentColor" stroke-width="1.8"/>
+          <path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+      </summary>
       <div class="settings-body">
         <label class="card-deck-picker">
           <span class="card-deck-icon">Колода</span>
