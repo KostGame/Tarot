@@ -65,6 +65,22 @@ Only sets that were safely downloaded or locally rendered and mapped unambiguous
 - Native titles strategy: show the Sola Busca printed names as a secondary line in the UI, while keeping the translated app title as the primary one.
 - Notes: this is a historical Italian gaming tarot deck; the app's meanings remain an educational layer on top of the imagery.
 
+### `visconti-sforza-composite`
+
+- Status: connected in UI as a partial composite historical deck.
+- UI label: `Visconti-Sforza`
+- Detailed label for docs: `Visconti-Sforza · composite`
+- Source URL: `https://www.fromoldbooks.org/ViscontiSforza-TarotCards/`
+- Local files: `assets/cards/visconti-sforza-composite/`
+- Coverage: `partial-composite`
+- Historical assets: `74/78`
+- Classic fallback: `4/78`
+- Fallback cards: `major-15-devil`, `major-16-tower`, `pentacles-12-knight`, `swords-03-three`
+- License / reuse: FromOldBooks card pages state out-of-copyright / public-domain status and royalty-free use with credit requested; David Madore's source note states the 74 Visconti cards are public domain and can be copied/used freely.
+- Mapping strategy: explicit historical mapping with app canonical card ids; Strength and Justice use app ids rather than blind historical numbering.
+- Native titles strategy: no separate native-title layer; the historical pack does not print stable per-card titles on every card.
+- Notes: this is not a single complete original 78-card Visconti-Sforza deck. Missing historical cards resolve through the existing `rws-classic` fallback, and the normal result card shows a small note when that happens.
+
 ### `false-dichotomy`
 
 - Status: connected in UI as a full custom deck.
