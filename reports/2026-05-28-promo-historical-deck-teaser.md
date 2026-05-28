@@ -7,7 +7,7 @@
 - Issue: https://github.com/KostGame/Tarot/issues/119
 - PR: https://github.com/KostGame/Tarot/pull/120
 - Ветка: `feature/promo-historical-deck-teaser`
-- Commit hash: `e55d84c12dd3f1720d7ad2a10154a480fa1b5f43`
+- Commit hash: `a882cd8ed7348ed5b602d0b7e7240be7249d2f5f`
 - GitHub Pages, основная страница: https://kostgame.github.io/Tarot/
 - GitHub Pages, promo-страница: https://kostgame.github.io/Tarot/promo/
 
