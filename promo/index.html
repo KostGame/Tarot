@@ -3,22 +3,22 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Карта дня - мягкий расклад Таро в браузере</title>
-  <meta name="description" content="Откройте «Карту дня»: спокойный браузерный расклад Таро без регистрации, установки и лишнего шума. Карта дня, совет по вопросу, колоды, справочник и красивая карточка для шеринга.">
+  <title>Карта дня - Таро-приложение с колодами и живыми примерами</title>
+  <meta name="description" content="Авторская витрина приложения «Карта дня»: ежедневная карта, совет по вопросу, справочник, выбор колод, перевернутые карты и красивые карточки для шеринга.">
   <link rel="canonical" href="https://kostgame.github.io/Tarot/promo/">
 
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Карта дня">
-  <meta property="og:title" content="Карта дня - мягкий расклад Таро в браузере">
-  <meta property="og:description" content="Спокойное приложение для карты дня, вопроса, изучения значений и красивого шеринга результата. Без регистрации и установки.">
+  <meta property="og:title" content="Карта дня - Таро-приложение с колодами и живыми примерами">
+  <meta property="og:description" content="Посмотрите, как работает «Карта дня»: реальные сценарии, разные колоды, справочник значений и карточки для шеринга.">
   <meta property="og:url" content="https://kostgame.github.io/Tarot/promo/">
   <meta property="og:image" content="https://kostgame.github.io/Tarot/assets/social/og-image.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
 
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Карта дня - мягкий расклад Таро в браузере">
-  <meta name="twitter:description" content="Карта дня, совет по вопросу, перевернутые карты, выбор колод, справочник и красивый шеринг результата.">
+  <meta name="twitter:title" content="Карта дня - Таро-приложение с колодами и живыми примерами">
+  <meta name="twitter:description" content="Ежедневная карта, совет по вопросу, справочник, выбор колод и карточки для шеринга прямо в браузере.">
   <meta name="twitter:image" content="https://kostgame.github.io/Tarot/assets/social/og-image.png">
 
   <link rel="icon" href="../favicon.ico" sizes="any">
@@ -26,158 +26,260 @@
   <link rel="icon" href="../favicon-16x16.png" type="image/png" sizes="16x16">
   <link rel="icon" href="../favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="../apple-touch-icon.png">
-  <meta name="theme-color" content="#0d0a14">
+  <meta name="theme-color" content="#0b0910">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <main class="page">
     <section class="hero" aria-labelledby="hero-title">
       <div class="hero-copy">
-        <p class="eyebrow">Таро без спешки и лишнего шума</p>
-        <h1 id="hero-title">Карта дня</h1>
-        <p class="lead">Мягкий ежедневный расклад, совет по вопросу и справочник карт прямо в браузере.</p>
-        <div class="hero-actions">
+        <p class="overline">В браузере, без регистрации, с локальными настройками</p>
+        <h1 id="hero-title">Карта дня,<span>которую хочется</span><span>не листать мимо</span></h1>
+        <p class="lead">Мини-приложение для одной карты, вопроса и изучения значений: вы видите карту, читаете короткий контекст, меняете колоду и делитесь аккуратной карточкой результата.</p>
+        <div class="hero-actions" aria-label="Основные действия">
           <a class="button button-primary" href="https://kostgame.github.io/Tarot/">Открыть приложение</a>
-          <a class="button button-quiet" href="#stories">Сценарии для запуска</a>
+          <a class="button button-secondary" href="#deck-showcase">Посмотреть колоды</a>
         </div>
       </div>
 
-      <div class="phone-wrap" aria-label="Стилизованный экран приложения">
-        <div class="phone">
-          <div class="phone-top"></div>
-          <div class="phone-screen">
-            <p class="screen-label">Сегодня</p>
-            <img src="../assets/cards/major-17-star.jpg" alt="Карта Таро Звезда" class="hero-card">
-            <div class="reading-card">
-              <span>Звезда</span>
-              <strong>Дайте надежде форму</strong>
-              <p>Выберите один небольшой шаг, который вернет ощущение направления.</p>
-            </div>
+      <div class="hero-board" aria-label="Коллаж экранов приложения">
+        <article class="floating-card reading-panel">
+          <span class="ui-chip">Карта дня</span>
+          <img src="../assets/cards/major-17-star.jpg" alt="Карта Таро Звезда">
+          <h2>Звезда</h2>
+          <p>Не пытайтесь решить все сразу. Выберите один шаг, который возвращает ощущение направления.</p>
+        </article>
+        <article class="floating-card deck-switch">
+          <span class="ui-chip">Колода</span>
+          <strong>Pixel Tarot</strong>
+          <p>Другой визуальный тон для той же практики.</p>
+          <div class="mini-row">
+            <img src="../assets/cards-experimental/pixel-tarot/major-00-fool.png" alt="Pixel Tarot Дурак">
+            <img src="../assets/cards-experimental/pixel-tarot/major-18-moon.png" alt="Pixel Tarot Луна">
+            <img src="../assets/cards-experimental/pixel-tarot/cups-01-ace.png" alt="Pixel Tarot Туз Кубков">
           </div>
-        </div>
+        </article>
+        <article class="floating-card share-panel">
+          <span class="ui-chip">Поделиться</span>
+          <img src="../assets/social/og-image.png" alt="Preview карточки приложения">
+          <p>Карточка результата подходит для чата, сторис или личного дневника.</p>
+        </article>
       </div>
     </section>
 
-    <section class="section scenario" aria-labelledby="scenario-title">
-      <p class="section-kicker">Сценарий</p>
-      <h2 id="scenario-title">Один спокойный ритуал на день</h2>
-      <div class="steps">
+    <section class="editorial-strip" aria-label="Что пользователь делает в приложении">
+      <p>Вытянуть карту</p>
+      <p>Открыть fullscreen</p>
+      <p>Свайпнуть между картами</p>
+      <p>Свериться со справочником</p>
+      <p>Поделиться результатом</p>
+    </section>
+
+    <section class="section examples" aria-labelledby="examples-title">
+      <div class="section-heading">
+        <p class="overline">Не абстрактные функции</p>
+        <h2 id="examples-title">Три ситуации, в которых приложение реально видно</h2>
+      </div>
+      <div class="example-layout">
+        <article class="example-card example-large">
+          <p class="example-label">Утро, 08:40</p>
+          <h3>«Что сегодня держать в фокусе?»</h3>
+          <div class="example-body">
+            <img src="../assets/cards/major-14-temperance.jpg" alt="Карта Умеренность">
+            <div>
+              <strong>Умеренность</strong>
+              <p>Соберите день вокруг одного спокойного ритма: меньше рывков, больше последовательности.</p>
+              <span>Действие в UI: открыть карту дня и сохранить мысль на день.</span>
+            </div>
+          </div>
+        </article>
+        <article class="example-card">
+          <p class="example-label">Вопрос перед разговором</p>
+          <h3>«Как зайти в тему мягче?»</h3>
+          <img src="../assets/cards/cups-01-ace.jpg" alt="Туз Кубков">
+          <p>Туз Кубков: начните не с аргументов, а с того, что для вас важно в отношениях.</p>
+          <span>Действие в UI: режим «Совет по вопросу».</span>
+        </article>
+        <article class="example-card">
+          <p class="example-label">Учебная практика</p>
+          <h3>«Почему карта читается так?»</h3>
+          <img src="../assets/cards/major-09-hermit.jpg" alt="Карта Отшельник">
+          <p>Откройте справочник, сравните прямое и перевернутое значение, затем вернитесь к раскладу.</p>
+          <span>Действие в UI: справочник карт и image-only preview.</span>
+        </article>
+      </div>
+    </section>
+
+    <section class="section deck-showcase" id="deck-showcase" aria-labelledby="deck-title">
+      <div class="section-heading">
+        <p class="overline">Визуальные режимы</p>
+        <h2 id="deck-title">Колоды не прячутся в настройках - они задают настроение чтения</h2>
+        <p class="section-note">Статусы ниже взяты из текущих данных приложения. Частичные и major-only наборы не представлены как полные 78 карт.</p>
+      </div>
+      <div class="deck-grid">
+        <article class="deck-card">
+          <div class="deck-meta">
+            <p>rws-classic</p>
+            <h3>Классика</h3>
+            <span>stable · full · 78 карт</span>
+          </div>
+          <div class="thumbs">
+            <img src="../assets/cards/major-00-fool.jpg" alt="Классическая колода Дурак">
+            <img src="../assets/cards/major-02-high-priestess.jpg" alt="Классическая колода Жрица">
+            <img src="../assets/cards/swords-01-ace.jpg" alt="Классическая колода Туз Мечей">
+          </div>
+          <p>Базовый Rider-Waite-Smith: понятный визуальный язык для ежедневной практики и справочника.</p>
+        </article>
+        <article class="deck-card deck-dark">
+          <div class="deck-meta">
+            <p>rws-dark-classic</p>
+            <h3>Темная классика</h3>
+            <span>stable · full · 78 карт · CSS-версия</span>
+          </div>
+          <div class="thumbs">
+            <img src="../assets/cards/major-17-star.jpg" alt="Темная классика Звезда">
+            <img src="../assets/cards/major-18-moon.jpg" alt="Темная классика Луна">
+            <img src="../assets/cards/cups-13-queen.jpg" alt="Темная классика Королева Кубков">
+          </div>
+          <p>Те же карты с более ночной обработкой: подходит для тихого вечернего чтения.</p>
+        </article>
+        <article class="deck-card deck-pixel">
+          <div class="deck-meta">
+            <p>pixel-tarot</p>
+            <h3>Pixel Tarot</h3>
+            <span>experimental · full · 78 карт</span>
+          </div>
+          <div class="thumbs">
+            <img src="../assets/cards-experimental/pixel-tarot/major-00-fool.png" alt="Pixel Tarot Дурак">
+            <img src="../assets/cards-experimental/pixel-tarot/major-10-wheel-of-fortune.png" alt="Pixel Tarot Колесо Фортуны">
+            <img src="../assets/cards-experimental/pixel-tarot/wands-01-ace.png" alt="Pixel Tarot Туз Жезлов">
+          </div>
+          <p>Пиксельная колода меняет тон страницы: меньше музейности, больше дневниковой игры.</p>
+        </article>
+        <article class="deck-card deck-veil">
+          <div class="deck-meta">
+            <p>veil-of-fate</p>
+            <h3>Veil of Fate</h3>
+            <span>experimental · major + court</span>
+          </div>
+          <div class="thumbs">
+            <img src="../assets/cards-experimental/veil-of-fate/major-00-fool.png" alt="Veil of Fate Дурак">
+            <img src="../assets/cards-experimental/veil-of-fate/major-18-moon.png" alt="Veil of Fate Луна">
+            <img src="../assets/cards-experimental/veil-of-fate/cups-13-queen.png" alt="Veil of Fate Королева Кубков">
+          </div>
+          <p>Темный набор для старших арканов и двора. Приложение не выдает его за полный 78-карточный набор.</p>
+        </article>
+        <article class="deck-card deck-mono">
+          <div class="deck-meta">
+            <p>major-pixel-jcanabal</p>
+            <h3>Pixel Mono</h3>
+            <span>experimental · majors only · 22 карты</span>
+          </div>
+          <div class="thumbs">
+            <img src="../assets/cards-experimental/major-pixel-jcanabal/major-00-fool.png" alt="Pixel Mono Дурак">
+            <img src="../assets/cards-experimental/major-pixel-jcanabal/major-09-hermit.png" alt="Pixel Mono Отшельник">
+            <img src="../assets/cards-experimental/major-pixel-jcanabal/major-21-world.png" alt="Pixel Mono Мир">
+          </div>
+          <p>Черно-белая major-only колода: хороший режим для быстрых символических чтений.</p>
+        </article>
+        <article class="deck-card deck-zune">
+          <div class="deck-meta">
+            <p>major-pixel-zune</p>
+            <h3>Pixel Zune</h3>
+            <span>experimental · majors only · 22 карты</span>
+          </div>
+          <div class="thumbs">
+            <img src="../assets/cards-experimental/major-pixel-zune/major-01-magician.png" alt="Pixel Zune Маг">
+            <img src="../assets/cards-experimental/major-pixel-zune/major-06-lovers.png" alt="Pixel Zune Влюбленные">
+            <img src="../assets/cards-experimental/major-pixel-zune/major-19-sun.png" alt="Pixel Zune Солнце">
+          </div>
+          <p>Яркая major-only версия для сторис, коротких чтений и визуальных сравнений.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section modes" aria-labelledby="modes-title">
+      <div class="section-heading">
+        <p class="overline">Продуктовые режимы</p>
+        <h2 id="modes-title">Не список возможностей, а набор маленьких действий</h2>
+      </div>
+      <div class="mode-wall">
         <article>
           <span>01</span>
-          <h3>Открой приложение</h3>
-          <p>Без регистрации и настройки аккаунта.</p>
+          <h3>Карта дня</h3>
+          <p>Открываете приложение, вытягиваете одну карту и получаете короткий фокус без длинного расклада.</p>
         </article>
         <article>
           <span>02</span>
-          <h3>Вытяни карту</h3>
-          <p>Для дня или для мягкого совета по вопросу.</p>
+          <h3>Совет по вопросу</h3>
+          <p>Формулируете ситуацию и читаете подсказку как повод подумать, а не как обещание будущего.</p>
         </article>
         <article>
           <span>03</span>
-          <h3>Прочитай мягкий совет</h3>
-          <p>Коротко, спокойно и без давления.</p>
+          <h3>Справочник</h3>
+          <p>Смотрите значение карты, возвращаетесь к чтению и тренируете собственную интерпретацию.</p>
         </article>
         <article>
           <span>04</span>
-          <h3>Поделись карточкой</h3>
-          <p>Сохрани результат как красивый визуал.</p>
-        </article>
-      </div>
-    </section>
-
-    <section class="section" aria-labelledby="features-title">
-      <p class="section-kicker">Возможности</p>
-      <h2 id="features-title">Что уже есть внутри</h2>
-      <div class="feature-grid">
-        <article>
-          <h3>Карта дня</h3>
-          <p>Быстрый ежедневный фокус для утреннего или вечернего ритуала.</p>
+          <h3>Колоды</h3>
+          <p>Меняете визуальный язык: классика, темная версия, пиксельные и экспериментальные наборы.</p>
         </article>
         <article>
-          <h3>Совет по вопросу</h3>
-          <p>Короткий расклад для ситуации, которую хочется обдумать мягче.</p>
-        </article>
-        <article>
+          <span>05</span>
           <h3>Перевернутые карты</h3>
-          <p>Опциональный режим для тех, кто хочет читать больше оттенков.</p>
+          <p>Включаете дополнительные оттенки, если уже уверенно читаете прямые значения.</p>
         </article>
         <article>
-          <h3>Выбор колод</h3>
-          <p>Несколько визуальных настроений без загрузки внешних картинок.</p>
-        </article>
-        <article>
-          <h3>Справочник карт</h3>
-          <p>Значения и подсказки для самостоятельного изучения Таро.</p>
-        </article>
-        <article>
-          <h3>Поделиться результатом</h3>
-          <p>Приложение создает аккуратную карточку для отправки друзьям.</p>
+          <span>06</span>
+          <h3>Поделиться</h3>
+          <p>Генерируете карточку через canvas и отправляете ее в чат, сторис или себе в заметки.</p>
         </article>
       </div>
     </section>
 
-    <section class="section gallery" id="stories" aria-labelledby="gallery-title">
-      <p class="section-kicker">Stories и Reels</p>
-      <h2 id="gallery-title">Вертикальные промо-кадры</h2>
-      <div class="gallery-grid">
-        <article class="story-card story-morning">
-          <p>Ритуал на утро</p>
-          <img src="../assets/cards/major-18-moon.jpg" alt="Карта Таро Луна">
-          <strong>Один вопрос к себе перед началом дня</strong>
+    <section class="section story-gallery" id="stories" aria-labelledby="stories-title">
+      <div class="section-heading">
+        <p class="overline">Материал для запуска</p>
+        <h2 id="stories-title">Шесть кадров, которые можно снять как сторис или Reels</h2>
+      </div>
+      <div class="story-grid">
+        <article class="story-frame">
+          <img src="../assets/cards/major-14-temperance.jpg" alt="Умеренность">
+          <p>Утро без рывков</p>
+          <strong>Карта дня: Умеренность</strong>
         </article>
-        <article class="story-card story-question">
-          <p>Совет по вопросу</p>
+        <article class="story-frame">
+          <img src="../assets/cards-experimental/pixel-tarot/major-18-moon.png" alt="Pixel Tarot Луна">
+          <p>Сменить настроение</p>
+          <strong>Та же практика, другая колода</strong>
+        </article>
+        <article class="story-frame">
           <img src="../assets/cards/cups-01-ace.jpg" alt="Туз Кубков">
-          <strong>Мягкий ответ без обещаний и давления</strong>
+          <p>Совет по вопросу</p>
+          <strong>Начните с того, что важно</strong>
         </article>
-        <article class="story-card story-share">
+        <article class="story-frame">
+          <img src="../assets/cards-experimental/veil-of-fate/major-17-star.png" alt="Veil of Fate Звезда">
+          <p>Экспериментальная колода</p>
+          <strong>Veil of Fate: старшие + двор</strong>
+        </article>
+        <article class="story-frame">
+          <img src="../assets/cards/major-09-hermit.jpg" alt="Отшельник">
+          <p>Справочник</p>
+          <strong>Сначала значение, потом своя формулировка</strong>
+        </article>
+        <article class="story-frame">
+          <img src="../assets/social/og-image.png" alt="Preview приложения">
           <p>Поделиться</p>
-          <img src="../assets/social/og-image.png" alt="Социальный preview приложения">
-          <strong>Готовая карточка для сторис или чата</strong>
+          <strong>Готовая карточка для чата</strong>
         </article>
       </div>
     </section>
 
-    <section class="section split" aria-labelledby="audience-title">
-      <div>
-        <p class="section-kicker">Для кого</p>
-        <h2 id="audience-title">Для тихой практики, а не для шума</h2>
-      </div>
-      <div class="pill-list">
-        <span>для изучающих Таро</span>
-        <span>для утреннего ритуала</span>
-        <span>для мягкой рефлексии</span>
-        <span>для тренировки чтения карт</span>
-      </div>
-    </section>
-
-    <section class="section privacy" aria-labelledby="privacy-title">
-      <p class="section-kicker">Без трения</p>
-      <h2 id="privacy-title">Открыл - вытянул - закрыл</h2>
-      <div class="privacy-grid">
-        <article>
-          <h3>Без регистрации</h3>
-          <p>Не нужен аккаунт, логин или форма входа.</p>
-        </article>
-        <article>
-          <h3>Без установки</h3>
-          <p>Работает в браузере и открывается по ссылке.</p>
-        </article>
-        <article>
-          <h3>Можно добавить на экран</h3>
-          <p>Иконки приложения уже подготовлены для телефона.</p>
-        </article>
-        <article>
-          <h3>Настройки локально</h3>
-          <p>Выборы сохраняются на устройстве через localStorage.</p>
-        </article>
-      </div>
-    </section>
-
-    <section class="bottom-cta" aria-labelledby="cta-title">
-      <p class="eyebrow">Готово к запуску</p>
-      <h2 id="cta-title">Откройте «Карту дня» сейчас</h2>
-      <p>Один экран, одна карта, один спокойный совет.</p>
+    <section class="closing" aria-labelledby="closing-title">
+      <p class="overline">Один экран вместо сложного сервиса</p>
+      <h2 id="closing-title">Попробуйте карту дня, а потом смените колоду и прочитайте ее заново</h2>
+      <p>Приложение остается статическим: без backend, авторизации и внешних API. Настройки живут локально на устройстве.</p>
       <a class="button button-primary" href="https://kostgame.github.io/Tarot/">Открыть приложение</a>
     </section>
   </main>
