@@ -510,6 +510,7 @@ h3 {
   margin: 16px 0;
 }
 
+.archive-art img,
 .archive-art span {
   position: relative;
   min-height: 142px;
@@ -519,6 +520,15 @@ h3 {
   background:
     linear-gradient(180deg, rgba(255, 255, 255, .08), rgba(255, 255, 255, .02)),
     linear-gradient(135deg, rgba(240, 207, 125, .15), rgba(136, 167, 216, .06));
+}
+
+.archive-art img {
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+  object-position: center;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .06), 0 8px 18px rgba(0, 0, 0, .18);
+  filter: saturate(.96) contrast(1.04);
 }
 
 .archive-art span::before {
@@ -543,6 +553,10 @@ h3 {
 
 .archive-art span:nth-child(3) {
   transform: translateY(8px) rotate(4deg);
+}
+
+.archive-art-placeholder span {
+  min-height: 142px;
 }
 
 .archive-card strong {
