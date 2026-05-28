@@ -112,89 +112,155 @@
 
     <section class="section deck-showcase" id="deck-showcase" aria-labelledby="deck-title">
       <div class="section-heading">
-        <p class="overline">Визуальные режимы</p>
-        <h2 id="deck-title">Колоды не прячутся в настройках - они задают настроение чтения</h2>
-        <p class="section-note">Статусы ниже взяты из текущих данных приложения. Частичные и major-only наборы не представлены как полные 78 карт.</p>
+        <p class="overline">Визуальные режимы и архив</p>
+        <h2 id="deck-title">Сейчас уже можно читать в нескольких режимах, а исторический архив показывает куда движется проект</h2>
+        <p class="section-note">Слева собраны доступные сейчас режимы приложения. Справа - исторические линии: Tarot de Marseille, Sola Busca и Visconti-Sforza уже открываются в приложении, а Etteilla Type I остается teaser-кандидатом в работе.</p>
       </div>
-      <div class="deck-grid">
-        <article class="deck-card">
-          <div class="deck-meta">
-            <p>rws-classic</p>
-            <h3>Классика</h3>
-            <span>stable · full · 78 карт</span>
-          </div>
-          <div class="thumbs">
-            <img src="../assets/cards/major-00-fool.jpg" alt="Классическая колода Дурак">
-            <img src="../assets/cards/major-02-high-priestess.jpg" alt="Классическая колода Жрица">
-            <img src="../assets/cards/swords-01-ace.jpg" alt="Классическая колода Туз Мечей">
-          </div>
-          <p>Базовый Rider-Waite-Smith: понятный визуальный язык для ежедневной практики и справочника.</p>
-        </article>
-        <article class="deck-card deck-dark">
-          <div class="deck-meta">
-            <p>rws-dark-classic</p>
-            <h3>Темная классика</h3>
-            <span>stable · full · 78 карт · CSS-версия</span>
-          </div>
-          <div class="thumbs">
-            <img src="../assets/cards/major-17-star.jpg" alt="Темная классика Звезда">
-            <img src="../assets/cards/major-18-moon.jpg" alt="Темная классика Луна">
-            <img src="../assets/cards/cups-13-queen.jpg" alt="Темная классика Королева Кубков">
-          </div>
-          <p>Те же карты с более ночной обработкой: подходит для тихого вечернего чтения.</p>
-        </article>
-        <article class="deck-card deck-pixel">
-          <div class="deck-meta">
-            <p>pixel-tarot</p>
-            <h3>Pixel Tarot</h3>
-            <span>experimental · full · 78 карт</span>
-          </div>
-          <div class="thumbs">
-            <img src="../assets/cards-experimental/pixel-tarot/major-00-fool.png" alt="Pixel Tarot Дурак">
-            <img src="../assets/cards-experimental/pixel-tarot/major-10-wheel-of-fortune.png" alt="Pixel Tarot Колесо Фортуны">
-            <img src="../assets/cards-experimental/pixel-tarot/wands-01-ace.png" alt="Pixel Tarot Туз Жезлов">
-          </div>
-          <p>Пиксельная колода меняет тон страницы: меньше музейности, больше дневниковой игры.</p>
-        </article>
-        <article class="deck-card deck-veil">
-          <div class="deck-meta">
-            <p>veil-of-fate</p>
-            <h3>Veil of Fate</h3>
-            <span>experimental · major + court</span>
-          </div>
-          <div class="thumbs">
-            <img src="../assets/cards-experimental/veil-of-fate/major-00-fool.png" alt="Veil of Fate Дурак">
-            <img src="../assets/cards-experimental/veil-of-fate/major-18-moon.png" alt="Veil of Fate Луна">
-            <img src="../assets/cards-experimental/veil-of-fate/cups-13-queen.png" alt="Veil of Fate Королева Кубков">
-          </div>
-          <p>Темный набор для старших арканов и двора. Приложение не выдает его за полный 78-карточный набор.</p>
-        </article>
-        <article class="deck-card deck-mono">
-          <div class="deck-meta">
-            <p>major-pixel-jcanabal</p>
-            <h3>Pixel Mono</h3>
-            <span>experimental · majors only · 22 карты</span>
-          </div>
-          <div class="thumbs">
-            <img src="../assets/cards-experimental/major-pixel-jcanabal/major-00-fool.png" alt="Pixel Mono Дурак">
-            <img src="../assets/cards-experimental/major-pixel-jcanabal/major-09-hermit.png" alt="Pixel Mono Отшельник">
-            <img src="../assets/cards-experimental/major-pixel-jcanabal/major-21-world.png" alt="Pixel Mono Мир">
-          </div>
-          <p>Черно-белая major-only колода: хороший режим для быстрых символических чтений.</p>
-        </article>
-        <article class="deck-card deck-zune">
-          <div class="deck-meta">
-            <p>major-pixel-zune</p>
-            <h3>Pixel Zune</h3>
-            <span>experimental · majors only · 22 карты</span>
-          </div>
-          <div class="thumbs">
-            <img src="../assets/cards-experimental/major-pixel-zune/major-01-magician.png" alt="Pixel Zune Маг">
-            <img src="../assets/cards-experimental/major-pixel-zune/major-06-lovers.png" alt="Pixel Zune Влюбленные">
-            <img src="../assets/cards-experimental/major-pixel-zune/major-19-sun.png" alt="Pixel Zune Солнце">
-          </div>
-          <p>Яркая major-only версия для сторис, коротких чтений и визуальных сравнений.</p>
-        </article>
+
+      <div class="deck-lane deck-lane-live" aria-labelledby="available-title">
+        <div class="lane-heading">
+          <p class="lane-label">Доступно сейчас</p>
+          <h3 id="available-title">Классика, эксперимент и несколько рабочих визуальных веток</h3>
+          <p>Основной опыт остается понятным: Rider-Waite для старта, dark classic для тихих раскладов, pixel-ветки для игровой подачи и Veil of Fate как более мрачный эксперимент.</p>
+        </div>
+        <div class="deck-grid deck-grid-live">
+          <article class="deck-card">
+            <div class="deck-meta">
+              <p>rws-classic</p>
+              <h3>Rider-Waite</h3>
+              <span>stable · full · 78 карт</span>
+            </div>
+            <div class="thumbs">
+              <img src="../assets/cards/major-00-fool.jpg" alt="Классическая колода Дурак">
+              <img src="../assets/cards/major-02-high-priestess.jpg" alt="Классическая колода Жрица">
+              <img src="../assets/cards/swords-01-ace.jpg" alt="Классическая колода Туз Мечей">
+            </div>
+            <p>Базовый Rider-Waite-Smith: понятный визуальный язык для ежедневной практики и справочника.</p>
+          </article>
+          <article class="deck-card deck-dark">
+            <div class="deck-meta">
+              <p>rws-dark-classic</p>
+              <h3>Темная классика</h3>
+              <span>stable · full · 78 карт · CSS-версия</span>
+            </div>
+            <div class="thumbs">
+              <img src="../assets/cards/major-17-star.jpg" alt="Темная классика Звезда">
+              <img src="../assets/cards/major-18-moon.jpg" alt="Темная классика Луна">
+              <img src="../assets/cards/cups-13-queen.jpg" alt="Темная классика Королева Кубков">
+            </div>
+            <p>Те же карты с более ночной обработкой: подходит для тихого вечернего чтения.</p>
+          </article>
+          <article class="deck-card deck-pixel">
+            <div class="deck-meta">
+              <p>pixel-tarot</p>
+              <h3>Pixel Tarot</h3>
+              <span>experimental · full · 78 карт</span>
+            </div>
+            <div class="thumbs">
+              <img src="../assets/cards-experimental/pixel-tarot/major-00-fool.png" alt="Pixel Tarot Дурак">
+              <img src="../assets/cards-experimental/pixel-tarot/major-10-wheel-of-fortune.png" alt="Pixel Tarot Колесо Фортуны">
+              <img src="../assets/cards-experimental/pixel-tarot/wands-01-ace.png" alt="Pixel Tarot Туз Жезлов">
+            </div>
+            <p>Пиксельная колода меняет тон страницы: меньше музейности, больше дневниковой игры.</p>
+          </article>
+          <article class="deck-card deck-veil">
+            <div class="deck-meta">
+              <p>veil-of-fate</p>
+              <h3>Veil of Fate</h3>
+              <span>experimental · major + court</span>
+            </div>
+            <div class="thumbs">
+              <img src="../assets/cards-experimental/veil-of-fate/major-00-fool.png" alt="Veil of Fate Дурак">
+              <img src="../assets/cards-experimental/veil-of-fate/major-18-moon.png" alt="Veil of Fate Луна">
+              <img src="../assets/cards-experimental/veil-of-fate/cups-13-queen.png" alt="Veil of Fate Королева Кубков">
+            </div>
+            <p>Темный набор для старших арканов и двора. Приложение не выдает его за полный 78-карточный набор.</p>
+          </article>
+          <article class="deck-card deck-mono">
+            <div class="deck-meta">
+              <p>major-pixel-jcanabal</p>
+              <h3>Pixel Mono</h3>
+              <span>experimental · majors only · 22 карты</span>
+            </div>
+            <div class="thumbs">
+              <img src="../assets/cards-experimental/major-pixel-jcanabal/major-00-fool.png" alt="Pixel Mono Дурак">
+              <img src="../assets/cards-experimental/major-pixel-jcanabal/major-09-hermit.png" alt="Pixel Mono Отшельник">
+              <img src="../assets/cards-experimental/major-pixel-jcanabal/major-21-world.png" alt="Pixel Mono Мир">
+            </div>
+            <p>Черно-белая major-only колода: хороший режим для быстрых символических чтений.</p>
+          </article>
+          <article class="deck-card deck-zune">
+            <div class="deck-meta">
+              <p>major-pixel-zune</p>
+              <h3>Pixel Zune</h3>
+              <span>experimental · majors only · 22 карты</span>
+            </div>
+            <div class="thumbs">
+              <img src="../assets/cards-experimental/major-pixel-zune/major-01-magician.png" alt="Pixel Zune Маг">
+              <img src="../assets/cards-experimental/major-pixel-zune/major-06-lovers.png" alt="Pixel Zune Влюбленные">
+              <img src="../assets/cards-experimental/major-pixel-zune/major-19-sun.png" alt="Pixel Zune Солнце">
+            </div>
+            <p>Яркая major-only версия для сторис, коротких чтений и визуальных сравнений.</p>
+          </article>
+        </div>
+      </div>
+
+      <div class="deck-lane deck-lane-archive" aria-labelledby="archive-title">
+        <div class="lane-heading">
+          <p class="lane-label">Исторические колоды в работе</p>
+          <h3 id="archive-title">Архивные линии уже видны в витрине: часть открыта сейчас, часть еще исследуется</h3>
+          <p>Tarot de Marseille, Sola Busca и Visconti-Sforza уже доступны в приложении как исторические линии, а Etteilla Type I пока остается teaser-кандидатом без ложных обещаний готовности.</p>
+        </div>
+        <div class="archive-grid">
+          <article class="archive-card archive-available archive-marseille">
+            <p class="archive-status">доступно сейчас</p>
+            <h3>Tarot de Marseille</h3>
+            <p class="archive-era">17-18 век · Франция · major-only</p>
+            <div class="archive-art" aria-hidden="true">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+            <p>Французская историческая линия до привычного RWS: хорошо показывает, откуда у Tarot берется визуальная грамматика.</p>
+            <strong>Архивная опора для чтения</strong>
+          </article>
+          <article class="archive-card archive-available archive-sola">
+            <p class="archive-status">доступно сейчас</p>
+            <h3>Sola Busca</h3>
+            <p class="archive-era">15 век · Италия · full 78/78</p>
+            <div class="archive-art" aria-hidden="true">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+            <p>Редкая линия, где младшие арканы уже живут как сцены. Это делает колоду резко отличной от типичного RWS.</p>
+            <strong>Исторический full deck</strong>
+          </article>
+          <article class="archive-card archive-available archive-visconti">
+            <p class="archive-status">доступно сейчас</p>
+            <h3>Visconti-Sforza</h3>
+            <p class="archive-era">15 век · Милан · музейная ветка</p>
+            <div class="archive-art" aria-hidden="true">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+            <p>Музейная роскошь и ранняя история Таро: отличный teaser для линии, где исторический материал важнее привычного полного набора.</p>
+            <strong>Архивная ветка с характером</strong>
+          </article>
+          <article class="archive-card archive-pending archive-etteilla">
+            <p class="archive-status">историческая колода в работе</p>
+            <h3>Etteilla Type I</h3>
+            <p class="archive-era">1791 · Франция · 78 scans on source</p>
+            <div class="archive-art" aria-hidden="true">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+            <p>Самый сильный teaser для следующей исторической ветки: французская система до привычного Rider-Waite и отдельная исследовательская линия по правам и ассетам.</p>
+            <strong>Кандидат на подключение</strong>
+          </article>
+        </div>
       </div>
     </section>
 
