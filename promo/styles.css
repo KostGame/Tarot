@@ -595,9 +595,24 @@ h3 {
   --archive-glow: rgba(223, 141, 162, .13);
 }
 
-.archive-etteilla {
+.archive-jean-dodal {
+  --archive-accent: #d7b37c;
+  --archive-glow: rgba(215, 179, 124, .14);
+}
+
+.archive-oswald {
+  --archive-accent: #a9c89a;
+  --archive-glow: rgba(169, 200, 154, .14);
+}
+
+.archive-egyptian {
   --archive-accent: var(--copper);
-  --archive-glow: rgba(215, 143, 97, .13);
+  --archive-glow: rgba(215, 143, 97, .14);
+}
+
+.archive-piemontese {
+  --archive-accent: #9ab5df;
+  --archive-glow: rgba(154, 181, 223, .14);
 }
 
 .thumbs img {
