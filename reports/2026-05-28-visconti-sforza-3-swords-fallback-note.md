@@ -11,9 +11,9 @@ Issue: https://github.com/KostGame/Tarot/issues/112
 ## Результат
 
 - Ветка: `feature/visconti-sforza-3-swords-and-fallback-note-check`
-- PR: pending
-- Commit: pending
-- Merge status: pending
+- PR: https://github.com/KostGame/Tarot/pull/113
+- Commit: `3175dbc3ff15824f3c87ce5f9b2e7cf7130901e1`
+- Merge status: pending before PR merge
 - `swords-03-three`: подключена как исторический ассет
 - Итоговый historical asset count: 75
 - Итоговый fallback count: 3
