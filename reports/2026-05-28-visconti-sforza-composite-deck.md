@@ -8,6 +8,10 @@ Implemented `visconti-sforza-composite` as a partial composite historical deck w
 
 ## Result
 
+- Issue: direct user task, no GitHub Issue
+- PR: https://github.com/KostGame/Tarot/pull/111
+- Branch: `feature/deck-visconti-sforza-composite`
+- Head commit: `d0112ab2ba67e502af26fc398dc99c5e44018f7d`
 - Deck id: `visconti-sforza-composite`
 - UI label: Visconti-Sforza
 - Coverage: partial-composite
@@ -88,6 +92,7 @@ Not shown in fullscreen, image-only preview, share canvas, share text, clipboard
 - `npm run check`: unavailable, `package.json` is absent
 - `npm test`: unavailable, `package.json` is absent
 - `npm run build`: unavailable, `package.json` is absent
+- GitHub status checks: none reported for PR head commit
 
 ## Smoke-test
 
@@ -99,4 +104,4 @@ Not shown in fullscreen, image-only preview, share canvas, share text, clipboard
 
 ## Merge status
 
-Pending.
+Pending before PR merge.
