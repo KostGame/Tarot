@@ -5,9 +5,9 @@
 ## Основное
 
 - Issue: https://github.com/KostGame/Tarot/issues/117
-- PR: pending
+- PR: https://github.com/KostGame/Tarot/pull/118
 - Ветка: `feature/promo-redesign-deck-showcase`
-- Commit hash: pending
+- Commit hash: `1fafb296212c5730053690c778d5dcc4c6ba8bd9`
 - GitHub Pages, основная страница: https://kostgame.github.io/Tarot/
 - GitHub Pages, promo-страница: https://kostgame.github.io/Tarot/promo/
 
@@ -61,4 +61,4 @@
 
 ## Ready for review
 
-Доступные локальные проверки проходят. Можно создавать обычный PR и мержить его при отсутствии неожиданных изменений в основном приложении.
+Доступные локальные проверки проходят. PR создан обычным PR, не Draft. Неожиданных изменений в основном приложении не обнаружено.
