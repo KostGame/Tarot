@@ -1313,6 +1313,20 @@
       overflow-wrap: anywhere;
     }
 
+    .deck-fallback-note {
+      display: inline-flex;
+      width: fit-content;
+      margin: -2px 0 8px;
+      padding: 3px 8px;
+      border: 1px solid rgba(241, 207, 122, .28);
+      border-radius: 999px;
+      background: rgba(241, 207, 122, .08);
+      color: rgba(241, 207, 122, .9);
+      font-size: .72rem;
+      font-weight: 800;
+      line-height: 1.25;
+    }
+
     .meaning,
     .message {
       margin: 0;
@@ -2639,6 +2653,7 @@
       partial: "major-court",
       "major-only": "majors",
     };
+    const unrestrictedCoverageModes = new Set(["full", "partial-composite", "full-composite"]);
 
     function cardIdFromImagePath(imagePath) {
       return imagePath.split("/").pop().replace(/\.[^.]+$/, "");
@@ -2736,6 +2751,19 @@
         ].forEach(rank => {
           map[`${suit}-${rank}`] = `${basePath}/${suit}-${rank}.${extension}`;
         });
+      });
+      return map;
+    }
+
+    function buildViscontiSforzaCompositeDeckMap() {
+      const map = buildFullDeckMap("assets/cards/visconti-sforza-composite", "jpg");
+      [
+        "major-15-devil",
+        "major-16-tower",
+        "pentacles-12-knight",
+        "swords-03-three",
+      ].forEach(cardId => {
+        delete map[cardId];
       });
       return map;
     }
@@ -3439,6 +3467,26 @@
         cards: buildFullDeckMap("assets/cards-experimental/sola-busca", "jpg"),
       },
       {
+        id: "visconti-sforza-composite",
+        name: "Visconti-Sforza Composite",
+        label: "Visconti-Sforza",
+        optionLabel: "Visconti-Sforza",
+        description: "историческая · составная · fallback для отсутствующих карт",
+        cssClass: "deck-visconti-sforza-composite",
+        status: "experimental",
+        coverage: "partial-composite",
+        fallbackDeckId: "rws-classic",
+        sourceUrl: "https://www.fromoldbooks.org/ViscontiSforza-TarotCards/",
+        licenseNote: "Composite historical pack: 74 FromOldBooks / David Madore public-domain cards plus Rider-Waite-Smith fallback for cards missing from the historic source set.",
+        fallbackCards: {
+          "major-15-devil": "missing from the checked historic Visconti-Sforza source set",
+          "major-16-tower": "missing from the checked historic Visconti-Sforza source set",
+          "pentacles-12-knight": "missing from the checked historic Visconti-Sforza source set",
+          "swords-03-three": "missing from FromOldBooks; Commons download was blocked by rate limit during this build",
+        },
+        cards: buildViscontiSforzaCompositeDeckMap(),
+      },
+      {
         id: "false-dichotomy",
         name: "False Dichotomy",
         label: "False Dichotomy",
@@ -3917,6 +3965,7 @@
       const safeName = escapeHtml(card.n);
       const safeRole = escapeHtml(role);
       const deckImage = cardImageForDeck(card);
+      const deckFallbackNote = deckFallbackNoteForCard(card);
       const meaningText = stripHtml(body.match(/<p class="meaning">([\s\S]*?)<\/p>/)?.[1] ?? "");
       const messageText = stripHtml(body.match(/<p class="message">([\s\S]*?)<\/p>/)?.[1] ?? "");
       return `
@@ -3936,6 +3985,7 @@
 			  ${orientationBadge}
 			  <h3 class="card-title">${displayName}</h3>
 			  ${renderNativeTitle(card, "card-native-title")}
+			  ${deckFallbackNote}
 			  ${body}
 			</div>
 			<p class="open-card-hint">Нажмите, чтобы развернуть на весь экран</p>
@@ -3963,6 +4013,14 @@
       }
       const classes = ["native-title", className].filter(Boolean).join(" ");
       return `<p class="${classes}">(${escapeHtml(nativeTitle)})</p>`;
+    }
+
+    function deckFallbackNoteForCard(card) {
+      const cardId = card?.id || card?.cardId || "";
+      if (!cardId || !selectedCardDeck.fallbackCards?.[cardId]) {
+        return "";
+      }
+      return '<p class="deck-fallback-note">Отсутствует в оригинальной колоде</p>';
     }
 
     function readUseReversedCards() {
@@ -4047,7 +4105,7 @@
     function enforcePoolModeForDeck({ notify } = { notify: false }) {
       const safeMode = coverageSafePoolMode[selectedCardDeck.coverage] ?? "all";
       const previousMode = poolMode;
-      if (selectedCardDeck.coverage !== "full" && poolMode !== safeMode) {
+      if (!unrestrictedCoverageModes.has(selectedCardDeck.coverage) && poolMode !== safeMode) {
         poolMode = safeMode;
         writePoolMode(poolMode);
         if (notify) {
