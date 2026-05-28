@@ -5,9 +5,9 @@
 ## Основное
 
 - Issue: https://github.com/KostGame/Tarot/issues/114
-- PR: pending
+- PR: https://github.com/KostGame/Tarot/pull/116
 - Ветка: `feature/promo-launch-landing`
-- Commit hash: pending
+- Commit hash: `565b47b934d5aca11b7d26ab58214d6720ea6d8f`
 - GitHub Pages, основная страница: https://kostgame.github.io/Tarot/
 - GitHub Pages, promo-страница: https://kostgame.github.io/Tarot/promo/
 
@@ -51,4 +51,4 @@
 
 ## Ready for review
 
-Доступные локальные проверки проходят. Можно переводить PR в Ready for review после создания PR и финального обновления ссылок в отчете.
+Доступные локальные проверки проходят. PR создан обычным PR, не Draft. Неожиданных изменений в основном приложении не обнаружено.
