@@ -18,7 +18,7 @@ No new playable app decks were added. No runtime hotlinks were introduced. The m
 
 - Branch: `feature/promo-historical-preview-images`
 - Issue: GitHub issue #121
-- PR: pending at the time of this report
+- PR: https://github.com/KostGame/Tarot/pull/122
 
 ## Added preview images
 
