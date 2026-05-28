@@ -8,10 +8,10 @@ Date: 2026-05-28
 - UI label: Visconti-Sforza
 - Coverage: partial-composite
 - Local historical assets: `assets/cards/visconti-sforza-composite/`
-- Historical asset count: 74
-- Classic fallback count: 4
+- Historical asset count: 75
+- Classic fallback count: 3
 
-This is a composite historical deck, not a single complete original 78-card Visconti-Sforza deck. The checked FromOldBooks source has 74 cards. Missing cards are resolved with the app's existing `rws-classic` fallback so every one of the app's 78 target cards has an image.
+This is a composite historical deck, not a single complete original 78-card Visconti-Sforza deck. The checked FromOldBooks source has 74 cards, and one supplemental public-domain Commons file is used for `swords-03-three`. Remaining missing cards are resolved with the app's existing `rws-classic` fallback so every one of the app's 78 target cards has an image.
 
 ## Primary source verification
 
@@ -28,7 +28,7 @@ Facts verified from the source:
 Wikimedia Commons was checked for supplemental file-level licensing.
 
 - File:Tre di spade.jpg exists and is marked Public domain in Commons metadata.
-- It was not included in this asset pack because Wikimedia returned 429 / robot-policy errors during the build.
+- It is now included as `swords-03-three.jpg`.
 - Cary-Yale Tarot deck - Knight of Coins.jpg was rejected because Cary-Yale additional cards are outside this app's 78-card Visconti-Sforza composite model.
 
 ## Suit mapping
@@ -124,16 +124,16 @@ Wikimedia Commons was checked for supplemental file-level licensing.
 
 ## Wikimedia Commons cards used
 
-None in the committed asset pack.
-
-Commons was used for research only in this build. The 3 of Swords candidate was verified as public domain but not downloaded because Wikimedia returned 429 / robot-policy errors.
+- `swords-03-three` — `File:Tre di spade.jpg`
+  - Source URL: https://commons.wikimedia.org/wiki/File:Tre_di_spade.jpg
+  - Rights status: Public domain; usage terms Public domain; attribution required false; Commons license template `pd`
+  - Metadata description: Three of spades from the Pierpont-Morgan tarot collection, shot on location at the library
 
 ## Fallback cards
 
 - `major-15-devil` — Дьявол: not present in the checked FromOldBooks / Madore Visconti-Sforza 74-card set
 - `major-16-tower` — Башня: not present in the checked FromOldBooks / Madore Visconti-Sforza 74-card set
 - `pentacles-12-knight` — Рыцарь Пентаклей: not present in the checked FromOldBooks / Madore Visconti-Sforza 74-card set; Cary-Yale Knight of Coins was rejected as outside the app 78-card Visconti-Sforza composite model
-- `swords-03-three` — Тройка Мечей: not present in the FromOldBooks 74-card set; a Commons PD candidate exists but was not downloaded because Wikimedia returned 429 / robot-policy errors during this build
 
 ## Fallback behavior
 
