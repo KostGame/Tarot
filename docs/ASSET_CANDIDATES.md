@@ -73,10 +73,10 @@ Only sets that were safely downloaded or locally rendered and mapped unambiguous
 - Source URL: `https://www.fromoldbooks.org/ViscontiSforza-TarotCards/`
 - Local files: `assets/cards/visconti-sforza-composite/`
 - Coverage: `partial-composite`
-- Historical assets: `74/78`
-- Classic fallback: `4/78`
-- Fallback cards: `major-15-devil`, `major-16-tower`, `pentacles-12-knight`, `swords-03-three`
-- License / reuse: FromOldBooks card pages state out-of-copyright / public-domain status and royalty-free use with credit requested; David Madore's source note states the 74 Visconti cards are public domain and can be copied/used freely.
+- Historical assets: `75/78`
+- Classic fallback: `3/78`
+- Fallback cards: `major-15-devil`, `major-16-tower`, `pentacles-12-knight`
+- License / reuse: FromOldBooks card pages state out-of-copyright / public-domain status and royalty-free use with credit requested; David Madore's source note states the 74 Visconti cards are public domain and can be copied/used freely. `swords-03-three` uses Wikimedia Commons `File:Tre di spade.jpg`, whose file-level metadata is Public domain with attribution required false.
 - Mapping strategy: explicit historical mapping with app canonical card ids; Strength and Justice use app ids rather than blind historical numbering.
 - Native titles strategy: no separate native-title layer; the historical pack does not print stable per-card titles on every card.
 - Notes: this is not a single complete original 78-card Visconti-Sforza deck. Missing historical cards resolve through the existing `rws-classic` fallback, and the normal result card shows a small note when that happens.
